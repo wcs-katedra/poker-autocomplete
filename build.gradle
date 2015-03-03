@@ -14,14 +14,14 @@ repositories {
 def portOffset = 0
 
 tomcatRun {
-	httpPort = 8080 + portOffset
-	ajpPort = 8009 + portOffset
-	stopPort = 8081 + portOffset
+	httpPort = 9280 + portOffset
+	ajpPort = 9209 + portOffset
+	stopPort = 9281 + portOffset
     contextPath = '/'
 }
 
 tomcatStop {
-    stopPort = 8081 + portOffset
+    stopPort = 9281 + portOffset
     stopKey = 'stopKey'
 }
 
