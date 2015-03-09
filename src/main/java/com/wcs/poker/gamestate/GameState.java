@@ -49,6 +49,11 @@ public class GameState {
         return currentBuyIn - players.get(inAction).getBet() + minimumRaise;
 
     }
+    
+    
+    public Integer calculateBigBlind(){
+        return this.smallBlind*2;
+    }
 
     /**
      *
