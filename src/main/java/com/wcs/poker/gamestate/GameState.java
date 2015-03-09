@@ -194,4 +194,19 @@ public class GameState {
         this.communityCards = communityCards;
     }
 
+    public Player getActivePlayer() {
+        Player activePlayer = null;
+        for (Player player : players) {
+            if (inAction == player.getId()) {
+                activePlayer = player;
+            }
+        }
+        return activePlayer;
+    }
+    
+    public List<Card> getCardsOfActivePlayer(){
+       Player activePlayer = getActivePlayer();
+        return activePlayer.getHoleCards();
+    }
+
 }
