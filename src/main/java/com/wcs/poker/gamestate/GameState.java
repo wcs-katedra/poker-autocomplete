@@ -51,7 +51,7 @@ public class GameState {
     }
     
     
-    public Integer calculateBigBlind(){
+    public Integer getBigBlind(){
         return this.smallBlind*2;
     }
 
