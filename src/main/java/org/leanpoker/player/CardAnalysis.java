@@ -5,18 +5,69 @@
  */
 package org.leanpoker.player;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.convert.Converter;
+
 /**
  *
  * @author MártonZoltán
  */
 public class CardAnalysis {
     
+    /**
+     * RankCount & SuitCount
+     */
+    private List<RankCount> rankCount;
+    private List<SuitCount> suitCount;
+    
+    
+    private void uploadList(){
+        rankCount= new ArrayList<>();
+        suitCount= new ArrayList<>();
+        
+        SuitCount suit = new SuitCount();
+        
+        suit.setSuit("heart");
+        suitCount.add(suit);
+        suit.setSuit("spade");
+        suitCount.add(suit);
+        suit.setSuit("diamonds");
+        suitCount.add(suit);
+        suit.setSuit("clubs");
+        suitCount.add(suit);
+        
+        
+        
+        RankCount rank= new RankCount();
+        for (int i = 0; i < 9; i++) {
+            
+           rank.setRank(Integer.toString(i));
+           rankCount.add(rank);
+        }
+      
+        rank.setRank("j");
+        rankCount.add(rank);
+        rank.setRank("d");
+        rankCount.add(rank); 
+        rank.setRank("k");
+        rankCount.add(rank); 
+        rank.setRank("a");
+        rankCount.add(rank);
+        
+        
+       
+        
+    }
+    
+    
+    
 }
 
 class RankCount{
     
    private String rank;
-   private Integer count;
+   private Integer count=0;
 
     public String getRank() {
         return rank;
@@ -42,7 +93,7 @@ class RankCount{
 class SuitCount{
     
     private String suit;
-    private Integer count;
+    private Integer count=0;
 
     public String getSuit() {
         return suit;
