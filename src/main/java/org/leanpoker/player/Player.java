@@ -16,14 +16,12 @@ public class Player {
 
         // a járékosoknál lévő lapok száma
         for (com.wcs.poker.gamestate.Player player : gameState.getPlayers()) {
-            
-        }
-        // az asztalon lévő lapok száma
-        for (com.wcs.poker.gamestate.Card card : gameState.getCommunityCards()) {
-            if (card != null) {
-                cards++;
+            if ("active".equals(player.getStatus())) {
+                cards+=2;
             }
         }
+        // az asztalon lévő lapok száma
+        cards+=gameState.getCommunityCards().size();
 
         return cards;
     }
@@ -36,7 +34,6 @@ public class Player {
      *          ALL -- minden benn
      */
     public static int betRequest(GameState gameState) {
-        Integer cardsOut = getNumberOfCardInTheGame(gameState);
 
         return 0;
     }
