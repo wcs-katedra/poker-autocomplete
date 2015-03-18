@@ -4,14 +4,17 @@ import com.wcs.poker.gamestate.GameState;
 
 public class Player {
 
-    static final String VERSION = "Default+ Java folding player";
+    public final String VERSION = "Default+ Java folding player";
 
+    public Player() {
+    }
+    
     /**
      * mennyi kártya ment el az osztótol ?
      *
      * @return db ra
      */
-    public static Integer getNumberOfCardInTheGame(GameState gameState) {
+    public Integer getNumberOfCardInTheGame(GameState gameState) {
         Integer cards = 0;
 
         // a járékosoknál lévő lapok száma
@@ -33,11 +36,12 @@ public class Player {
      *         ALL> -- aktuális tét
      *          ALL -- minden benn
      */
-    public static int betRequest(GameState gameState) {
-
+    public int betRequest(GameState gameState) {
+        // Create new instance of the CardAnalysis
+        
         return 0;
     }
 
-    public static void showdown(GameState gameState) {
+    public void showdown(GameState gameState) {
     }
 }
