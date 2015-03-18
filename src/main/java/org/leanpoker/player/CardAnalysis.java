@@ -5,6 +5,7 @@
  */
 package org.leanpoker.player;
 
+import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.convert.Converter;
@@ -62,6 +63,40 @@ public class CardAnalysis {
     
     
     
+    private void analysisRankList(List<RankCount> rankcount){
+       
+        String result="none";
+        int drill=0;
+        int pair=0;
+        
+        for (RankCount rankcount1 : rankcount) {
+             result=analysisRank(rankcount1.getCount(), drill, pair);
+        }
+        
+    }
+    
+    private String analysisRank(int count, int drill, int pair){
+        String result="none";
+        switch(count){
+            case 2: result="pair";
+                    pair++;
+            case 3: result="drill";
+                    drill++;
+            case 4: result="poker";
+               
+        }
+        if(drillAnalysis(pair, drill)) 
+            result="full";
+        
+        return result;
+         }
+    
+    private boolean drillAnalysis(int value1, int value2){
+        if(value1>0 && value2>0){
+            return true;
+         }
+        return false;
+    }
 }
 
 class RankCount{
