@@ -15,7 +15,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.leanpoker.player.cardAnalysis.enums.CardClass;
-import org.leanpoker.player.cardAnalysis.enums.CardsValue;
 
 /**
  *
