@@ -63,7 +63,7 @@ public class CardAnalysis {
     
     
     
-    private void analysisRankList(List<RankCount> rankcount){
+    public String analysisRankList(List<RankCount> rankcount){
        
         String result="none";
         int drill=0;
@@ -73,10 +73,12 @@ public class CardAnalysis {
              result=analysisRank(rankcount1.getCount(), drill, pair);
         }
         
+        return result;
+        
     }
     
     private String analysisRank(int count, int drill, int pair){
-        String result="none";
+        String result="";
         switch(count){
             case 2: result="pair";
                     pair++;
