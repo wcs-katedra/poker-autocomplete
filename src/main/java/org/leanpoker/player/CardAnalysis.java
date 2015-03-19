@@ -21,6 +21,12 @@ public class CardAnalysis {
      */
     private List<RankCount> rankCount;
     private List<SuitCount> suitCount;
+
+    public CardAnalysis() {
+        uploadList();
+    }
+    
+    
     
     
     private void uploadList(){

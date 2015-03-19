@@ -60,12 +60,13 @@ public class CardAnalysisTest {
         // init for the test
         //  létrehozzuk az osztályt ami a kártyákat értékeli ki
         CardAnalysis analysis = new CardAnalysis();
+        
         // segéd rank count az objektumok hozzáadása miatt
         RankCount rc = new RankCount();
         // a lista elő készítése
         List<RankCount> rankCount = new ArrayList();
 
-        // a kát jumbó hozzáadása..
+        // a két jumbó hozzáadása..
         rc.setRank("j");
         rc.setCount(2);
         rankCount.add(rc);
