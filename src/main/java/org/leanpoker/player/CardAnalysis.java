@@ -70,30 +70,28 @@ public class CardAnalysis {
         int pair=0;
         
         for (RankCount rankcount1 : rankcount) {
-             result=analysisRank(rankcount1.getCount(), drill, pair);
+            result="none";
+            switch(rankcount1.getCount()){
+            case 2: result="pair";
+                    pair++;
+                    break;
+            case 3: result="drill";
+                    drill++;
+                    break; 
+            case 4: result="poker";
+                    break;
+               
+        }  
+        if(fullAnalysis(pair, drill)) 
+            result="full";
+             
         }
         
         return result;
         
     }
     
-    private String analysisRank(int count, int drill, int pair){
-        String result="";
-        switch(count){
-            case 2: result="pair";
-                    pair++;
-            case 3: result="drill";
-                    drill++;
-            case 4: result="poker";
-               
-        }
-        if(drillAnalysis(pair, drill)) 
-            result="full";
-        
-        return result;
-         }
-    
-    private boolean drillAnalysis(int value1, int value2){
+    private boolean fullAnalysis(int value1, int value2){
         if(value1>0 && value2>0){
             return true;
          }
@@ -104,7 +102,7 @@ public class CardAnalysis {
 class RankCount{
     
    private String rank;
-   private Integer count=0;
+   private int count=0;
 
     public String getRank() {
         return rank;
