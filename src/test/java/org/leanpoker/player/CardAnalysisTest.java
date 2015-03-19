@@ -67,12 +67,19 @@ public class CardAnalysisTest {
 
         // a kát jumbó hozzáadása..
         rc.setRank("j");
+        rc.setCount(2);
         rankCount.add(rc);
-        rc.setRank("j");
+        
+        rc = new RankCount();
+        rc.setRank("k");
+        rc.setCount(3);
         rankCount.add(rc);
+   
+        
+     
 
         // tényleges teszt
-        assertEquals("pair", analysis.analysisRankList(rankCount));
+        assertEquals("full", analysis.analysisRankList(rankCount));
 
     }
 

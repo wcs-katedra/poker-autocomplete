@@ -17,7 +17,7 @@ import javax.faces.convert.Converter;
 public class CardAnalysis {
     
     /**
-     * RankCount & SuitCount
+     * RankCountha & SuitCount
      */
     private List<RankCount> rankCount;
     private List<SuitCount> suitCount;
@@ -114,11 +114,11 @@ class RankCount{
         this.rank = rank;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
    
@@ -130,7 +130,7 @@ class RankCount{
 class SuitCount{
     
     private String suit;
-    private Integer count=0;
+    private int count=0;
 
     public String getSuit() {
         return suit;
@@ -140,11 +140,11 @@ class SuitCount{
         this.suit = suit;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
     
