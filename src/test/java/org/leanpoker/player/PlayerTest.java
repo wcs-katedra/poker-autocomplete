@@ -24,7 +24,7 @@ public class PlayerTest {
         gs.setCommunityCards(cards);
         
         Player player = new Player();
-        assertEquals(new Integer(3), player.getNumberOfCardInTheGame(gs));
+        assertEquals(new Integer(3), gs.getNumberOfCardInTheGame());
 
     }
 

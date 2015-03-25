@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.leanpoker.player.cardAnalysis.enums;
+package com.wcs.poker.gamestate;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * ez az enumerátor definiálja a suitokat 
@@ -12,6 +14,13 @@ package org.leanpoker.player.cardAnalysis.enums;
  */
 public enum Suits {
     
-    clubs,diamonds,heart,spade,
+    @SerializedName("clubs")
+    clubs,
+    @SerializedName("diamonds")
+    diamonds,
+    @SerializedName("hearts")
+    heart,
+    @SerializedName("spades")
+    spade,
     
 }

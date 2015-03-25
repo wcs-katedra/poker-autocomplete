@@ -5,7 +5,6 @@
  */
 package org.leanpoker.player;
 
-import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -71,16 +70,16 @@ public class CardAnalysisTest {
         rc.setCount(2);
         rankCount.add(rc);
         
-        rc = new RankCount();
+        /*rc = new RankCount();
         rc.setRank("k");
         rc.setCount(3);
-        rankCount.add(rc);
+        rankCount.add(rc);*/
    
         
      
 
         // tényleges teszt
-        assertEquals("full", analysis.analysisRankList(rankCount));
+        assertEquals("pair", analysis.analysisRankList(rankCount));
 
     }
 

@@ -34,8 +34,28 @@ public class GameState {
     private List<Card> communityCards = new ArrayList<Card>();
 
     /**
+     * mennyi kártya ment el az osztótol ?
      *
-     * @returna valid call in the current circumstances
+     * @return db ra
+     */
+    public Integer getNumberOfCardInTheGame() {
+        Integer cards = 0;
+
+        // a járékosoknál lévő lapok száma
+        for (Player player : this.getPlayers()) {
+            if ("active".equals(player.getStatus())) {
+                cards+=2;
+            }
+        }
+        // az asztalon lévő lapok száma
+        cards+=this.getCommunityCards().size();
+
+        return cards;
+    }
+    
+    /**
+     *
+     * @return a valid call in the current circumstances
      */
     public Integer calculateCall() {
         return currentBuyIn - players.get(inAction).getBet();
