@@ -133,6 +133,7 @@ public class CardAnalysis implements AnalysisInterface {
     //------------------
 
     @Override
+
     public void evaluateCards(List<Card> cards) {
 
         for (int i = 0; i < cards.indexOf(cards.size() - 1); i++) {
@@ -185,7 +186,6 @@ public class CardAnalysis implements AnalysisInterface {
     public String getLevel() {
         return level;
     }
-
 }
 
 class RankCount {
