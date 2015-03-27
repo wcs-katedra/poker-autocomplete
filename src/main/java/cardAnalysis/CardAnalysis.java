@@ -9,13 +9,12 @@ import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
- * @author MártonZoltán
+ * @author MĂˇrtonZoltĂˇn
  */
-public class CardAnalysis implements AnalysisInterface{
-    
+public class CardAnalysis implements AnalysisInterface {
+
     /**
      * RankCountha & SuitCount
      */
@@ -25,16 +24,14 @@ public class CardAnalysis implements AnalysisInterface{
     public CardAnalysis() {
         uploadList();
     }
-    
-    
-    
-    
-    private void uploadList(){
-        rankCount= new ArrayList<>();
-        suitCount= new ArrayList<>();
-        
+
+    /*Táblák feltöltése*/
+    private void uploadList() {
+        rankCount = new ArrayList<>();
+        suitCount = new ArrayList<>();
+
         SuitCount suit = new SuitCount();
-        
+
         suit.setSuit("heart");
         suitCount.add(suit);
         suit.setSuit("spade");
@@ -43,77 +40,90 @@ public class CardAnalysis implements AnalysisInterface{
         suitCount.add(suit);
         suit.setSuit("clubs");
         suitCount.add(suit);
-        
-        
-        
-        RankCount rank= new RankCount();
-        for (int i = 0; i < 9; i++) {
-            
-           rank.setRank(Integer.toString(i));
-           rankCount.add(rank);
+
+        RankCount rank = new RankCount();
+        for (int i = 2; i < 11; i++) {
+
+            rank.setRank(Integer.toString(i));
+            rankCount.add(rank);
         }
-      
-        rank.setRank("j");
+
+        rank.setRank("J");
         rankCount.add(rank);
-        rank.setRank("d");
-        rankCount.add(rank); 
-        rank.setRank("k");
-        rankCount.add(rank); 
-        rank.setRank("a");
+        rank.setRank("Q");
         rankCount.add(rank);
-        
-        
-       
-        
+        rank.setRank("K");
+        rankCount.add(rank);
+        rank.setRank("A");
+        rankCount.add(rank);
+
     }
-    
-    
-    
-    public String analysisRankList(List<RankCount> rankcount){
-       
-        String result="none";
-        int drill=0;
-        int pair=0;
-        
+    //---------------------------------------
+
+    /*Értékek analizálása*/
+    public String analysisRankList(List<RankCount> rankcount) {
+
+        String result = "none";
+        int drill = 0;
+        int pair = 0;
+        int straight = 0;
+
         for (RankCount rankcount1 : rankcount) {
-            result="none";
-            switch(rankcount1.getCount()){
-            case 2: result="pair";
+            result = "none";
+            switch (rankcount1.getCount()) {
+                case 2:
+                    result = "pair";
                     pair++;
                     break;
-            case 3: result="drill";
+                case 3:
+                    result = "drill";
                     drill++;
-                    break; 
-            case 4: result="poker";
                     break;
-               
-        }  
-        if(fullAnalysis(pair, drill)) 
-            result="full";
-             
+                case 4:
+                    result = "poker";
+                    break;
+
+            }
+            if (fullAnalysis(pair, drill)) {
+                result = "full";
+            }
+            if (pair==2) {
+                result= "2pair";
+            }
+            if (rankcount1.getCount() > 0) {
+                straight++;
+            } else {
+                straight = 0;
+            }
+            
+            if(rankcount1.getCount()>=5){
+                result="straight";
+            }
         }
-        
+
         return result;
-        
+
     }
-    
-    private boolean fullAnalysis(int value1, int value2){
-        if(value1>0 && value2>0){
+
+    //full vizsgálat
+    private boolean fullAnalysis(int value1, int value2) {
+        if (value1 > 0 && value2 > 0) {
             return true;
-         }
+        }
         return false;
     }
 
+    //---------------------------------------------------
     @Override
     public String evaluateCards(List<Card> cards) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
-class RankCount{
-    
-   private String rank;
-   private int count=0;
+class RankCount {
+
+    private String rank;
+    private int count = 0;
 
     public String getRank() {
         return rank;
@@ -130,16 +140,13 @@ class RankCount{
     public void setCount(int count) {
         this.count = count;
     }
-   
-   
 
 }
 
+class SuitCount {
 
-class SuitCount{
-    
     private String suit;
-    private int count=0;
+    private int count = 0;
 
     public String getSuit() {
         return suit;
@@ -156,7 +163,5 @@ class SuitCount{
     public void setCount(int count) {
         this.count = count;
     }
-    
-    
-    
+
 }
