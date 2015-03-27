@@ -34,25 +34,44 @@ public class GameState {
     private List<Card> communityCards = new ArrayList<Card>();
 
     /**
-     * mennyi kártya ment el az osztótol ?
+     * creates a list of the cards on the table and in the action player hand
+     * append them then return it
      *
-     * @return db ra
+     * @return list of cards
+     */
+    public List<Card> cardsInTheGame() {
+        List<Card> returnCards = new ArrayList<>();
+
+        returnCards.addAll(players.get(inAction).getHoleCards());
+        returnCards.addAll(communityCards);
+
+        return returnCards;
+    }
+
+    public int getCurrentPlayerStack(){
+        return players.get(inAction).getStack();
+    }
+    
+    /**
+     * how many cards left the dealer
+     *
+     * @return count them
      */
     public Integer getNumberOfCardInTheGame() {
         Integer cards = 0;
 
-        // a járékosoknál lévő lapok száma
+        // number of card owned play players
         for (Player player : this.getPlayers()) {
             if ("active".equals(player.getStatus())) {
-                cards+=2;
+                cards += 2;
             }
         }
-        // az asztalon lévő lapok száma
-        cards+=this.getCommunityCards().size();
+        // number of cards on the table
+        cards += this.getCommunityCards().size();
 
         return cards;
     }
-    
+
     /**
      *
      * @return a valid call in the current circumstances
@@ -69,10 +88,9 @@ public class GameState {
         return currentBuyIn - players.get(inAction).getBet() + minimumRaise;
 
     }
-    
-    
-    public Integer getBigBlind(){
-        return this.smallBlind*2;
+
+    public Integer getBigBlind() {
+        return this.smallBlind * 2;
     }
 
     /**
@@ -228,9 +246,9 @@ public class GameState {
         }
         return activePlayer;
     }
-    
-    public List<Card> getCardsOfActivePlayer(){
-       Player activePlayer = getActivePlayer();
+
+    public List<Card> getCardsOfActivePlayer() {
+        Player activePlayer = getActivePlayer();
         return activePlayer.getHoleCards();
     }
 
