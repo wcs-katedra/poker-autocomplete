@@ -5,6 +5,8 @@
  */
 package org.leanpoker.player;
 
+import cardAnalysis.CardAnalysis;
+import cardAnalysis.RankCount;
 import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;

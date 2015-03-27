@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.leanpoker.player;
+package cardAnalysis;
 
 import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import javax.faces.convert.Converter;
  *
  * @author MártonZoltán
  */
-public class CardAnalysis {
+public class CardAnalysis implements AnalysisInterface{
     
     /**
      * RankCountha & SuitCount
@@ -102,6 +102,11 @@ public class CardAnalysis {
             return true;
          }
         return false;
+    }
+
+    @Override
+    public String evaluateCards(List<Card> cards) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

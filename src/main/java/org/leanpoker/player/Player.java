@@ -37,7 +37,9 @@ public class Player {
      *          ALL -- minden benn
      */
     public int betRequest(GameState gameState) {
-        // Create new instance of the CardAnalysis
+        // Create new instance of the CardAnalysisar
+        //Marci kártya kiértékelés példányxosítása majd hívása lapokkal(List<card>        )
+        
         
         return 0;
     }
