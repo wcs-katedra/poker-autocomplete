@@ -5,7 +5,6 @@
  */
 package cardAnalysis;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +138,7 @@ public class CardAnalysis implements AnalysisInterface {
         for (int i = 0; i < cards.indexOf(cards.size() - 1); i++) {
             for (int j = 0; j < rankCount.indexOf(rankCount.size() - 1); j++) {
                 if (cards.get(i).getRank().equals(rankCount.get(j))) {
-                    rankCount.get(j).getCount();
+                    rankCount.get(j).setCount();
 
                 }
             }
@@ -150,7 +149,7 @@ public class CardAnalysis implements AnalysisInterface {
         for (Card card : cards) {
             for (SuitCount suitCount1 : suitCount) {
                 if(suitCount1.getSuit().equals(card.getSuit())){
-                    suitCount1.getCount();
+                    suitCount1.setCount();
                 }
             }
         }
@@ -164,11 +163,11 @@ public class CardAnalysis implements AnalysisInterface {
         analysisRankListResult=analysisRankList(rankCount);
         suitAnalysisResult=suitAnalysis(suitCount);
         
-        if(analysisRankListResult=="straight" && suitAnalysisResult=="flush"){
+        if("straight".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)){
             combo="straight flush";
         }
         
-        if(suitAnalysisResult=="none"){
+        if("none".equals(suitAnalysisResult)){
             combo=analysisRankListResult;
         }else{
             combo=suitAnalysisResult;
