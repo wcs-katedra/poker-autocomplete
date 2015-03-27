@@ -111,10 +111,7 @@ public class CardAnalysis implements AnalysisInterface {
 
     //full vizsgálat
     private boolean fullAnalysis(int value1, int value2) {
-        if (value1 > 0 && value2 > 0) {
-            return true;
-        }
-        return false;
+        return value1 > 0 && value2 > 0;
     }
 
     //---------------------------------------------------
