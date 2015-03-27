@@ -6,3 +6,12 @@ jdk:
 script:
 - mvn clean cobertura:cobertura
 - mvn test
+
+notifications:
+     email:
+         recipients:
+             - a.fenyvesi.tamas@gmail.com
+             - gerg.sch@gmail.com
+             - sportcsoki@gmail.com
+         on_success: change
+         on_failure: always

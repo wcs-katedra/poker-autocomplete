@@ -21,6 +21,15 @@ package org.leanpoker.player.cardAnalysis.enums;
  */
 public enum CardClass {
     
-    high_card,pair,two_pairs,three_of_a_kind,straight,flush,full_house,four_of_a_kind,straight_flush,royal_flush
+    high_card,
+    pair,
+    two_pairs,
+    three_of_a_kind,//drill
+    straight,
+    flush,
+    full_house,
+    four_of_a_kind,
+    straight_flush,
+    royal_flush
     
 }

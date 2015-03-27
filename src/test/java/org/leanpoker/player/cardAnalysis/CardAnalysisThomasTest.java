@@ -6,6 +6,7 @@
 package org.leanpoker.player.cardAnalysis;
 
 import com.wcs.poker.gamestate.Card;
+import com.wcs.poker.gamestate.Rank;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -50,7 +51,7 @@ public class CardAnalysisThomasTest {
         List<Card> cards = new ArrayList<>();
         
         Card king =  new Card();
-        king.setRank("K");        
+        king.setRank(Rank.K);
         cards.add(king);
         cards.add(king);
         

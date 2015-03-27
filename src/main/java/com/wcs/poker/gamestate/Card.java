@@ -1,4 +1,3 @@
-
 package com.wcs.poker.gamestate;
 
 import javax.annotation.Generated;
@@ -8,44 +7,49 @@ import com.google.gson.annotations.Expose;
 public class Card {
 
     @Expose
-    private String rank;
+    private Rank rank;
     @Expose
-    private String suit;
+    private Suits suit;
 
     /**
-     * 
-     * @return
-     *     The rank
+     *
+     * @return the rank
      */
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
     /**
-     * 
+     * set the rank to
+     *
      * @param rank
-     *     The rank
      */
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
     /**
-     * 
-     * @return
-     *     The suit
+     * @return the suit
      */
-    public String getSuit() {
+    public Suits getSuit() {
         return suit;
     }
 
     /**
-     * 
+     * set the suit to
+     *
      * @param suit
-     *     The suit
      */
-    public void setSuit(String suit) {
+    public void setSuit(Suits suit) {
         this.suit = suit;
+    }
+
+    public boolean hasEqualRank(Card card) {
+        if (this.getRank().equals(card.getRank())) {
+            return true;
+        }
+        Rank.A.getRankValue();
+        return false;
     }
 
 }

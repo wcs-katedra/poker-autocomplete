@@ -11,6 +11,8 @@ package org.leanpoker.player.cardAnalysis.enums;
  */
 public enum CardsValue {
     
-    LOW,MEDIUM,HIGH
+    LOW,
+    MEDIUM,
+    HIGH
     
 }
