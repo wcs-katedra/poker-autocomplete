@@ -8,7 +8,7 @@ package cardAnalysis;
 import com.wcs.poker.gamestate.Card;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.convert.Converter;
+
 
 /**
  *
