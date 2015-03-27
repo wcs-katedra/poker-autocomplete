@@ -14,6 +14,12 @@ import java.util.List;
  */
 public interface AnalysisInterface {
     
-    String evaluateCards(List<Card> cards);
+    //kapom a kártyákat
+    void evaluateCards(List<Card> cards);
+    
+    //megkapod az eredményt
+    String getCombo();
+    
+    String getLevel();
     
 }
