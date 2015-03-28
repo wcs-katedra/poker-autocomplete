@@ -19,7 +19,8 @@ public class Player {
      * @return 0 -- ha bedobod ALL> -- aktuális tét ALL -- minden benn
      */
     public int betRequest(GameState gameState) {
-        String evaluatedCards = "";
+        String cardsCombo = "";
+        String cardsLevel = "";
         int finalBet = 0;
 
         // mine data for the claass
@@ -35,8 +36,10 @@ public class Player {
 
         // do the neseseary calls
         List<Card> cards = gameState.cardsInTheGame();
-        evaluatedCards = analysis.evaluateCards(cards);
-        finalBet = determineBet.getBet(evaluatedCards);
+        analysis.evaluateCards(cards);
+        cardsCombo = analysis.getCombo();
+        cardsLevel = analysis.getLevel();
+        finalBet = determineBet.getBet(cardsCombo, cardsLevel);
 
         return finalBet;
     }
