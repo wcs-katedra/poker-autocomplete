@@ -24,13 +24,13 @@ public class DetermineBet implements evaluate{
         this.pot = pot;
         this.stack = stack;
     }
-    
+
     @Override
-    public Integer getBet(String valueOfCards) {
-        
-        
+    public Integer getBet(String combo, String level) {
         return 0;
     }
+    
+    
     
     
 }
