@@ -11,6 +11,6 @@ package strategy;
  */
 public interface evaluate {
     
-    Integer getBet(String valueOfCards);
+    Integer getBet(String combo, String level);
     
 }
