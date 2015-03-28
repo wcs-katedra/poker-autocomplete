@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author MártonZoltán
+ * @author MĂˇrtonZoltĂˇn
  */
 public class CardAnalysis implements AnalysisInterface {
 
@@ -21,7 +21,7 @@ public class CardAnalysis implements AnalysisInterface {
     private List<RankCount> rankCount;
     private List<SuitCount> suitCount;
 
-    // kombo és szint
+    // kombo Ă©s szint
     private String combo;
     private String level;
 
@@ -29,7 +29,7 @@ public class CardAnalysis implements AnalysisInterface {
         uploadList();
     }
 
-    /*Táblák feltöltése*/
+    /*TĂˇblĂˇk feltĂ¶ltĂ©se*/
     private void uploadList() {
         rankCount = new ArrayList<>();
         suitCount = new ArrayList<>();
@@ -47,27 +47,36 @@ public class CardAnalysis implements AnalysisInterface {
 
         RankCount rank = new RankCount();
         for (int i = 2; i < 11; i++) {
-
+            if (i < 6) {
+                rank.setLevel("low");
+            } else {
+                rank.setLevel("medium");
+            }
             rank.setRank(Integer.toString(i));
             rankCount.add(rank);
         }
 
         rank.setRank("J");
+        rank.setLevel("high");
         rankCount.add(rank);
         rank.setRank("Q");
+        rank.setLevel("high");
         rankCount.add(rank);
         rank.setRank("K");
+        rank.setLevel("high");
         rankCount.add(rank);
         rank.setRank("A");
+        rank.setLevel("high");
         rankCount.add(rank);
 
     }
     //---------------------------------------
 
-    /*Értékek analizálása*/
+    /*Ă‰rtĂ©kek analizĂˇlĂˇsa*/
     private String analysisRankList(List<RankCount> rankcount) {
 
         String result = "none";
+        String levelresult = "none";
         int drill = 0;
         int pair = 0;
         int straight = 0;
@@ -77,22 +86,27 @@ public class CardAnalysis implements AnalysisInterface {
             switch (rankcount1.getCount()) {
                 case 2:
                     result = "pair";
+                    levelresult = rankcount1.getLevel();
                     pair++;
                     break;
                 case 3:
                     result = "drill";
+                    levelresult = rankcount1.getLevel();
                     drill++;
                     break;
                 case 4:
                     result = "poker";
+                    levelresult = rankcount1.getLevel();
                     break;
 
             }
             if (fullAnalysis(pair, drill)) {
                 result = "full";
+                levelresult = rankcount1.getLevel();
             }
             if (pair == 2) {
                 result = "2pair";
+                levelresult = rankcount1.getLevel();
             }
             if (rankcount1.getCount() > 0) {
                 straight++;
@@ -102,20 +116,21 @@ public class CardAnalysis implements AnalysisInterface {
 
             if (rankcount1.getCount() >= 5) {
                 result = "straight";
+                levelresult = rankcount1.getLevel();
             }
         }
 
-        return result;
+        return result + "," + levelresult;
 
     }
 
-    //full vizsgálat
+    //full vizsgĂˇlat
     private boolean fullAnalysis(int value1, int value2) {
         return value1 > 0 && value2 > 0;
     }
 
     //---------------------------------------------------
-    /*Suit analizálásála  */
+    /*Suit analizĂˇlĂˇsĂˇla  */
     private String suitAnalysis(List<SuitCount> suitcount) {
         String result = "none";
         for (SuitCount suitcount1 : suitcount) {
@@ -141,36 +156,39 @@ public class CardAnalysis implements AnalysisInterface {
             }
 
         }
-        
-        
+
         for (Card card : cards) {
             for (SuitCount suitCount1 : suitCount) {
-                if(suitCount1.getSuit().equals(card.getSuit())){
+                if (suitCount1.getSuit().equals(card.getSuit())) {
                     suitCount1.setCount();
                 }
             }
         }
-        
+
         String suitAnalysisResult;
         String analysisRankListResult;
+        String analysisRankListLevelResult;
 
-        combo="none";
-        level="none";
-        
-        analysisRankListResult=analysisRankList(rankCount);
-        suitAnalysisResult=suitAnalysis(suitCount);
-        
-        if("straight".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)){
-            combo="straight flush";
+        combo = "none";
+        level = "none";
+        String[] splitString = analysisRankList(rankCount).split(",");
+
+        analysisRankListResult = splitString[0];
+        analysisRankListLevelResult = splitString[1];
+
+        suitAnalysisResult = suitAnalysis(suitCount);
+
+        if ("none".equals(suitAnalysisResult)) {
+            combo = analysisRankListResult;
+        } else {
+            combo = suitAnalysisResult;
         }
-        
-        if("none".equals(suitAnalysisResult)){
-            combo=analysisRankListResult;
-        }else{
-            combo=suitAnalysisResult;
+
+        if ("straight".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)) {
+            combo = "straight flush";
         }
-    
-    
+
+        level = analysisRankListLevelResult;
     }
 
     @Override
@@ -187,6 +205,7 @@ public class CardAnalysis implements AnalysisInterface {
 class RankCount {
 
     private String rank;
+    private String level;
     private int count = 0;
 
     public String getRank() {
@@ -203,6 +222,14 @@ class RankCount {
 
     public void setCount() {
         this.count++;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
 }

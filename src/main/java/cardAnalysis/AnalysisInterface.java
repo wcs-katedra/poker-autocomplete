@@ -17,9 +17,9 @@ public interface AnalysisInterface {
     //kapom a kártyákat
     void evaluateCards(List<Card> cards);
     
-    //megkapod az eredményt
+    //megkapod az eredményt (none,pair,drill,full,poker,2pair,straight,straight flush(itt nincs level meg :())
     String getCombo();
-    
+    //high,low,medium,none
     String getLevel();
     
 }
