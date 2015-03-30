@@ -9,18 +9,18 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * ez az enumerátor definiálja a suitokat 
- *♣ treff (club) ♦ káró (diamond) ♥ kőr (heart) ♠ pikk (spade).
+♣ treff (CLUBS) ♦ káró (DIAMONDS) ♥ kőr (HEARTS) ♠ pikk (SPADES).
  * @author boss ;)
  */
 public enum Suits {
     
     @SerializedName("clubs")
-    clubs,
+    CLUBS,
     @SerializedName("diamonds")
-    diamonds,
+    DIAMONDS,
     @SerializedName("hearts")
-    heart,
+    HEARTS,
     @SerializedName("spades")
-    spade,
+    SPADES,
     
 }
