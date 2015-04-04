@@ -20,22 +20,25 @@ import static org.junit.Assert.*;
  * @author MártonZoltán
  */
 public class CardAnalysisTest {
-    
+
+    private CardAnalysis instance = new CardAnalysis();
+
     public CardAnalysisTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
+
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -46,54 +49,37 @@ public class CardAnalysisTest {
     @Test
     public void testEvaluateCards() {
         System.out.println("evaluateCards");
-        
-        List<Card> cards = new ArrayList<>();
-        
-        Card card = new Card();
-        
-        card.setRank("K");
-        card.setSuit("heart");
-        
-        cards.add(card);
-        
-        card= new Card();
-        card.setRank("K");
-        card.setSuit("heart");
-        
-        cards.add(card);
-        
-        CardAnalysis instance = new CardAnalysis();
-        instance.evaluateCards(cards);
-       
-        
-    }
 
-    /**
-     * Test of getCombo method, of class CardAnalysis.
-     */
-    @Test
-    public void testGetCombo() {
+        List<Card> cards = new ArrayList<>();
+
+        Card card = new Card();
+        card.setRank("K");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        card = new Card();
+        card.setRank("K");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        instance.evaluateCards(cards);
+
         System.out.println("getCombo");
-        CardAnalysis instance = new CardAnalysis();
+
         String expResult = "pair";
         String result = instance.getCombo();
+        System.out.println("Kombo: " + result);
         assertEquals(expResult, result);
-        
-       
+
+        System.out.println("getLevel");
+
+        expResult = "high";
+        result = instance.getLevel();
+        System.out.println("Szint: " + result);
+        assertEquals(expResult, result);
+
     }
 
-    /**
-     * Test of getLevel method, of class CardAnalysis.
-     */
-    @Test
-    public void testGetLevel() {
-        System.out.println("getLevel");
-        CardAnalysis instance = new CardAnalysis();
-        String expResult = "high";
-        String result = instance.getLevel();
-        assertEquals(expResult, result);
-        
-       
-    }
-    
 }
