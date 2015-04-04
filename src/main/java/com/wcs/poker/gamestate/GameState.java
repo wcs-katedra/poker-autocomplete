@@ -48,10 +48,10 @@ public class GameState {
         return returnCards;
     }
 
-    public int getCurrentPlayerStack(){
+    public int getCurrentPlayerStack() {
         return players.get(inAction).getStack();
     }
-    
+
     /**
      * how many cards left the dealer
      *
@@ -221,6 +221,23 @@ public class GameState {
         this.players = players;
     }
 
+    public void setPlayer(Player player) {
+        this.players.clear();
+        this.players.add(player);
+    }
+
+    public void setPlayer(int stack, int bet, Card card1, Card card2) {
+        Player p = new Player();
+        p.setBet(bet);
+        p.setStack(stack);
+        List<Card> cards = new ArrayList<>();
+        cards.add(card1);
+        cards.add(card2);
+        p.setHoleCards(cards);
+        
+        setPlayer(p);
+    }
+
     /**
      *
      * @return The communityCards
@@ -250,6 +267,29 @@ public class GameState {
     public List<Card> getCardsOfActivePlayer() {
         Player activePlayer = getActivePlayer();
         return activePlayer.getHoleCards();
+    }
+
+    public void addNewPlayer(int stack, int bet, Card card1, Card card2) {
+        Player player = new Player();
+        player.setStack(stack);
+        player.setBet(bet);
+        List<Card> cards = new ArrayList<>();
+        cards.add(card1);
+        cards.add(card2);
+        player.setHoleCards(cards);
+
+        players.add(player);
+    }
+
+    public void addCard(String rank, String suit) {
+        Card card = new Card();
+        card.setRank(rank);
+        card.setSuit(suit);
+        communityCards.add(card);
+    }
+
+    public void addCard(Card randomCard) {
+        communityCards.add(randomCard);
     }
 
 }
