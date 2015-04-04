@@ -10,10 +10,16 @@
  */
 package org.leanpoker.player;
 
+import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.jsonconverter.JsonConverter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
@@ -28,53 +34,68 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     private final String simple = "testSimple.txt";
-    private final String advanced = "testSimple.txt";
-    private final String testFile = simple;
 
-    private InputStream ins = null;
-    private GameState testGameState = null;
-
-    /**
-     * runs before calling the any test procedure. reads the 'testFile' -s
-     * content to the testGameState variable. exeptions handeled here.
-     */
-    @Before
-    public void setUp() {
-        init();
-    }
-
-    /**
-     * read the file given in the testFile field
-     */
-    private void init() {
+    private GameState readSingleGameStateFromFile() {
         // read into the variable 
         String gameStateText = "";
         try {
-            gameStateText = IOUtils.toString(this.getClass().getResourceAsStream(testFile));
+            gameStateText = IOUtils.toString(this.getClass().getResourceAsStream(simple));
 
         } catch (IOException ex) {
             Logger.getLogger(PlayerTest.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Cannot open the given file!!:\n\t" + testFile);
+            System.out.println("Cannot open the given file!!:\n\t" + simple);
         }
 
         // create a game state of it ...
-        testGameState = new JsonConverter<>(GameState.class).fromJson(gameStateText);
+        return new JsonConverter<>(GameState.class).fromJson(gameStateText);
+
+    }
+
+    @Test
+    public void testBetRequestWithSingleGamestateFile() {
+        // arrange
+        Integer bet;
+        Player player = new Player();
+        GameState gs = readSingleGameStateFromFile();
+
+        // act
+        bet = player.betRequest(gs);
+
+        // assert
+        assertTrue(0 == bet);
     }
 
     /**
      * Test of betRequest method, of class Player.
      */
     @Test
-    public void testBetRequest() {
+    public void testBetRequestWithMultipleGamestateFiles() {
+        
+    }
+
+    /**
+     * Test of betRequest method, of class Player.
+     */
+    @Test
+    public void testBetRequestWithRandomGameStates() {
         // arrange
-        Integer bet;
+        int bet;
+        String[] states = {"pre-flop","flop","turn","river"};
+        GameStateFactory gsf = new GameStateFactory();        
+        gsf.createGameStateByRound(states);
+        GameState gs;
         Player player = new Player();
-
+        
         // act
-        bet = player.betRequest(testGameState);
-
+        for (String state : states) {
+            System.out.print("starting -> "+state);
+            gs = gsf.getNextGameState();
+            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame().size());
+            bet = player.betRequest(gs);
+            System.out.print("\n\tthe bet is :  "+bet+"\n");
+        }
+        
         // assert
-        assertTrue(0 == bet);
     }
 
 }
