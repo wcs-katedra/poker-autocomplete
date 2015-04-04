@@ -53,6 +53,7 @@ public class DetermineBet implements evaluate{
             case "none,low": bet = 0; break;
             case "none,medium": bet = 0; break;
             case "none,high": bet = 0; break;
+            case "none,round1": bet=bigBlind; break;
                 
             case "pair,low": bet = bigBlind+100; break;
             case "pair,medium": bet = bigBlind+100; break;

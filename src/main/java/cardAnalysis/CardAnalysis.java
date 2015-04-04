@@ -235,7 +235,12 @@ public class CardAnalysis implements AnalysisInterface {
             combo="royal flush";
         }
 
+        
+       
         level = analysisRankListLevelResult;
+         if (cards.size()==2) {
+           level="round1";
+        }
     }
 
     public String getCombo() {
