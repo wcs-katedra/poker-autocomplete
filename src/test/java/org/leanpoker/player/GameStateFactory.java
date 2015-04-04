@@ -62,7 +62,7 @@ public class GameStateFactory {
                     gs.addCard(rc.getRandomCard());
                     gs.addCard(rc.getRandomCard());
                     gs.addCard(rc.getRandomCard());
-                    break;
+                    break;                    
                 case "turn":
                     // add the 4. card
                     gs.setCommunityCards(lastCommonCards);
