@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class CardAnalysis implements AnalysisInterface {
 
+  
     /**
      * RankCountha & SuitCount
      */
@@ -93,12 +94,38 @@ public class CardAnalysis implements AnalysisInterface {
 
         String result = "none";
         String levelresult = "none";
+
+        boolean a = false;
+        boolean k = false;
+        boolean q = false;
+        boolean j = false;
+        boolean ten = false;
+
         int drill = 0;
         int pair = 0;
         int straight = 1;
-        int index=0;
+        int index = 0;
 
         for (RankCount rankcount1 : rankcount) {
+
+            switch (rankcount1.getRank()) {
+                case "A":
+                    a = true;
+                    break;
+                case "K":
+                    k = true;
+                    break;
+                case "Q":
+                    q = true;
+                    break;
+                case "J":
+                    j = true;
+                    break;
+                case "10":
+                    ten = true;
+                    break;
+
+            }
 
             switch (rankcount1.getCount()) {
                 case 2:
@@ -125,7 +152,7 @@ public class CardAnalysis implements AnalysisInterface {
                 result = "2pair";
                 levelresult = rankcount1.getLevel();
             }
-            if (rankcount1.getCount() > 0 && index!=0 &&rankcount.get(index-1).getCount()!=0) {
+            if (rankcount1.getCount() > 0 && index != 0 && rankcount.get(index - 1).getCount() != 0) {
                 straight++;
 
                 if (straight >= 5) {
@@ -134,6 +161,10 @@ public class CardAnalysis implements AnalysisInterface {
                 }
             }
             index++;
+        }
+        
+        if (a && k && q && j &&ten) {
+            result="royal";
         }
 
         return result + "," + levelresult;
@@ -150,7 +181,7 @@ public class CardAnalysis implements AnalysisInterface {
     private String suitAnalysis(List<SuitCount> suitcount) {
         String result = "none";
         for (SuitCount suitcount1 : suitcount) {
-            if (suitcount1.getCount() == 5) {
+            if (suitcount1.getCount() >= 5) {
                 result = "flush";
             }
         }
@@ -198,6 +229,10 @@ public class CardAnalysis implements AnalysisInterface {
 
         if ("straight".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)) {
             combo = "straight flush";
+        }
+        
+        if ("royal".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)) {
+            combo="royal flush";
         }
 
         level = analysisRankListLevelResult;
@@ -266,4 +301,3 @@ class SuitCount {
     }
 
 }
-
