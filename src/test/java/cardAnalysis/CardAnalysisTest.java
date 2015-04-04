@@ -6,6 +6,7 @@
 package cardAnalysis;
 
 import com.wcs.poker.gamestate.Card;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,16 +47,25 @@ public class CardAnalysisTest {
     public void testEvaluateCards() {
         System.out.println("evaluateCards");
         
-        List<Card> cards = null;
+        List<Card> cards = new ArrayList<>();
         
         Card card = new Card();
         
+        card.setRank("K");
+        card.setSuit("heart");
         
+        cards.add(card);
+        
+        card= new Card();
+        card.setRank("K");
+        card.setSuit("heart");
+        
+        cards.add(card);
         
         CardAnalysis instance = new CardAnalysis();
         instance.evaluateCards(cards);
        
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -65,11 +75,11 @@ public class CardAnalysisTest {
     public void testGetCombo() {
         System.out.println("getCombo");
         CardAnalysis instance = new CardAnalysis();
-        String expResult = "";
+        String expResult = "pair";
         String result = instance.getCombo();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+       
     }
 
     /**
@@ -79,11 +89,11 @@ public class CardAnalysisTest {
     public void testGetLevel() {
         System.out.println("getLevel");
         CardAnalysis instance = new CardAnalysis();
-        String expResult = "";
+        String expResult = "high";
         String result = instance.getLevel();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+       
     }
     
 }

@@ -38,33 +38,49 @@ public class CardAnalysis implements AnalysisInterface {
 
         suit.setSuit("heart");
         suitCount.add(suit);
+
+        suit = new SuitCount();
         suit.setSuit("spade");
         suitCount.add(suit);
+
+        suit = new SuitCount();
         suit.setSuit("diamonds");
         suitCount.add(suit);
+
+        suit = new SuitCount();
         suit.setSuit("clubs");
         suitCount.add(suit);
 
         RankCount rank = new RankCount();
         for (int i = 2; i < 11; i++) {
             if (i < 6) {
+                rank = new RankCount();
                 rank.setLevel("low");
             } else {
+                rank = new RankCount();
                 rank.setLevel("medium");
             }
             rank.setRank(Integer.toString(i));
             rankCount.add(rank);
+
         }
 
+        rank = new RankCount();
         rank.setRank("J");
         rank.setLevel("high");
         rankCount.add(rank);
+
+        rank = new RankCount();
         rank.setRank("Q");
         rank.setLevel("high");
         rankCount.add(rank);
+
+        rank = new RankCount();
         rank.setRank("K");
         rank.setLevel("high");
         rankCount.add(rank);
+
+        rank = new RankCount();
         rank.setRank("A");
         rank.setLevel("high");
         rankCount.add(rank);
@@ -79,10 +95,11 @@ public class CardAnalysis implements AnalysisInterface {
         String levelresult = "none";
         int drill = 0;
         int pair = 0;
-        int straight = 0;
+        int straight = 1;
+        int index=0;
 
         for (RankCount rankcount1 : rankcount) {
-            result = "none";
+
             switch (rankcount1.getCount()) {
                 case 2:
                     result = "pair";
@@ -108,16 +125,15 @@ public class CardAnalysis implements AnalysisInterface {
                 result = "2pair";
                 levelresult = rankcount1.getLevel();
             }
-            if (rankcount1.getCount() > 0) {
+            if (rankcount1.getCount() > 0 && index!=0 &&rankcount.get(index-1).getCount()!=0) {
                 straight++;
-            } else {
-                straight = 0;
-            }
 
-            if (rankcount1.getCount() >= 5) {
-                result = "straight";
-                levelresult = rankcount1.getLevel();
+                if (straight >= 5) {
+                    result = "straight";
+                    levelresult = rankcount1.getLevel();
+                }
             }
+            index++;
         }
 
         return result + "," + levelresult;
@@ -143,18 +159,14 @@ public class CardAnalysis implements AnalysisInterface {
     }
     //------------------
 
-    @Override
-
     public void evaluateCards(List<Card> cards) {
 
-        for (int i = 0; i < cards.indexOf(cards.size() - 1); i++) {
-            for (int j = 0; j < rankCount.indexOf(rankCount.size() - 1); j++) {
-                if (cards.get(i).getRank().equals(rankCount.get(j))) {
-                    rankCount.get(j).setCount();
-
+        for (Card card : cards) {
+            for (RankCount rankCount1 : rankCount) {
+                if (rankCount1.getRank().equals(card.getRank())) {
+                    rankCount1.setCount();
                 }
             }
-
         }
 
         for (Card card : cards) {
@@ -191,12 +203,10 @@ public class CardAnalysis implements AnalysisInterface {
         level = analysisRankListLevelResult;
     }
 
-    @Override
     public String getCombo() {
         return combo;
     }
 
-    @Override
     public String getLevel() {
         return level;
     }
@@ -256,3 +266,4 @@ class SuitCount {
     }
 
 }
+
