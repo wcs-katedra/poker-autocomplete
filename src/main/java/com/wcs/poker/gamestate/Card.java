@@ -44,6 +44,11 @@ public class Card {
         this.suit = suit;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" + "rank=" + rank + ", suit=" + suit + "}";
+    }
+
     public boolean hasEqualRank(Card card) {
         if (this.getRank().equals(card.getRank())) {
             return true;
