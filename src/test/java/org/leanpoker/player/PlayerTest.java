@@ -10,20 +10,12 @@
  */
 package org.leanpoker.player;
 
-import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.jsonconverter.JsonConverter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -90,7 +82,7 @@ public class PlayerTest {
         for (String state : states) {
             System.out.print("starting -> "+state);
             gs = gsf.getNextGameState();
-            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame().size());
+            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame());
             bet = player.betRequest(gs);
             System.out.print("\n\tthe bet is :  "+bet+"\n");
         }

@@ -43,16 +43,26 @@ public class GameStateFactory {
         doneCreatingGameStates();
     }
 
+    /**
+     * create on full turnament round by the given turnament points. it is good
+     * for testing.
+     *
+     * @param state the turnament states the needs to be tested
+     */
     public void createGameStateByRound(String[] state) {
-        modifyGameStateByRound(state);
+        GameState templateGameState = createGameState();
+        modifyGameStateByRound(state, templateGameState);
         doneCreatingGameStates();
     }
 
-    private void modifyGameStateByRound(String[] state) {
-        
+    /**
+     * 
+     * @param state how many turnament round should be generated ?
+     * @param gs template gamestate
+     */
+    private void modifyGameStateByRound(String[] state, GameState gs) {
         List<Card> lastCommonCards = null;
         for (String currentState : state) {
-            GameState gs = createGameState();
             switch (currentState) {
                 case "pre-flop":
                     break;
@@ -62,7 +72,7 @@ public class GameStateFactory {
                     gs.addCard(rc.getRandomCard());
                     gs.addCard(rc.getRandomCard());
                     gs.addCard(rc.getRandomCard());
-                    break;                    
+                    break;
                 case "turn":
                     // add the 4. card
                     gs.setCommunityCards(lastCommonCards);
@@ -79,6 +89,10 @@ public class GameStateFactory {
         }
     }
 
+    /**
+     * create a number of gamestates given in the field and adds them to the
+     * gamestate list.
+     */
     private void createSpecifiedNumberOfGameStates() {
         GameState gs;
         for (int i = 0; i < theNumberOfGameStates; i++) {
@@ -87,6 +101,12 @@ public class GameStateFactory {
         }
     }
 
+    /**
+     * Create a default gamestate. Create new gamestate instace and sets the
+     * fields.
+     *
+     * @return a new gamestate.
+     */
     private GameState createGameState() {
         GameState gs = new GameState();
         gs = setTheStartingValues(gs);
@@ -94,6 +114,12 @@ public class GameStateFactory {
         return gs;
     }
 
+    /**
+     * Init the "table". loads a gamestate fields
+     *
+     * @param gs
+     * @return
+     */
     private GameState setTheStartingValues(GameState gs) {
         gs.setSmallBlind(10);
         gs.setCurrentBuyIn(320);
@@ -106,14 +132,22 @@ public class GameStateFactory {
         return gs;
     }
 
+    /**
+     * Adds a player to the given gamestate. the two cards will be the same
+     * every time. cause we get it in the first "round" and after there is no
+     * change in it
+     *
+     * @param gs
+     * @return
+     */
     private GameState setThePlayer(GameState gs) {
-        int stack = 1590;
-        int bet = 80;
-        gs.setPlayer(stack, bet, card1, card2);
+        // stack,bet, c1,c2
+        gs.setPlayer(1590, 80, card1, card2);
 
         return gs;
     }
 
+    
     private void doneCreatingGameStates() {
         iterator = gameStates.iterator();
     }

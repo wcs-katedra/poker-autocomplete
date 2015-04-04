@@ -18,8 +18,7 @@ public class RandomCard {
 
     private Set<Card> sentCards = new HashSet<Card>();
     private final String[] ranks = {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"};
-    private final String[] suits = {"heart", "diamond", "spade", "asd"};
-
+    private final String[] suits = {"heart", "diamond", "spade", "clubs"};
     
     /**
      * Genereta a random card. Returns it only if it was not sended out earlyer
