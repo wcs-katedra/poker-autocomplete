@@ -13,11 +13,11 @@ public class Player {
     @Expose
     private Integer id;
     @Expose
-    private String name;
+    private Rank name;
     @Expose
-    private String status;
+    private Rank status;
     @Expose
-    private String version;
+    private Rank version;
     @Expose
     private Integer stack;
     @Expose
@@ -49,7 +49,7 @@ public class Player {
      * @return
      *     The name
      */
-    public String getName() {
+    public Rank getName() {
         return name;
     }
 
@@ -58,7 +58,7 @@ public class Player {
      * @param name
      *     The name
      */
-    public void setName(String name) {
+    public void setName(Rank name) {
         this.name = name;
     }
 
@@ -67,7 +67,7 @@ public class Player {
      * @return
      *     The status
      */
-    public String getStatus() {
+    public Rank getStatus() {
         return status;
     }
 
@@ -76,7 +76,7 @@ public class Player {
      * @param status
      *     The status
      */
-    public void setStatus(String status) {
+    public void setStatus(Rank status) {
         this.status = status;
     }
 
@@ -85,7 +85,7 @@ public class Player {
      * @return
      *     The version
      */
-    public String getVersion() {
+    public Rank getVersion() {
         return version;
     }
 
@@ -94,7 +94,7 @@ public class Player {
      * @param version
      *     The version
      */
-    public void setVersion(String version) {
+    public void setVersion(Rank version) {
         this.version = version;
     }
 

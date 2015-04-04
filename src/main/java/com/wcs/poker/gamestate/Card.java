@@ -7,15 +7,15 @@ import com.google.gson.annotations.Expose;
 public class Card {
 
     @Expose
-    private Rank rank;
+    private String rank;
     @Expose
-    private Suits suit;
+    private String suit;
 
     /**
      *
      * @return the rank
      */
-    public Rank getRank() {
+    public String getRank() {
         return rank;
     }
 
@@ -24,14 +24,14 @@ public class Card {
      *
      * @param rank
      */
-    public void setRank(Rank rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
     /**
      * @return the suit
      */
-    public Suits getSuit() {
+    public String getSuit() {
         return suit;
     }
 
@@ -40,7 +40,7 @@ public class Card {
      *
      * @param suit
      */
-    public void setSuit(Suits suit) {
+    public void setSuit(String suit) {
         this.suit = suit;
     }
 
@@ -48,7 +48,6 @@ public class Card {
         if (this.getRank().equals(card.getRank())) {
             return true;
         }
-        Rank.A.getRankValue();
         return false;
     }
 
