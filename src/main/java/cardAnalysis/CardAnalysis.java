@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class CardAnalysis implements AnalysisInterface {
 
-  
     /**
      * RankCountha & SuitCount
      */
@@ -25,6 +24,7 @@ public class CardAnalysis implements AnalysisInterface {
     // kombo Ă©s szint
     private String combo;
     private String level;
+    private String flushLevel;
 
     public CardAnalysis() {
         uploadList();
@@ -54,7 +54,7 @@ public class CardAnalysis implements AnalysisInterface {
 
         RankCount rank = new RankCount();
         for (int i = 2; i < 11; i++) {
-            if (i < 6) {
+            if (i < 7) {
                 rank = new RankCount();
                 rank.setLevel("low");
             } else {
@@ -95,6 +95,10 @@ public class CardAnalysis implements AnalysisInterface {
         String result = "none";
         String levelresult = "none";
 
+        String pair2Lelvel = "none";
+        flushLevel = "none";
+        String fullLevel="none";
+
         boolean a = false;
         boolean k = false;
         boolean q = false;
@@ -107,7 +111,8 @@ public class CardAnalysis implements AnalysisInterface {
         int index = 0;
 
         for (RankCount rankcount1 : rankcount) {
-            if (rankcount1.getCount()>0) {
+            if (rankcount1.getCount() > 0) {
+                flushLevel = rankcount1.getLevel();
                 switch (rankcount1.getRank()) {
                     case "A":
                         a = true;
@@ -132,11 +137,13 @@ public class CardAnalysis implements AnalysisInterface {
                 case 2:
                     result = "pair";
                     levelresult = rankcount1.getLevel();
+                    pair2Lelvel = rankcount1.getLevel();
                     pair++;
                     break;
                 case 3:
                     result = "drill";
                     levelresult = rankcount1.getLevel();
+                    fullLevel=rankcount1.getLevel();
                     drill++;
                     break;
                 case 4:
@@ -147,11 +154,11 @@ public class CardAnalysis implements AnalysisInterface {
             }
             if (fullAnalysis(pair, drill)) {
                 result = "full";
-                levelresult = rankcount1.getLevel();
+                levelresult = fullLevel;
             }
             if (pair == 2) {
                 result = "2pair";
-                levelresult = rankcount1.getLevel();
+                levelresult = pair2Lelvel;
             }
             if (rankcount1.getCount() > 0 && index != 0 && rankcount.get(index - 1).getCount() != 0) {
                 straight++;
@@ -163,9 +170,9 @@ public class CardAnalysis implements AnalysisInterface {
             }
             index++;
         }
-        
-        if (a && k && q && j &&ten) {
-            result="royal";
+
+        if (a && k && q && j && ten) {
+            result = "royal";
         }
 
         return result + "," + levelresult;
@@ -231,16 +238,15 @@ public class CardAnalysis implements AnalysisInterface {
         if ("straight".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)) {
             combo = "straight flush";
         }
-        
+
         if ("royal".equals(analysisRankListResult) && "flush".equals(suitAnalysisResult)) {
-            combo="royal flush";
+            combo = "royal flush";
         }
 
-        
-       
         level = analysisRankListLevelResult;
-         if (cards.size()==2) {
-           level="round1";
+
+        if (combo == "flush") {
+            level = flushLevel;
         }
     }
 
