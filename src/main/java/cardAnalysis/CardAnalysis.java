@@ -107,24 +107,25 @@ public class CardAnalysis implements AnalysisInterface {
         int index = 0;
 
         for (RankCount rankcount1 : rankcount) {
+            if (rankcount1.getCount()>0) {
+                switch (rankcount1.getRank()) {
+                    case "A":
+                        a = true;
+                        break;
+                    case "K":
+                        k = true;
+                        break;
+                    case "Q":
+                        q = true;
+                        break;
+                    case "J":
+                        j = true;
+                        break;
+                    case "10":
+                        ten = true;
+                        break;
 
-            switch (rankcount1.getRank()) {
-                case "A":
-                    a = true;
-                    break;
-                case "K":
-                    k = true;
-                    break;
-                case "Q":
-                    q = true;
-                    break;
-                case "J":
-                    j = true;
-                    break;
-                case "10":
-                    ten = true;
-                    break;
-
+                }
             }
 
             switch (rankcount1.getCount()) {
