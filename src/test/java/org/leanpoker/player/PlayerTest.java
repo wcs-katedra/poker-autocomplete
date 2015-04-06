@@ -72,16 +72,15 @@ public class PlayerTest {
     public void testBetRequestWithRandomGameStates() {
         // arrange
         int bet;
-        String[] states = {"pre-flop","flop","turn","river"};
-        GameStateFactory gsf = new GameStateFactory();        
-        gsf.createGameStateByRound(states);
+        int state=0;
+        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);    
         GameState gs;
         Player player = new Player();
         
         // act
-        for (String state : states) {
-            System.out.print("starting -> "+state);
+        while(gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
+            System.out.print("starting -> "+GameTurn.getTrun(state++));
             System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame());
             bet = player.betRequest(gs);
             System.out.print("\n\tthe bet is :  "+bet+"\n");

@@ -20,7 +20,6 @@ public class GameStateFactory {
     private List<GameState> gameStates = new ArrayList<GameState>();
     private int theNumberOfGameStates;
     private Iterator<GameState> iterator;
-
     private RandomCard rc = new RandomCard();
     private Card card1 = rc.getRandomCard();
     private Card card2 = rc.getRandomCard();
@@ -44,49 +43,113 @@ public class GameStateFactory {
     }
 
     /**
-     * create on full turnament round by the given turnament points. it is good
-     * for testing.
+     * create gamestates until the state. example state = turn then create
+     * pre-flop,flop,turn..
      *
-     * @param state the turnament states the needs to be tested
+     * @param turn
      */
-    public void createGameStateByRound(String[] state) {
-        GameState templateGameState = createGameState();
-        modifyGameStateByRound(state, templateGameState);
+    public GameStateFactory(GameTurn turn) {
+        createGamesStatesToTrun(turn);
         doneCreatingGameStates();
     }
 
-    /**
-     * 
-     * @param state how many turnament round should be generated ?
-     * @param gs template gamestate
-     */
-    private void modifyGameStateByRound(String[] state, GameState gs) {
-        List<Card> lastCommonCards = null;
-        for (String currentState : state) {
-            switch (currentState) {
-                case "pre-flop":
-                    break;
-                case "flop":
-                    // add 3 cards
-                    gs.setCommunityCards(lastCommonCards);
-                    gs.addCard(rc.getRandomCard());
-                    gs.addCard(rc.getRandomCard());
-                    gs.addCard(rc.getRandomCard());
-                    break;
-                case "turn":
-                    // add the 4. card
-                    gs.setCommunityCards(lastCommonCards);
-                    gs.addCard(rc.getRandomCard());
-                    break;
-                case "river":
-                    // add the 5. card
-                    gs.setCommunityCards(lastCommonCards);
-                    gs.addCard(rc.getRandomCard());
-                    break;
-            }
-            gameStates.add(gs);
-            lastCommonCards = gs.getCommunityCards();
+    private void createGamesStatesToTrun(GameTurn turn) {
+        for (int i = 0; i <= turn.getVal(); i++) {
+            createGameState(GameTurn.getTrun(i));
         }
+    }
+
+    private void createGameState(GameTurn gameStateToCreate) {
+        switch (gameStateToCreate) {
+            case PRE_FLOP:
+                createPreFlopGameState();
+                break;
+            case FLOP:
+                GameState preFlopGs = gameStates.get(0);
+                createFlopGameState(preFlopGs);
+                break;
+            case TURN:
+                GameState flopGs = gameStates.get(1);
+                createTurnGameState(flopGs);
+                break;
+            case RIVER:
+                GameState turnGs = gameStates.get(2);
+                createRiverGameState(turnGs);
+                break;
+        }
+    }
+
+    private void createPreFlopGameState() {
+        GameState gs = new GameState();
+        gs = initPreFlopGameState(gs);
+        gs = setThePlayer(gs);
+        gameStates.add(gs);
+    }
+
+    private GameState copyToNewGameState(GameState template) {
+        GameState gs = new GameState();
+
+        gs.setSmallBlind(template.getSmallBlind());
+        gs.setMinimumRaise(template.getMinimumRaise());
+        gs.setPot(template.getPot());
+        gs.setCurrentBuyIn(template.getCurrentBuyIn());
+        gs.setPlayers(template.getPlayers());
+        gs.setInAction(template.getInAction());
+        gs.setOrbits(template.getOrbits() + 1);
+        gs.setDealer(template.getDealer());
+
+        return gs;
+    }
+
+    private void createFlopGameState(GameState preFlopGs) {
+        List<Card> cards = new ArrayList<Card>();
+        cards.add(rc.getRandomCard());
+        cards.add(rc.getRandomCard());
+        cards.add(rc.getRandomCard());
+
+        GameState gs = copyToNewGameState(preFlopGs);
+        gs.setCommunityCards(cards);
+        gameStates.add(gs);
+    }
+
+    private void createTurnGameState(GameState flopGs) {
+        List<Card> cards = new ArrayList<Card>();
+        cards.addAll(flopGs.getCommunityCards());
+        cards.add(rc.getRandomCard());
+
+        GameState gs = copyToNewGameState(flopGs);
+        gs.setCommunityCards(cards);
+        gameStates.add(gs);
+    }
+
+    private void createRiverGameState(GameState turnGs) {
+        List<Card> cards = new ArrayList<>();
+        cards.addAll(turnGs.getCommunityCards());
+        cards.add(rc.getRandomCard());
+
+        GameState gs = copyToNewGameState(turnGs);
+        gs.setCommunityCards(cards);
+        gameStates.add(gs);
+    }
+    
+    
+
+    /**
+     * Init the "table". loads a gamestate fields
+     *
+     * @param gs
+     * @return
+     */
+    private GameState initPreFlopGameState(GameState gs) {
+        gs.setSmallBlind(GameStateDefaultValues.getSmallBlind());
+        gs.setCurrentBuyIn(GameStateDefaultValues.getCurrentBuyIn());
+        gs.setPot(GameStateDefaultValues.getPot());
+        gs.setMinimumRaise(GameStateDefaultValues.getMinimumRaise());
+        gs.setDealer(1);
+        gs.setOrbits(1);
+        gs.setInAction(0);
+
+        return gs;
     }
 
     /**
@@ -147,7 +210,6 @@ public class GameStateFactory {
         return gs;
     }
 
-    
     private void doneCreatingGameStates() {
         iterator = gameStates.iterator();
     }
@@ -162,6 +224,10 @@ public class GameStateFactory {
 
     public GameState getFirstGameState() {
         return gameStates.get(0);
+    }
+
+    public boolean hasMoreGameState() {
+        return iterator.hasNext();
     }
 
 }
