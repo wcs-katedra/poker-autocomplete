@@ -17,7 +17,7 @@ public interface AnalysisInterface {
     //kapom a kártyákat
     void evaluateCards(List<Card> cards);
     
-    //megkapod az eredményt (none,pair,drill,full,poker,2pair,straight,straight flush(csak level: high),royal flush (level:high))
+    //megkapod az eredményt (none,pair,drill,full,poker,2pair,straight,straight flush,royal flush (level:high))
     String getCombo();
     //high,low,medium,none
     String getLevel();
