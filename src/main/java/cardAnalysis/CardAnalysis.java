@@ -97,7 +97,7 @@ public class CardAnalysis implements AnalysisInterface {
 
         String pair2Lelvel = "none";
         flushLevel = "none";
-        String fullLevel="none";
+        String fullLevel = "none";
 
         boolean a = false;
         boolean k = false;
@@ -143,7 +143,7 @@ public class CardAnalysis implements AnalysisInterface {
                 case 3:
                     result = "drill";
                     levelresult = rankcount1.getLevel();
-                    fullLevel=rankcount1.getLevel();
+                    fullLevel = rankcount1.getLevel();
                     drill++;
                     break;
                 case 4:
@@ -245,7 +245,11 @@ public class CardAnalysis implements AnalysisInterface {
 
         level = analysisRankListLevelResult;
 
-        if (combo == "flush") {
+        if ("flush".equals(combo)) {
+            level = flushLevel;
+        }
+
+        if ("none".equals(combo)) {
             level = flushLevel;
         }
     }

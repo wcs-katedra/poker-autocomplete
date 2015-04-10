@@ -22,6 +22,116 @@ public class CardAnalysisTest {
     private Card card = new Card();
 
     /**
+     * semmi tesztje : low medium high
+     */
+    @Test
+    public void testNoneLowEvaluateCards() {
+        System.out.println("evaluateCards  none,low");
+
+        cards = new ArrayList<>();
+
+        card = new Card();
+        card.setRank("2");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        card = new Card();
+        card.setRank("3");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        instance.evaluateCards(cards);
+
+        System.out.println("getCombo");
+
+        String expResult = "none";
+        String result = instance.getCombo();
+        System.out.println("Kombo: " + result);
+        assertEquals(expResult, result);
+
+        System.out.println("getLevel");
+
+        expResult = "low";
+        result = instance.getLevel();
+        System.out.println("Szint: " + result);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testNoneMediumEvaluateCards() {
+        System.out.println("evaluateCards  none,medium");
+
+        cards = new ArrayList<>();
+
+        card = new Card();
+        card.setRank("2");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        card = new Card();
+        card.setRank("7");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        instance.evaluateCards(cards);
+
+        System.out.println("getCombo");
+
+        String expResult = "none";
+        String result = instance.getCombo();
+        System.out.println("Kombo: " + result);
+        assertEquals(expResult, result);
+
+        System.out.println("getLevel");
+
+        expResult = "medium";
+        result = instance.getLevel();
+        System.out.println("Szint: " + result);
+        assertEquals(expResult, result);
+    }
+    
+    
+       @Test
+    public void testNoneHighEvaluateCards() {
+        System.out.println("evaluateCards  pair,high");
+
+        cards = new ArrayList<>();
+
+        card = new Card();
+        card.setRank("2");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        card = new Card();
+        card.setRank("K");
+        card.setSuit("heart");
+
+        cards.add(card);
+
+        instance.evaluateCards(cards);
+
+        System.out.println("getCombo");
+
+        String expResult = "none";
+        String result = instance.getCombo();
+        System.out.println("Kombo: " + result);
+        assertEquals(expResult, result);
+
+        System.out.println("getLevel");
+
+        expResult = "high";
+        result = instance.getLevel();
+        System.out.println("Szint: " + result);
+        assertEquals(expResult, result);
+
+    }
+
+    /**
      * parok testje : low,medium,high
      */
     @Test
