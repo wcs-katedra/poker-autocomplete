@@ -89,4 +89,28 @@ public class PlayerTest {
         // assert
     }
 
+    /**
+     * Test of cardAnalysis method, of class Player.
+     */
+    @Test
+    public void testCardAnalysisWithRandomGameStates() {
+        // arrange
+        String result;
+        int state=0;
+        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);    
+        GameState gs;
+        Player player = new Player();
+        
+        // act
+        while(gsf.hasMoreGameState()) {
+            gs = gsf.getNextGameState();
+            System.out.print("starting -> "+GameTurn.getTrun(state++));
+            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame());
+            result = player.cardAnalysisForTest(gs);
+            System.out.print("\n\tthe evald cards is:  "+result+"\n");
+        }
+        
+        // assert
+    }
+    
 }

@@ -49,6 +49,24 @@ public class Player {
 
         return finalBet;
     }
+    
+    public String cardAnalysisForTest(GameState gameState){
+        String cardsCombo = "";
+        String cardsLevel = "";  
+        CardAnalysis analysis = new CardAnalysis();
+        
+        // get tha cards in the current game
+        List<Card> cards = gameState.cardsInTheGame();
+        
+        // send them to analysis
+        analysis.evaluateCards(cards);
+        
+        // recieve the result from the calss
+        cardsCombo = analysis.getCombo();
+        cardsLevel = analysis.getLevel();
+        
+        return "\" "+cardsCombo+" / "+cardsLevel+" \"";
+    }
 
     public void showdown(GameState gameState) {
     }
