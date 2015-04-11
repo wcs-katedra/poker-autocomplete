@@ -34,6 +34,46 @@ public class GameState {
     private List<Card> communityCards = new ArrayList<Card>();
 
     /**
+     * A játékos állapota: 
+     * - active as 'a': A játékos tud merakni tétet, még
+     * megnyerheti a berakott pénzt 
+     * - folded as 'f': A játékos bedobta,
+     * következő körben ismét játszik 
+     * - out as 'o': A játékos elvesztette minden
+     * pénzét, ebben a játékban már nem játszik
+     *
+     * @param c which playerstate will be counted ?
+     * @return the counted playerstate
+     */
+    public int getNumberOfPlayers(char c) {
+        int countPlayers = 0;
+
+        for (Player player : players) {
+            switch (c) {
+                case 'a':
+                    if ("active".equals(player.getStatus())) {
+                        countPlayers++;
+                    }
+                    break;
+                case 'f':
+                    if ("folded".equals(player.getStatus())) {
+                        countPlayers++;
+                    }
+                    break;
+                case 'o':
+                    if ("out".equals(player.getStatus())) {
+                        countPlayers++;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return countPlayers;
+    }
+
+    /**
      * creates a list of the cards on the table and in the action player hand
      * append them then return it
      *
@@ -46,6 +86,10 @@ public class GameState {
         returnCards.addAll(communityCards);
 
         return returnCards;
+    }
+
+    public int getCurrentPlayerbBet() {
+        return players.get(inAction).getBet();
     }
 
     public int getCurrentPlayerStack() {
@@ -76,7 +120,7 @@ public class GameState {
      *
      * @return a valid call in the current circumstances
      */
-    public Integer calculateCall() {
+    public int calculateCall() {
         return currentBuyIn - players.get(inAction).getBet();
     }
 
@@ -84,12 +128,12 @@ public class GameState {
      *
      * @return minimum bet in the current circumstances
      */
-    public Integer calculateMinimalBet() {
+    public int calculateMinimalBet() {
         return currentBuyIn - players.get(inAction).getBet() + minimumRaise;
 
     }
 
-    public Integer getBigBlind() {
+    public int getBigBlind() {
         return this.smallBlind * 2;
     }
 
@@ -97,7 +141,7 @@ public class GameState {
      *
      * @return The smallBlind
      */
-    public Integer getSmallBlind() {
+    public int getSmallBlind() {
         return smallBlind;
     }
 
@@ -145,7 +189,7 @@ public class GameState {
      *
      * @return The minimumRaise
      */
-    public Integer getMinimumRaise() {
+    public int getMinimumRaise() {
         return minimumRaise;
     }
 
@@ -234,7 +278,7 @@ public class GameState {
         cards.add(card1);
         cards.add(card2);
         p.setHoleCards(cards);
-        
+
         setPlayer(p);
     }
 

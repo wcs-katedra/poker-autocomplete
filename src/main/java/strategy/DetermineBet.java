@@ -5,7 +5,7 @@
  */
 package strategy;
 
-import com.wcs.poker.gamestate.Card;
+import com.wcs.poker.gamestate.GameState;
 
 /**
  *
@@ -13,30 +13,75 @@ import com.wcs.poker.gamestate.Card;
  */
 public class DetermineBet implements evaluate {
 
-    private int bigBlind;
-    private int minimumRaise;
-    private int currentBuyIn;
-    private int pot;
-    private int stack;
-    private int turns;
-    private int orbits;
+    /**
+     * A kis vak kétszerese.
+     */
+    private final int bigBlind;
+    /**
+     *  A kis vak értéke.
+     */
+    private final int smallBlind;
+    /**
+     *  Az az összeg ami a legkisebb emeléshez kell.
+     */
+    private final int minimumRaise;
+    /**
+     * A legmagasabb tét értéke, amit meg kell adni.
+     */
+    private final int currentBuyIn;
+    /**
+     *  A pénzhalom nagysága az asztalon.
+     */
+    private final int pot;
+    /**
+     *  A játékos zsetonjai.
+     */
+    private final int stack;
+    /**
+     * Ennyiszer ért körbe az osztókorong.
+     */
+    private final int orbits;
+    /**
+     * Az ebben a körben tétnek feltett zsetoinok összege.
+     */
+    private final int bet;
+    /**
+     * Call értékének számítása: current_buy_in - players[in_action][bet]
+     * TODO írd meg rendesen hogy mi a ** ez :D
+     */
+    private final int call;
+    /**
+     *  ez mi ez meg ez :D
+     */
+    private final int minimalbet;
+    /**
+     * Az aktuális játékállapotban aktív játékososk száma.
+     */
+    private final int numberOfActivePlayers;
+    /**
+     * Az aktuális játékállapotban már bedobott játékososk száma.
+     */
+    private final int numberOfFoldedPlayers;
+    /**
+     * Az aktuális játékállapotban a játékon kívüli játékososk száma.
+     */
+    private final int numberOfOutPlayers;
 
-    public DetermineBet(int bigBlind, int minimumRaise, int currentBuyIn, int pot, int stack, int rounds, int orbits) {
-        this.bigBlind = bigBlind;
-        this.minimumRaise = minimumRaise;
-        this.currentBuyIn = currentBuyIn;
-        this.pot = pot;
-        this.stack = stack;
-        this.turns = rounds;
-        this.orbits = orbits;
-    }
-
-    public DetermineBet(int bigBlind, int minimumRaise, int currentBuyIn, int pot, int stack) {
-        this.bigBlind = bigBlind;
-        this.minimumRaise = minimumRaise;
-        this.currentBuyIn = currentBuyIn;
-        this.pot = pot;
-        this.stack = stack;
+    public DetermineBet(GameState gameState) {
+        
+        bigBlind = gameState.getBigBlind();
+        smallBlind = gameState.getSmallBlind();
+        minimumRaise = gameState.getMinimumRaise();
+        currentBuyIn = gameState.getCurrentBuyIn();
+        pot = gameState.getPot();
+        stack = gameState.getCurrentPlayerStack();
+        call = gameState.calculateCall();
+        minimalbet =  gameState.calculateMinimalBet();
+        orbits = gameState.getOrbits();
+        bet = gameState.getCurrentPlayerbBet();
+        numberOfActivePlayers = gameState.getNumberOfPlayers('a');
+        numberOfFoldedPlayers = gameState.getNumberOfPlayers('f');
+        numberOfOutPlayers = gameState.getNumberOfPlayers('o');
     }
 
     /**
@@ -47,7 +92,7 @@ public class DetermineBet implements evaluate {
     //Versenytaktikák használata, a cashgame strarégiák itt nem nagyon játszanak
     @Override
     public Integer getBet(String combo, String level) {
-        int currentTurn = turns;
+        int currentTurn = orbits;
         Integer bet = 0;
 
         String pokerHand = combo + "," + level;

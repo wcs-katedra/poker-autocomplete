@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.leanpoker.player;
 
 import com.wcs.poker.gamestate.Card;
@@ -12,6 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * A class that create GameStates. It can generate a number of gamestates whith
+ * the int constructor or with the GameTrun constructor can make a gamestates
+ * until the Gameturn is reached
+ *
  *
  * @author boss
  */
@@ -59,6 +58,11 @@ public class GameStateFactory {
         }
     }
 
+    /**
+     * Calls the right constructor by the given turn
+     *
+     * @param gameStateToCreate
+     */
     private void createGameState(GameTurn gameStateToCreate) {
         switch (gameStateToCreate) {
             case PRE_FLOP:
@@ -86,6 +90,12 @@ public class GameStateFactory {
         gameStates.add(gs);
     }
 
+    /**
+     * copy the template gamestate values to a new gamesate.
+     *
+     * @param template which gamestate will be the copyed
+     * @return a new gamestate filled with the template parameters
+     */
     private GameState copyToNewGameState(GameState template) {
         GameState gs = new GameState();
 
@@ -131,14 +141,12 @@ public class GameStateFactory {
         gs.setCommunityCards(cards);
         gameStates.add(gs);
     }
-    
-    
 
     /**
-     * Init the "table". loads a gamestate fields
+     * Init the gamestate with the values of the GameStateDefaultValues class.
      *
-     * @param gs
-     * @return
+     * @param gs the gamestate what to init
+     * @return the inicialized gamestate
      */
     private GameState initPreFlopGameState(GameState gs) {
         gs.setSmallBlind(GameStateDefaultValues.getSmallBlind());
@@ -178,7 +186,7 @@ public class GameStateFactory {
     }
 
     /**
-     * Init the "table". loads a gamestate fields
+     * Init the gamestate with default values.
      *
      * @param gs
      * @return
@@ -200,8 +208,8 @@ public class GameStateFactory {
      * every time. cause we get it in the first "round" and after there is no
      * change in it
      *
-     * @param gs
-     * @return
+     * @param gs the gamestate what needs a player
+     * @return the gamestate with the player
      */
     private GameState setThePlayer(GameState gs) {
         // stack,bet, c1,c2

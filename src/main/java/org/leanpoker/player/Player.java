@@ -21,17 +21,10 @@ public class Player {
     public int betRequest(GameState gameState) {
         String cardsCombo = "";
         String cardsLevel = "";
-        int finalBet = 0;
-
-        // mine data for the class
-        int bigBlind = gameState.getBigBlind();
-        int minimumRaise = gameState.getMinimumRaise();
-        int currentBuyIn = gameState.getCurrentBuyIn();
-        int pot = gameState.getPot();
-        int stack = gameState.getCurrentPlayerStack();
+        int finalBet = 0;      
 
         // init the neseseary classes
-        DetermineBet determineBet = new DetermineBet(bigBlind, minimumRaise, currentBuyIn, pot, stack);
+        DetermineBet determineBet = new DetermineBet(gameState);
         CardAnalysis analysis = new CardAnalysis();
 
         // get tha cards in the current game
