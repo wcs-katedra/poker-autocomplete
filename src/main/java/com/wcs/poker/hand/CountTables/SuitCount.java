@@ -5,20 +5,22 @@
  */
 package com.wcs.poker.hand.CountTables;
 
+import com.wcs.poker.gamestate.Suit;
+
 /**
  *
  * @author MártonZoltán
  */
 public class SuitCount {
 
-    private String suit;
+    private Suit suit;
     private int count = 0;
 
-    public String getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
-    public void setSuit(String suit) {
+    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 

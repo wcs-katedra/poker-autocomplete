@@ -2,45 +2,67 @@ package com.wcs.poker.gamestate;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
+import java.util.Objects;
 
 @Generated("org.jsonschema2pojo")
-public class Card {
+public class Card implements Comparable<Card> {
 
     @Expose
-    private String rank;
+    private Rank rank;
     @Expose
-    private String suit;
+    private Suit suit;
+
+    public String getRankS() {
+        return rank.name();
+    }
+
+    public void setRankS(String rankS) {
+        if (rankS.matches("\\d+")) {
+            this.rank = Rank.valueOf("_" + rankS);
+        } else {
+            this.rank = Rank.valueOf(rankS);
+        }
+
+    }
+
+    public String getSuitS() {
+        return suit.name();
+    }
+
+    public void setSuitS(String suitS) {
+        this.suit = Suit.valueOf(suitS.toUpperCase());
+    }
 
     /**
      *
-     * @return the rank
+     * @return the rankE
      */
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
     /**
-     * set the rank to
+     * set the rankE to
      *
      * @param rank
      */
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
     /**
-     * @return the suit
+     * @return the suitR
      */
-    public String getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
     /**
-     * set the suit to
+     * set the suitR to
      *
      * @param suit
      */
-    public void setSuit(String suit) {
+    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 
@@ -54,6 +76,45 @@ public class Card {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.rank);
+        hash = 41 * hash + Objects.hashCode(this.suit);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Card other = (Card) obj;
+        if (this.rank != other.rank) {
+            return false;
+        }
+        if (this.suit != other.suit) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        int retVal;
+
+        if (o.getRank().equals(rank)) {
+            retVal = suit.compareTo(o.getSuit());
+        } else {
+            retVal = o.getRank().compareTo(rank);
+        }
+
+        return retVal;
     }
 
 }

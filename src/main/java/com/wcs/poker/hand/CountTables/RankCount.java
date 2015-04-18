@@ -5,6 +5,7 @@
  */
 package com.wcs.poker.hand.CountTables;
 
+import com.wcs.poker.gamestate.Rank;
 import com.wcs.poker.hand.enums.HandLevel;
 
 
@@ -15,15 +16,15 @@ import com.wcs.poker.hand.enums.HandLevel;
  */
 public class RankCount {
 
-    private String rank;
+    private Rank rank;
     private HandLevel level;
     private int count = 0;
 
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 

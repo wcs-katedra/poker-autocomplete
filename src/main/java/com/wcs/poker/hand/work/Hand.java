@@ -19,7 +19,7 @@ public class Hand {
 
     public Hand(HandRank rank, List<Card> cards) {
         this.rank = rank;
-        this.cards = Collections.unmodifiableCollection(cards);
+        this.cards = cards;
     }
 
     @Override

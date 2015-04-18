@@ -5,7 +5,6 @@
  */
 package com.wcs.poker.hand.work;
 
-
 import com.wcs.poker.hand.CountTables.RankCount;
 import com.wcs.poker.hand.CountTables.SuitCount;
 import com.wcs.poker.hand.enums.HandLevel;
@@ -45,19 +44,19 @@ public class Counting {
             if (rankcount1.getCount() > 0) {
                 flushLevel = rankcount1.getLevel();
                 switch (rankcount1.getRank()) {
-                    case "A":
+                    case A:
                         a = true;
                         break;
-                    case "K":
+                    case K:
                         k = true;
                         break;
-                    case "Q":
+                    case Q:
                         q = true;
                         break;
-                    case "J":
+                    case J:
                         j = true;
                         break;
-                    case "10":
+                    case _10:
                         ten = true;
                         break;
 
@@ -67,14 +66,14 @@ public class Counting {
             switch (rankcount1.getCount()) {
                 case 2:
                     result = HandRank.PAIR;
-                     levelresult = rankcount1.getLevel();
-                     pair2Lelvel = rankcount1.getLevel();
+                    levelresult = rankcount1.getLevel();
+                    pair2Lelvel = rankcount1.getLevel();
                     pair++;
                     break;
                 case 3:
                     result = HandRank.THREE_OF_A_KIND;
-                       levelresult = rankcount1.getLevel();
-                       fullLevel = rankcount1.getLevel();
+                    levelresult = rankcount1.getLevel();
+                    fullLevel = rankcount1.getLevel();
                     drill++;
                     break;
                 case 4:
@@ -135,8 +134,5 @@ public class Counting {
     public HandLevel getFlushLevel() {
         return flushLevel;
     }
-    
-    
-    
-    
+
 }

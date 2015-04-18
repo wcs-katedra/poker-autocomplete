@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.wcs.poker.jsonconverter.JsonConverter;
 
 @Generated("org.jsonschema2pojo")
 public class GameState {
@@ -34,12 +35,9 @@ public class GameState {
     private List<Card> communityCards = new ArrayList<Card>();
 
     /**
-     * A játékos állapota: 
-     * - active as 'a': A játékos tud merakni tétet, még
-     * megnyerheti a berakott pénzt 
-     * - folded as 'f': A játékos bedobta,
-     * következő körben ismét játszik 
-     * - out as 'o': A játékos elvesztette minden
+     * A játékos állapota: - active as 'a': A játékos tud merakni tétet, még
+     * megnyerheti a berakott pénzt - folded as 'f': A játékos bedobta,
+     * következő körben ismét játszik - out as 'o': A játékos elvesztette minden
      * pénzét, ebben a játékban már nem játszik
      *
      * @param c which playerstate will be counted ?
@@ -325,10 +323,15 @@ public class GameState {
         players.add(player);
     }
 
+    /**
+     *  :P 
+     * @param rank
+     * @param suit 
+     */
     public void addCard(String rank, String suit) {
         Card card = new Card();
-        card.setRank(rank);
-        card.setSuit(suit);
+        String json = "{rank : " + rank + ",suit: " + suit + "}";
+        card = new JsonConverter<>(Card.class).fromJson(json);
         communityCards.add(card);
     }
 

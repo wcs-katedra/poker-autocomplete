@@ -5,7 +5,8 @@
  */
 package com.wcs.poker.hand.CountTables;
 
-
+import com.wcs.poker.gamestate.Rank;
+import com.wcs.poker.gamestate.Suit;
 import com.wcs.poker.hand.enums.HandLevel;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,28 +30,28 @@ public class UploadList {
                 rank = new RankCount();
                 rank.setLevel(HandLevel.MEDIUM);
             }
-            rank.setRank(Integer.toString(i));
+            rank.setRank(Rank.valueOf("_" + i));
             rankCount.add(rank);
 
         }
 
         rank = new RankCount();
-        rank.setRank("J");
+        rank.setRank(Rank.valueOf("J"));
         rank.setLevel(HandLevel.HIGH);
         rankCount.add(rank);
 
         rank = new RankCount();
-        rank.setRank("Q");
+        rank.setRank(Rank.valueOf("Q"));
         rank.setLevel(HandLevel.HIGH);
         rankCount.add(rank);
 
         rank = new RankCount();
-        rank.setRank("K");
+        rank.setRank(Rank.valueOf("K"));
         rank.setLevel(HandLevel.HIGH);
         rankCount.add(rank);
 
         rank = new RankCount();
-        rank.setRank("A");
+        rank.setRank(Rank.valueOf("A"));
         rank.setLevel(HandLevel.HIGH);
         rankCount.add(rank);
 
@@ -61,22 +62,22 @@ public class UploadList {
 
         List<SuitCount> suitCount = new ArrayList<>();
         SuitCount suit = new SuitCount();
-        
-        suit.setSuit("heart");
+
+        suit.setSuit(Suit.HEARTS);
         suitCount.add(suit);
 
         suit = new SuitCount();
-        suit.setSuit("spade");
+        suit.setSuit(Suit.SPADES);
         suitCount.add(suit);
 
         suit = new SuitCount();
-        suit.setSuit("diamonds");
+        suit.setSuit(Suit.DIAMONDS);
         suitCount.add(suit);
 
         suit = new SuitCount();
-        suit.setSuit("clubs");
+        suit.setSuit(Suit.CLUBS);
         suitCount.add(suit);
-        
+
         return suitCount;
     }
 
