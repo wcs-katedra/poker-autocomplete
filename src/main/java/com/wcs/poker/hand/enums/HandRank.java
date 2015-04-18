@@ -1,4 +1,4 @@
-package com.wcs.poker.hand;
+package com.wcs.poker.hand.enums;
 
 /**
  *
@@ -7,6 +7,7 @@ package com.wcs.poker.hand;
 public enum HandRank {
 
     ROYAL_FLUSH,
+    ROYAL,
     STRAIGHT_FLUSH,
     FOUR_OF_A_KIND,
     FULL_HOUSE,
