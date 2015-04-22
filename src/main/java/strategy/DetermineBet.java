@@ -148,42 +148,43 @@ public class DetermineBet {
     }
 
     protected Integer highCardBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     protected Integer pairBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     protected Integer twoPairBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     private Integer threeOfAKindBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     private Integer straightBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     private Integer flushBet() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return minimalbet;
     }
 
     private Integer fullHouseBet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return minimalbet;
     }
 
     private Integer fourOfAKindBet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return minimalbet;
     }
 
     private Integer royalFlushBet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return minimalbet;
     }
 
     private Integer straightFlushBet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return minimalbet;
     }
+
 }

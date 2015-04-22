@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -46,6 +47,7 @@ public class PlayerTest {
 
     }
 
+    @Ignore
     @Test
     public void testBetRequestWithSingleGamestateFile() {
         // arrange
@@ -62,6 +64,7 @@ public class PlayerTest {
     /**
      * Test of betRequest method, of class Player.
      */
+    @Ignore
     @Test
     public void testBetRequestWithMultipleGamestateFiles() {
 
@@ -70,12 +73,13 @@ public class PlayerTest {
     /**
      * Test of betRequest method, of class Player.
      */
+
     @Test
     public void testBetRequestWithRandomGameStates() {
         // arrange
         int bet;
         int state = 0;
-        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
+        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
         GameState gs;
         HandRank result;
         Player player = new Player();
@@ -93,5 +97,4 @@ public class PlayerTest {
         }
     }
 
-        // assert
 }

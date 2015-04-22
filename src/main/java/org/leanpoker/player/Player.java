@@ -1,5 +1,6 @@
 package org.leanpoker.player;
 
+import cardAnalysis.CardAnalysis;
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
@@ -26,10 +27,17 @@ public class Player {
      * @return 0 -- ha bedobod ALL> -- aktuális tét ALL -- minden benn
      */
     public int betRequest(GameState gameState) {
-        int finalBet = 0;
+        int finalBet = gameState.calculateMinimalBet();
         List<Card> cards = gameState.cardsInTheGame();
-        HandRank hr = cardAnalysis(cards);
-        finalBet = determineByNumberOfCards(cards.size(),gameState, hr);
+        HandRank hr;
+        if (cards.size() == 2) {
+            CardAnalysis analysis = new CardAnalysis();
+            analysis.evaluateCards(cards);
+            hr = rankol(analysis.getCombo());
+        } else {
+            hr = cardAnalysis(cards);
+        }
+        finalBet = determineByNumberOfCards(cards.size(), gameState, hr);
         return finalBet;
     }
 
@@ -47,16 +55,29 @@ public class Player {
 
     public void showdown(GameState gameState) {
     }
-    
-    
-    
 
-    private int determineByNumberOfCards(int size,GameState gs, HandRank hr) {
-        int retVal=gs.calculateMinimalBet();
-        if (size == 2 ) retVal = new CalculateOnPreflop(gs, hr).getBet();
-        if (size == 5 ) retVal = new CalculateOnFlop(gs, hr).getBet();
-        if (size == 6 ) retVal = new CalculateOnTurn(gs, hr).getBet();
-        if (size == 7 ) retVal = new CalculateOnRiver(gs, hr).getBet();
-        return  retVal;
+    private int determineByNumberOfCards(int size, GameState gs, HandRank hr) {
+        int retVal = gs.calculateMinimalBet();
+        if (size == 2) {
+            retVal = new CalculateOnPreflop(gs, hr).getBet();
+        }
+        if (size == 5) {
+            retVal = new CalculateOnFlop(gs, hr).getBet();
+        }
+        if (size == 6) {
+            retVal = new CalculateOnTurn(gs, hr).getBet();
+        }
+        if (size == 7) {
+            retVal = new CalculateOnRiver(gs, hr).getBet();
+        }
+        return retVal;
+    }
+
+    private HandRank rankol(String combo) {
+        if ("pair".equals(combo)){
+            return HandRank.PAIR;
+        }
+        
+        return HandRank.HIGH_CARD;
     }
 }
