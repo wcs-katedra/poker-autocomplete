@@ -57,7 +57,7 @@ public class FinalResult {
 
         suitAnalysisResult = counting.suitAnalysis(suitCount);
 
-        if (suitAnalysisResult == null) {
+        if (suitAnalysisResult == null || (suitAnalysisResult == HandRank.FLUSH && analysisRankListResult == HandRank.FOUR_OF_A_KIND)) {
             combo = analysisRankListResult;
         } else {
             combo = suitAnalysisResult;
