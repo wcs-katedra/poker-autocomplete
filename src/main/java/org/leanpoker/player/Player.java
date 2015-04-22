@@ -52,7 +52,7 @@ public class Player {
     
 
     private int determineByNumberOfCards(int size,GameState gs, HandRank hr) {
-        int retVal=1;
+        int retVal=gs.calculateMinimalBet();
         if (size == 2 ) retVal = new CalculateOnPreflop(gs, hr).getBet();
         if (size == 5 ) retVal = new CalculateOnFlop(gs, hr).getBet();
         if (size == 6 ) retVal = new CalculateOnTurn(gs, hr).getBet();
