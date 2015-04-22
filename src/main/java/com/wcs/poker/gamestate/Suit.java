@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 ♣ treff (CLUBS) ♦ káró (DIAMONDS) ♥ kőr (HEARTS) ♠ pikk (SPADES).
  * @author boss ;)
  */
-public enum Suits {
+public enum Suit {
     
     @SerializedName("clubs")
     CLUBS,

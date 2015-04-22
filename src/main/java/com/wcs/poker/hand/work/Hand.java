@@ -1,6 +1,9 @@
-package com.wcs.poker.hand;
+package com.wcs.poker.hand.work;
+
+
 
 import com.wcs.poker.gamestate.Card;
+import com.wcs.poker.hand.enums.HandRank;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,9 +19,15 @@ public class Hand {
 
     public Hand(HandRank rank, List<Card> cards) {
         this.rank = rank;
-        this.cards = Collections.unmodifiableCollection(cards);
+        this.cards = cards;
     }
 
+    @Override
+    public String toString() {
+        return "Hand{" + "rank=" + rank + ", cards=" + cards + '}';
+    }
+
+    
     public HandRank getRank() {
         return rank;
     }

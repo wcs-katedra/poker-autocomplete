@@ -33,12 +33,14 @@ public enum Rank {
     _8(8),
     @SerializedName("9")
     _9(9),
+    @SerializedName("10")
+    _10(10),
     @SerializedName("J")
-    J(10),
+    J(11),
     @SerializedName("Q")
-    Q(11),
+    Q(12),
     @SerializedName("K")
-    K(12);
+    K(13);
 
     private int rankValue;
 
