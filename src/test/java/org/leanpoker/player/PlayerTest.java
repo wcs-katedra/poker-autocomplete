@@ -10,9 +10,12 @@
  */
 package org.leanpoker.player;
 
+import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.jsonconverter.JsonConverter;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
@@ -54,7 +57,6 @@ public class PlayerTest {
         bet = player.betRequest(gs);
 
         // assert
-        
     }
 
     /**
@@ -62,7 +64,7 @@ public class PlayerTest {
      */
     @Test
     public void testBetRequestWithMultipleGamestateFiles() {
-        
+
     }
 
     /**
@@ -72,45 +74,24 @@ public class PlayerTest {
     public void testBetRequestWithRandomGameStates() {
         // arrange
         int bet;
-        int state=0;
-        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);    
+        int state = 0;
+        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
         GameState gs;
+        HandRank result;
         Player player = new Player();
-        
+
         // act
-        while(gsf.hasMoreGameState()) {
+        while (gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
-            System.out.print("starting -> "+GameTurn.getTrun(state++));
-            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame());
+            System.out.print("starting -> " + GameTurn.getTrun(state++));
+            List<Card> cardsInTheGame = gs.cardsInTheGame();
+            System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
             bet = player.betRequest(gs);
-            System.out.print("\n\tthe bet is :  "+bet+"\n");
+            System.out.print("\n\tthe bet is :  " + bet);
+            result = player.cardAnalysis(cardsInTheGame);
+            System.out.print("\n\tthe evald cards is:  " + result + "\n");
         }
-        
-        // assert
     }
 
-    /**
-     * Test of cardAnalysis method, of class Player.
-     */
-    @Test
-    public void testCardAnalysisWithRandomGameStates() {
-        // arrange
-        String result;
-        int state=0;
-        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);    
-        GameState gs;
-        Player player = new Player();
-        
-        // act
-        while(gsf.hasMoreGameState()) {
-            gs = gsf.getNextGameState();
-            System.out.print("starting -> "+GameTurn.getTrun(state++));
-            System.out.print("\n\tcards in the current gameState : "+gs.cardsInTheGame());
-            result = player.cardAnalysisForTest(gs);
-            System.out.print("\n\tthe evald cards is:  "+result+"\n");
-        }
-        
         // assert
-    }
-    
 }
