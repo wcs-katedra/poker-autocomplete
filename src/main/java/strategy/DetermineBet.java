@@ -6,69 +6,72 @@
 package strategy;
 
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.hand.HandRank;
 
 /**
  *
  * @author gergo
  */
-public class DetermineBet implements evaluate {
+public class DetermineBet {
 
     /**
      * A kis vak kétszerese.
      */
-    private final int bigBlind;
+    protected final int bigBlind;
     /**
-     *  A kis vak értéke.
+     * A kis vak értéke.
      */
-    private final int smallBlind;
+    protected final int smallBlind;
     /**
-     *  Az az összeg ami a legkisebb emeléshez kell.
+     * Az az összeg ami a legkisebb emeléshez kell.
      */
-    private final int minimumRaise;
+    protected final int minimumRaise;
     /**
      * A legmagasabb tét értéke, amit meg kell adni.
      */
-    private final int currentBuyIn;
+    protected final int currentBuyIn;
     /**
-     *  A pénzhalom nagysága az asztalon.
+     * A pénzhalom nagysága az asztalon.
      */
-    private final int pot;
+    protected final int pot;
     /**
-     *  A játékos zsetonjai.
+     * A játékos zsetonjai.
      */
-    private final int stack;
+    protected final int stack;
     /**
      * Ennyiszer ért körbe az osztókorong.
      */
-    private final int orbits;
+    protected final int orbits;
     /**
      * Az ebben a körben tétnek feltett zsetoinok összege.
      */
-    private final int bet;
+    protected final int bet;
     /**
-     * Call értékének számítása: current_buy_in - players[in_action][bet]
-     * TODO írd meg rendesen hogy mi a ** ez :D
+     * Call értékének számítása: current_buy_in - players[in_action][bet] TODO
+     * írd meg rendesen hogy mi a ** ez :D
      */
-    private final int call;
+    protected final int call;
     /**
-     *  ez mi ez meg ez :D
+     * ez mi ez meg ez :D
      */
-    private final int minimalbet;
+    protected final int minimalbet;
     /**
      * Az aktuális játékállapotban aktív játékososk száma.
      */
-    private final int numberOfActivePlayers;
+    protected final int numberOfActivePlayers;
     /**
      * Az aktuális játékállapotban már bedobott játékososk száma.
      */
-    private final int numberOfFoldedPlayers;
+    protected final int numberOfFoldedPlayers;
     /**
      * Az aktuális játékállapotban a játékon kívüli játékososk száma.
      */
-    private final int numberOfOutPlayers;
+    protected final int numberOfOutPlayers;
 
-    public DetermineBet(GameState gameState) {
-        
+    protected HandRank handRank;
+
+    public DetermineBet(GameState gameState, HandRank handRank) {
+
         bigBlind = gameState.getBigBlind();
         smallBlind = gameState.getSmallBlind();
         minimumRaise = gameState.getMinimumRaise();
@@ -76,222 +79,111 @@ public class DetermineBet implements evaluate {
         pot = gameState.getPot();
         stack = gameState.getCurrentPlayerStack();
         call = gameState.calculateCall();
-        minimalbet =  gameState.calculateMinimalBet();
+        minimalbet = gameState.calculateMinimalBet();
         orbits = gameState.getOrbits();
         bet = gameState.getCurrentPlayerbBet();
         numberOfActivePlayers = gameState.getNumberOfPlayers('a');
         numberOfFoldedPlayers = gameState.getNumberOfPlayers('f');
         numberOfOutPlayers = gameState.getNumberOfPlayers('o');
+
+        this.handRank = handRank;
     }
 
-    /**
-     * @param combo
-     * @param level
-     * @return bet
-     */
-    //Versenytaktikák használata, a cashgame strarégiák itt nem nagyon játszanak
-    @Override
-    public Integer getBet(String combo, String level) {
-        int currentTurn = orbits;
-        Integer bet = 0;
+    protected Integer throwCards() {
+        return 0;
+    }
 
-        String pokerHand = combo + "," + level;
+    protected Integer holdCards() {
+        return minimalbet;
+    }
 
-        //Számok alkalmazása nem ajánlott mivel a vakok értéke változik
-        //A játék elejét jelenti ha az orbits kisebb mint 3
-        if (orbits < 3) {
-            //preflop
-            if (currentTurn == 0) {
-                switch (pokerHand) {
-                    // Ha emelnek a preflopnál akkor dobjuk a gyenge lapokat
-                    case "none,low":
-                        bet = currentBuyIn == 0 ? bigBlind : 0;
-                        break;
-                    // Ha emelnek a preflopnál akkor dobjuk a közepes lapokat, ha az emelés több mint 2BB
-                    case "none,medium":
-                        bet = currentBuyIn >= bigBlind + bigBlind * 1 ? bigBlind + bigBlind * 1 : 0;
-                        break;
-                    //Jó magaslapokra tartjuk, vagy emelünk 2BB+BB-t
-                    case "none,high":
-                        if (currentBuyIn == 0) {
-                            bet = bigBlind + bigBlind * 2;
-                        } else if (currentBuyIn > bigBlind * 2) {
-                            bet = 0;
-                        } else {
-                            bet = bigBlind + bigBlind * 2;
-                        }
+    protected Integer raiseBet(int amount) {
+        return minimalbet + amount;
+    }
 
-                        break;
+    protected Integer allIn() {
+        return stack;
+    }
 
-                    //limperek kiszórása emelés 4bb-8bb-vel, afölött valószínű jó lapja van
-                    case "pair,low":
-                        bet = bigBlind + bigBlind * 4;
-                        break;
-                    case "pair,medium":
-                        bet = currentBuyIn >= bigBlind * 6 ? bigBlind + bigBlind * 6 : 0;
-                        break;
-                    case "pair,high":
-                        bet = bigBlind + bigBlind * 8;
-                        break;
+    protected Integer getDoubleBigBlind() {
+        return 2 * bigBlind;
+    }
 
-                }
-                //flop
-                if (currentTurn == 1) {
+    protected Integer getTripleBigBlind() {
+        return 3 * bigBlind;
+    }
 
-                    switch (pokerHand) {
+    protected Integer getAmountOfBigBlind(int number) {
+        return bigBlind * number;
+    }
+    protected boolean LowCombination(HandRank handRank) {
+        if(handRank.equals(HandRank.HIGH_CARD)){return true;}
+        else if (handRank.equals(HandRank.PAIR)){return true;}
+        else return handRank.equals(HandRank.TWO_PAIRS);
+    }
+    
+    protected boolean MediumCombination(HandRank handRank) {
+        if(handRank.equals(HandRank.THREE_OF_A_KIND)){return true;}
+        else if (handRank.equals(HandRank.STRAIGHT)){return true;}
+        else if (handRank.equals(HandRank.FLUSH)){return true;}
+        else return handRank.equals(HandRank.FULL_HOUSE);
+    }
+    
+    protected Integer getLowCombination(HandRank handRank) {
+        if(handRank.equals(HandRank.HIGH_CARD)) { return highCardBet();}
+        else if (handRank.equals(HandRank.PAIR)){ return pairBet();}
+        else  { return twoPairBet();}
+}
+    protected Integer getMediumCombination(HandRank handRank) {
+         if(handRank.equals(HandRank.THREE_OF_A_KIND)){return threeOfAKindBet();}
+        else if (handRank.equals(HandRank.STRAIGHT)){return straightBet();}
+        else if (handRank.equals(HandRank.FLUSH)){return flushBet();}
+        else return fullHouseBet();
+    }
 
-                        case "none,low":
-                            bet = currentBuyIn == 0 ? bigBlind : 0;
-                            break;
+    protected Integer getHighCombination(HandRank handRank) {
+        if(handRank.equals(HandRank.FOUR_OF_A_KIND)){return fourOfAKindBet();}
+        else if (handRank.equals(HandRank.STRAIGHT_FLUSH)){return straightFlushBet();}
+        else return royalFlushBet();
+    }
 
-                        case "none,medium":
-                            bet = bigBlind;
-                            break;
-                        case "none,high":
-                            bet = bigBlind;
-                            break;
+    protected Integer highCardBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "pair,low":
-                            bet = bigBlind + 100;
-                            break;
-                        case "pair,medium":
-                            bet = bigBlind + 100;
-                            break;
-                        case "pair,high":
-                            bet = bigBlind + 150;
-                            break;
+    protected Integer pairBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "2pair,low":
-                            bet = bigBlind + 200;
-                            break;
-                        case "2pair,medium":
-                            bet = bigBlind + 200;
-                            break;
-                        case "2pair,high":
-                            bet = bigBlind + 200;
-                            break;
+    protected Integer twoPairBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "drill,low":
-                            bet = bigBlind + 300;
-                            break;
-                        case "drill,medium":
-                            bet = bigBlind + 300;
-                            break;
-                        case "drill,high":
-                            bet = bigBlind + 300;
-                            break;
+    private Integer threeOfAKindBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "straight,low":
-                            bet = bigBlind + 300;
-                            break;
-                        case "straight,medium":
-                            bet = bigBlind + 300;
-                            break;
-                        case "straight,high":
-                            bet = bigBlind + 300;
-                            break;
+    private Integer straightBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "full,low":
-                            bet = bigBlind + 300;
-                            break;
-                        case "full,medium":
-                            bet = bigBlind + 300;
-                            break;
-                        case "full,high":
-                            bet = bigBlind + 300;
-                            break;
+    private Integer flushBet() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
-                        case "poker,low":
-                            bet = bigBlind + 300;
-                            break;
-                        case "poker,medium":
-                            bet = bigBlind + 300;
-                            break;
-                        case "poker,high":
-                            bet = bigBlind + 300;
-                            break;
+    private Integer fullHouseBet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-                        case "flush,low":
-                            bet = bigBlind + 400;
-                            break;
-                        case "flsuh,medium":
-                            bet = bigBlind + 400;
-                            break;
-                        case "flush,high":
-                            bet = bigBlind + 400;
-                            break;
+    private Integer fourOfAKindBet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-                        case "straight flush,low":
-                            bet = bigBlind + 500;
-                            break;
-                        case "straight flush,medium":
-                            bet = bigBlind + 500;
-                            break;
-                        case "straight flush,high":
-                            bet = bigBlind + 500;
-                            break;
+    private Integer royalFlushBet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-                        case "royal flush,low":
-                            bet = bigBlind + 500;
-                            break;
-                        case "royal flush,medium":
-                            bet = bigBlind + 500;
-                            break;
-                        case "royal flush":
-                            bet = bigBlind + 500;
-                            break;
-                    }
-
-                    //turn
-                    if (currentTurn == 2) {
-
-                    }//river
-                    if (currentTurn == 3) {
-
-                    }
-                }
-            }
-
-        }
-
-        /**
-         * -----------------------------------------------------------------------------
-         * Eddig tart a verseny első- és közép szakasza 3-szor ért körbe a
-         * dealer korong. Tehát a körök száma = csapatok * az orbits-al. 6*3=18
-         */
-        if (orbits > 3) //A verseny közepe-vége felé megadjuk az all-in-t a preflopnál, a flop kiszorítás ellen
-        {
-            //preflop
-            if (currentTurn == 0) {
-                switch (pokerHand) {
-                    // Ha emelnek a preflopnál akkor dobjuk a gyenge lapokat
-                    case "none,low":
-                        bet = currentBuyIn == 0 ? bigBlind : 0;
-                        break;
-                    // Ha emelnek a preflopnál akkor dobjuk a közepes lapokat, ha az emelés több mint 2BB
-                    case "none,medium":
-                        bet = currentBuyIn >= bigBlind + bigBlind * 1 ? bigBlind + bigBlind * 1 : 0;
-                        break;
-                    //Jó magaslapokra tartjuk, vagy emelünk 2BB+BB-t
-                    case "none,high":
-                        bet = stack / 2; // Blöffölés, de 38.8%, hogy lesz belőle 2 pár, drill: 15.3%
-                        break;
-
-                    //limperek kiszórása emelés 4bb-8bb-vel, afölött valószínű jó lapja van
-                    case "pair,low":
-                        bet = bigBlind + bigBlind * 4;
-                        break;
-                    case "pair,medium":
-                        bet = currentBuyIn >= bigBlind * 6 ? bigBlind + bigBlind * 6 : 0;
-                        break;
-                    case "pair,high":
-                        bet = stack;
-                        break;
-                }
-
-            }
-            
-        }
-        return bet;
+    private Integer straightFlushBet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

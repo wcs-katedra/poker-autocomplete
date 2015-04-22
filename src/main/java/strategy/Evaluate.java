@@ -9,8 +9,8 @@ package strategy;
  *
  * @author MártonZoltán
  */
-public interface evaluate {
+public interface Evaluate {
     
-    Integer getBet(String combo, String level);
+    Integer getBet();
     
 }
