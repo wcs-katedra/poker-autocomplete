@@ -32,7 +32,7 @@ public class FinalResult {
         for (Card card : cards) {
             for (RankCount rankCount1 : rankCount) {
                 if (rankCount1.getRank().equals(card.getRank())) {
-                    rankCount1.setCount();
+                    rankCount1.incrementCount();
                 }
             }
         }
@@ -40,7 +40,7 @@ public class FinalResult {
         for (Card card : cards) {
             for (SuitCount suitCount1 : suitCount) {
                 if (suitCount1.getSuit().equals(card.getSuit())) {
-                    suitCount1.setCount();
+                    suitCount1.incrementCount();
                 }
             }
         }

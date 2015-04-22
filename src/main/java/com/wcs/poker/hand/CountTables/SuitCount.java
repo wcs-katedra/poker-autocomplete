@@ -28,7 +28,7 @@ public class SuitCount {
         return count;
     }
 
-    public void setCount() {
+     public void incrementCount() {
         this.count++;
     }
 }

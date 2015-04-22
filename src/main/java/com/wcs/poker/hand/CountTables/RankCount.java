@@ -32,7 +32,7 @@ public class RankCount {
         return count;
     }
 
-    public void setCount() {
+    public void incrementCount() {
         this.count++;
     }
 
