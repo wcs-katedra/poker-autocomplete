@@ -79,6 +79,7 @@ public class FinalResult {
 
         if (combo == null) {
             level = counting.getFlushLevel();
+            combo=HandRank.HIGH_CARD;
         }
 
     }
