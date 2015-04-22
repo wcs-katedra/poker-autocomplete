@@ -1,7 +1,7 @@
 package strategy;
 
 import com.wcs.poker.gamestate.GameState;
-import com.wcs.poker.hand.HandRank;
+import com.wcs.poker.hand.enums.HandRank;
 
 /**
  * Here we determine the bet for the preflop gamestate. Fields are in the DetermineBet class. 
