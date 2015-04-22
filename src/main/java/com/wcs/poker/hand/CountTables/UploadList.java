@@ -22,6 +22,11 @@ public class UploadList {
 
         RankCount rank = new RankCount();
 
+        rank = new RankCount();
+        rank.setRank(Rank.valueOf("A"));
+        rank.setLevel(HandLevel.HIGH);
+        rankCount.add(rank);
+
         for (int i = 2; i < 11; i++) {
             if (i < 7) {
                 rank = new RankCount();
