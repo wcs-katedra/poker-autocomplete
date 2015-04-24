@@ -19,12 +19,12 @@ import java.util.Random;
 public class BaseFunctions extends BaseFields {
 
     private List<HandRank> extremeRanks = new ArrayList<>();
-    private List<HandRank> highRanks = new ArrayList<>();
-    private List<HandRank> mediumRanks = new ArrayList<>();
+    protected List<HandRank> highRanks = new ArrayList<>();
+    protected List<HandRank> mediumRanks = new ArrayList<>();
     
-    protected int extremeMultiplier = 5;
-    protected int highMultiplier = 5;
-    protected int mediumMultiplier = 5;
+    protected int extremeMultiplier = 6;
+    protected int highMultiplier = 4;
+    protected int mediumMultiplier = 2;
 
     public BaseFunctions(GameState gameState, Hand hand) {
         super(gameState, hand);

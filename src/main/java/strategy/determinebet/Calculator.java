@@ -6,6 +6,7 @@
 package strategy.determinebet;
 
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
 
 /**
@@ -18,7 +19,7 @@ public class Calculator extends BaseFunctions {
         super(gameState, hand);
     }
 
-    protected Integer getBet() {
+    protected Integer getBetPre() {
         if (isExtremeCombination(hand)) {
             return allIn();
         } else if (isHighCombination(hand)) {
@@ -30,7 +31,7 @@ public class Calculator extends BaseFunctions {
     }
 
     protected Integer getFinalBet(int limit) {
-        Integer bet = this.getBet();
+        Integer bet = getBetPre();
         if (bet.equals(-1)) {
             return holdByStack(limit);
         }
@@ -45,6 +46,10 @@ public class Calculator extends BaseFunctions {
     }
 
     protected Integer raise(Hand hand) {
-        return minimalbet;
+        HandRank base = highRanks.get(highRanks.size()-1);
+        HandRank rank = hand.getRank();
+        int value = base.ordinal()-rank.ordinal();        
+        
+        return (stack-minimalbet)/100*highMultiplier+minimalbet;
     }
 }

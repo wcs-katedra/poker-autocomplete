@@ -73,7 +73,7 @@ public class PlayerTest {
     public void testBetRequestWithFixedCards() throws IOException {
         // arrange
         int state = 0;
-        List<Card> playWith = getRank(HandRank.ROYAL_FLUSH);
+        List<Card> playWith = getRank(HandRank.STRAIGHT);
         GameStateFactory.setFixedCards(playWith.iterator());
         GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
         Player player = new Player();
