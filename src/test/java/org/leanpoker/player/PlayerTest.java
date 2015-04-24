@@ -64,6 +64,7 @@ public class PlayerTest {
         bet = player.betRequest(gs);
 
         // assert
+        assertTrue(true);
     }
 
     /**
