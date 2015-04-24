@@ -95,6 +95,9 @@ public class PlayerTest {
             result = player.cardAnalysis(cardsInTheGame);
             System.out.print("\n\tthe evald cards is:  " + result + "\n");
         }
+        
+        // assert
+        assertTrue(true);
     }
 
 }
