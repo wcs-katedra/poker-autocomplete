@@ -129,7 +129,7 @@ public class GameState {
      * @return minimum bet in the current circumstances
      */
     public int calculateMinimalBet() {
-        return currentBuyIn - players.get(inAction).getBet() + minimumRaise;
+        return calculateCall() + minimumRaise;
 
     }
 
