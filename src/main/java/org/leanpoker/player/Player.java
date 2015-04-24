@@ -27,17 +27,9 @@ public class Player {
      * @return 0 -- ha bedobod ALL> -- aktuális tét ALL -- minden benn
      */
     public int betRequest(GameState gameState) {
-        int finalBet = gameState.calculateMinimalBet();
         List<Card> cards = gameState.cardsInTheGame();
-        HandRank hr;
-        if (cards.size() == 2) {
-            CardAnalysis analysis = new CardAnalysis();
-            analysis.evaluateCards(cards);
-            hr = rankol(analysis.getCombo());
-        } else {
-            hr = cardAnalysis(cards);
-        }
-        finalBet = determineByNumberOfCards(cards.size(), gameState, hr);
+        HandRank hr = cardAnalysis(cards);
+        int finalBet = determineByNumberOfCards(cards.size(), gameState, hr);
         return finalBet;
     }
 
@@ -74,10 +66,10 @@ public class Player {
     }
 
     private HandRank rankol(String combo) {
-        if ("pair".equals(combo)){
+        if ("pair".equals(combo)) {
             return HandRank.PAIR;
         }
-        
+
         return HandRank.HIGH_CARD;
     }
 }
