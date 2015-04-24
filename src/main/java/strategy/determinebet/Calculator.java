@@ -49,7 +49,7 @@ public class Calculator extends BaseFunctions {
         HandRank base = highRanks.get(highRanks.size()-1);
         HandRank rank = hand.getRank();
         int value = base.ordinal()-rank.ordinal();        
-        
-        return (stack-minimalbet)/100*highMultiplier+minimalbet;
+        int level = 3-hand.getLevel().ordinal();
+        return (stack-minimalbet)/100*highMultiplier*(value*level)+minimalbet;
     }
 }
