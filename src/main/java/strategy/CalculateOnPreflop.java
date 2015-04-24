@@ -20,33 +20,11 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        if (hand.getRank() == HandRank.HIGH_CARD) {
-            return highCardBet();
-        } else {
-            return pairBet();
-        }
+        return minimalbet;
     }
 
-    @Override
-    protected Integer highCardBet() {
-        if (currentBuyIn == bigBlind) {
-            return bigBlind;
-        } else if (currentBuyIn == getDoubleBigBlind()) {
-            return getTripleBigBlind();
-        } else {
-            return holdCards();
-        }
-    }
 
-    //limperek kiszórása emelés 4bb-8bb-vel, afölött valószínű jó lapja van
 
-    @Override
-    protected Integer pairBet() {
-        if (currentBuyIn <= getTripleBigBlind()) {
-            return getAmountOfBigBlind(8);
-        } else {
-            return holdCards();
-        }
-    }
+
 
 }

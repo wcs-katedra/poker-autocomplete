@@ -10,12 +10,19 @@ import com.wcs.poker.hand.work.Hand;
 
 /**
  *
- * @author boss
+ * @author Tamás
  */
-public class Calculator extends BaseFunctions{
+public class Calculator extends BaseFunctions {
 
     public Calculator(GameState gameState, Hand hand) {
         super(gameState, hand);
     }
-    
+
+    protected Integer holdCards(Hand hand) {
+        return minimalbet;
+    }
+
+    protected Integer raiseBet(Hand hand) {
+        return minimalbet;
+    }
 }

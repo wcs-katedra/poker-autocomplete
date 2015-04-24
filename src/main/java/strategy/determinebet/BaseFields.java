@@ -7,7 +7,6 @@ package strategy.determinebet;
 
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.gamestate.enums.PlayerState;
-import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
 
 /**
@@ -89,128 +88,6 @@ public class BaseFields {
         numberOfOutPlayers = gameState.getNumberOfPlayers(PlayerState.OUT);
 
         this.hand = hand;
-    }
-
-    protected Integer throwCards() {
-        return 0;
-    }
-
-    protected Integer holdCards() {
-        return minimalbet;
-    }
-
-    protected Integer raiseBet(int amount) {
-        return minimalbet + amount;
-    }
-
-    protected Integer allIn() {
-        return stack-smallBlind;
-    }
-
-    protected Integer getDoubleBigBlind() {
-        return 2 * bigBlind;
-    }
-
-    protected Integer getTripleBigBlind() {
-        return 3 * bigBlind;
-    }
-
-    protected Integer getAmountOfBigBlind(int number) {
-        return bigBlind * number;
-    }
-
-    protected boolean LowCombination(Hand hand) {
-        if (hand.equals(HandRank.HIGH_CARD)) {
-            return true;
-        } else if (hand.equals(HandRank.PAIR)) {
-            return true;
-        } else {
-            return hand.equals(HandRank.TWO_PAIRS);
-        }
-    }
-
-    protected boolean MediumCombination(Hand hand) {
-        if (hand.equals(HandRank.THREE_OF_A_KIND)) {
-            return true;
-        } else if (hand.equals(HandRank.STRAIGHT)) {
-            return true;
-        } else if (hand.equals(HandRank.FLUSH)) {
-            return true;
-        } else {
-            return hand.equals(HandRank.FULL_HOUSE);
-        }
-    }
-
-    protected Integer getLowCombination(Hand hand) {
-        if (hand.equals(HandRank.HIGH_CARD)) {
-            return highCardBet();
-        } else if (hand.equals(HandRank.PAIR)) {
-            return pairBet();
-        } else {
-            return twoPairBet();
-        }
-    }
-
-    protected Integer getMediumCombination(Hand hand) {
-        if (hand.equals(HandRank.THREE_OF_A_KIND)) {
-            return threeOfAKindBet();
-        } else if (hand.equals(HandRank.STRAIGHT)) {
-            return straightBet();
-        } else if (hand.equals(HandRank.FLUSH)) {
-            return flushBet();
-        } else {
-            return fullHouseBet();
-        }
-    }
-
-    protected Integer getHighCombination(Hand hand) {
-        if (hand.equals(HandRank.FOUR_OF_A_KIND)) {
-            return fourOfAKindBet();
-        } else if (hand.equals(HandRank.STRAIGHT_FLUSH)) {
-            return straightFlushBet();
-        } else {
-            return royalFlushBet();
-        }
-    }
-
-    protected Integer highCardBet() {
-        return minimalbet;
-    }
-
-    protected Integer pairBet() {
-        return minimalbet;
-    }
-
-    protected Integer twoPairBet() {
-        return minimalbet;
-    }
-
-    private Integer threeOfAKindBet() {
-        return minimalbet;
-    }
-
-    private Integer straightBet() {
-        return minimalbet;
-    }
-
-    private Integer flushBet() {
-        return minimalbet;
-    }
-
-    private Integer fullHouseBet() {
-        return minimalbet;
-    }
-
-    private Integer fourOfAKindBet() {
-        return minimalbet;
-    }
-
-    private Integer royalFlushBet() {
-        return minimalbet;
-    }
-
-    private Integer straightFlushBet() {
-        return minimalbet;
     }
 
 }

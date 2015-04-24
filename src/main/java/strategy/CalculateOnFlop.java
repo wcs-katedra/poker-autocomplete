@@ -16,13 +16,7 @@ public class CalculateOnFlop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        if (LowCombination(hand)) {
-            return throwCards();
-        } else if (MediumCombination(hand)) {
-            return getMediumCombination(hand);
-        } else {
-            return getHighCombination(hand);
-        }
+      return minimalbet;
     }
 
 }
