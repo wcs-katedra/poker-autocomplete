@@ -6,6 +6,7 @@
 package strategy;
 
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.hand.enums.HandRank;
 
 /**
@@ -82,9 +83,9 @@ public class DetermineBet {
         minimalbet = gameState.calculateMinimalBet();
         orbits = gameState.getOrbits();
         bet = gameState.getCurrentPlayerbBet();
-        numberOfActivePlayers = gameState.getNumberOfPlayers('a');
-        numberOfFoldedPlayers = gameState.getNumberOfPlayers('f');
-        numberOfOutPlayers = gameState.getNumberOfPlayers('o');
+        numberOfActivePlayers = gameState.getNumberOfPlayers(PlayerState.ACTIVE);
+        numberOfFoldedPlayers = gameState.getNumberOfPlayers(PlayerState.FOLDED);
+        numberOfOutPlayers = gameState.getNumberOfPlayers(PlayerState.OUT);
 
         this.handRank = handRank;
     }

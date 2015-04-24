@@ -1,5 +1,7 @@
 package com.wcs.poker.gamestate;
 
+import com.wcs.poker.gamestate.enums.Rank;
+import com.wcs.poker.gamestate.enums.Suit;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import java.util.Objects;

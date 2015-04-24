@@ -5,7 +5,7 @@
  */
 package com.wcs.poker.hand.CountTables;
 
-import com.wcs.poker.gamestate.Suit;
+import com.wcs.poker.gamestate.enums.Suit;
 
 /**
  *

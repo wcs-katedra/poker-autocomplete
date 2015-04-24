@@ -6,8 +6,8 @@
 package org.leanpoker.player;
 
 import com.wcs.poker.gamestate.Card;
-import com.wcs.poker.gamestate.Rank;
-import com.wcs.poker.gamestate.Suit;
+import com.wcs.poker.gamestate.enums.Rank;
+import com.wcs.poker.gamestate.enums.Suit;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;

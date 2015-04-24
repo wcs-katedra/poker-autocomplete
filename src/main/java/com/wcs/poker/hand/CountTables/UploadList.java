@@ -5,8 +5,8 @@
  */
 package com.wcs.poker.hand.CountTables;
 
-import com.wcs.poker.gamestate.Rank;
-import com.wcs.poker.gamestate.Suit;
+import com.wcs.poker.gamestate.enums.Rank;
+import com.wcs.poker.gamestate.enums.Suit;
 import com.wcs.poker.hand.enums.HandLevel;
 import java.util.ArrayList;
 import java.util.List;

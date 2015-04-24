@@ -5,7 +5,7 @@
  */
 package com.wcs.poker.hand.CountTables;
 
-import com.wcs.poker.gamestate.Rank;
+import com.wcs.poker.gamestate.enums.Rank;
 import com.wcs.poker.hand.enums.HandLevel;
 
 

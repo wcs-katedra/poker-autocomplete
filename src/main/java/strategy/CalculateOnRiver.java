@@ -20,7 +20,7 @@ public class CalculateOnRiver extends DetermineBet implements Evaluate{
 
     @Override
     public Integer getBet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
     
 }

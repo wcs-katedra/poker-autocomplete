@@ -73,7 +73,6 @@ public class PlayerTest {
     /**
      * Test of betRequest method, of class Player.
      */
-
     @Test
     public void testBetRequestWithRandomGameStates() {
         // arrange

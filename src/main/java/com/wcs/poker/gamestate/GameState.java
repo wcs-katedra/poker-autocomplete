@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.jsonconverter.JsonConverter;
+import java.util.Objects;
 
 @Generated("org.jsonschema2pojo")
 public class GameState {
@@ -40,25 +42,25 @@ public class GameState {
      * következő körben ismét játszik - out as 'o': A játékos elvesztette minden
      * pénzét, ebben a játékban már nem játszik
      *
-     * @param c which playerstate will be counted ?
+     * @param state which playerstate will be counted ?
      * @return the counted playerstate
      */
-    public int getNumberOfPlayers(char c) {
+    public int getNumberOfPlayers(PlayerState state) {
         int countPlayers = 0;
 
         for (Player player : players) {
-            switch (c) {
-                case 'a':
+            switch (state) {
+                case ACTIVE:
                     if ("active".equals(player.getStatus())) {
                         countPlayers++;
                     }
                     break;
-                case 'f':
+                case FOLDED:
                     if ("folded".equals(player.getStatus())) {
                         countPlayers++;
                     }
                     break;
-                case 'o':
+                case OUT:
                     if ("out".equals(player.getStatus())) {
                         countPlayers++;
                     }
@@ -299,7 +301,7 @@ public class GameState {
     public Player getActivePlayer() {
         Player activePlayer = null;
         for (Player player : players) {
-            if (inAction == player.getId()) {
+            if (Objects.equals(inAction, player.getId())) {
                 activePlayer = player;
             }
         }
