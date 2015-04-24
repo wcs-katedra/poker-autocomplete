@@ -21,7 +21,7 @@ public class BaseFunctions extends BaseFields {
     private List<HandRank> extremeRanks = new ArrayList<>();
     protected List<HandRank> highRanks = new ArrayList<>();
     protected List<HandRank> mediumRanks = new ArrayList<>();
-    
+
     protected int extremeMultiplier = 6;
     protected int highMultiplier = 4;
     protected int mediumMultiplier = 2;
@@ -37,14 +37,14 @@ public class BaseFunctions extends BaseFields {
     }
 
     protected Integer hold() {
-        return minimalbet;
+        return call;
     }
 
     protected Integer allIn() {
-        int random = new Random().nextInt(9);
-        if (smallBlind * random > stack) {
-            return stack;
-        }
+        int random;
+        do {
+            random = new Random().nextInt(9);
+        } while (smallBlind * random > stack);
         return stack - smallBlind * random;
     }
 
@@ -86,5 +86,4 @@ public class BaseFunctions extends BaseFields {
         mediumRanks.add(HandRank.TWO_PAIRS);
         mediumRanks.add(HandRank.PAIR);
     }
-
 }
