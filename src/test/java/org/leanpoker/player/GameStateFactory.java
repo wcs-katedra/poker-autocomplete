@@ -22,8 +22,7 @@ public class GameStateFactory {
     private RandomCard rc = new RandomCard();
     private Card card1 = rc.getRandomCard();
     private Card card2 = rc.getRandomCard();
-    private static Iterator<Card> fixedCards ;
-
+    private static Iterator<Card> fixedCards;
 
     /**
      * default
@@ -143,15 +142,14 @@ public class GameStateFactory {
         gs.setCommunityCards(cards);
         gameStates.add(gs);
     }
-    
-    private Card getCard(){
-        if (fixedCards == null){
+
+    private Card getCard() {
+        boolean hasNext = GameStateFactory.fixedCards.hasNext();
+        if (!hasNext) {
             return rc.getRandomCard();
         }
-        if (fixedCards.hasNext()){
-            return fixedCards.next();
-        }
-        return null;
+        return GameStateFactory.fixedCards.next();
+
     }
 
     /**
@@ -249,8 +247,8 @@ public class GameStateFactory {
     public boolean hasMoreGameState() {
         return iterator.hasNext();
     }
-    
+
     public static void setFixedCards(Iterator<Card> fixedCards) {
-       GameStateFactory.fixedCards = fixedCards;
+        GameStateFactory.fixedCards = fixedCards;
     }
 }

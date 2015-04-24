@@ -72,13 +72,10 @@ public class PlayerTest {
     @Test
     public void testBetRequestWithFixedCards() throws IOException {
         // arrange
-        int bet;
         int state = 0;
-        List<Card> playWith = getRank(HandRank.PAIR);
+        List<Card> playWith = getRank(HandRank.ROYAL_FLUSH);
         GameStateFactory.setFixedCards(playWith.iterator());
-        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
-        GameState gs;
-        HandRank result;
+        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
         Player player = new Player();
 
         simulateTurnament(gsf, state, player);
@@ -93,11 +90,8 @@ public class PlayerTest {
     @Test
     public void testBetRequestWithRandomGameStates() {
         // arrange
-        int bet;
         int state = 0;
         GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
-        GameState gs;
-        HandRank result;
         Player player = new Player();
 
         simulateTurnament(gsf, state, player);
