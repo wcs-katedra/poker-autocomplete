@@ -18,11 +18,11 @@ public class Calculator extends BaseFunctions {
         super(gameState, hand);
     }
 
-    protected Integer holdCards(Hand hand) {
+    protected Integer hold(Hand hand) {
         return minimalbet;
     }
 
-    protected Integer raiseBet(Hand hand) {
+    protected Integer raise(Hand hand) {
         return minimalbet;
     }
 }
