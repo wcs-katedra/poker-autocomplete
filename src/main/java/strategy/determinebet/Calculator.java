@@ -11,6 +11,7 @@ import com.wcs.poker.hand.work.Hand;
 
 /**
  *
+ *
  * @author Tamás
  */
 public class Calculator extends BaseFunctions {
@@ -19,7 +20,7 @@ public class Calculator extends BaseFunctions {
         super(gameState, hand);
     }
 
-    protected Integer getBetPre() {
+    protected Integer getBetByCombination() {
         if (isExtremeCombination(hand)) {
             return allIn();
         } else if (isHighCombination(hand)) {
@@ -31,7 +32,7 @@ public class Calculator extends BaseFunctions {
     }
 
     protected Integer getFinalBet(int limit) {
-        Integer bet = getBetPre();
+        Integer bet = getBetByCombination();
         if (bet.equals(-1)) {
             return holdByStack(limit);
         }
@@ -46,10 +47,10 @@ public class Calculator extends BaseFunctions {
     }
 
     protected Integer raise(Hand hand) {
-        HandRank base = highRanks.get(highRanks.size()-1);
+        HandRank base = highRanks.get(highRanks.size() - 1);
         HandRank rank = hand.getRank();
-        int value = base.ordinal()-rank.ordinal();        
-        int level = 3-hand.getLevel().ordinal();
-        return (stack-minimalbet)/100*highMultiplier*(value*level)+minimalbet;
+        int value = base.ordinal() - rank.ordinal();
+        int level = 3 - hand.getLevel().ordinal();
+        return  highMultiplier * value * level + minimalbet+call;
     }
 }
