@@ -32,11 +32,11 @@ public class Calculator extends BaseFunctions {
     }
 
     protected Integer getFinalBet(int limit) {
-        Integer bet = getBetByCombination();
-        if (bet.equals(-1)) {
+        Integer actualBet = getBetByCombination();
+        if (actualBet.equals(-1)) {
             return holdByStack(limit);
         }
-        return bet;
+        return actualBet;
     }
 
     protected Integer holdByStack(int limit) {
