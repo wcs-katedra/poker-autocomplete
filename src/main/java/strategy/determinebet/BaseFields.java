@@ -10,6 +10,16 @@ import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.hand.work.Hand;
 
 /**
+ * Jól van, akkor: Ahhoz, hogy tartsunk, azaz megadjuk a tétet ki kell
+ * számolnunk a call értéket, ami a current_by_in mínusz a te bet értéked (a bet
+ * az az összeg amennyit eddig betettél a közösbe). Ha ez az érték 0-nak jön ki,
+ * akkor az check-et jelent, ha ez 0>, akkor ez az az érték amit mindenképp meg
+ * kell adni, hogy bent maradhass a játékban, ha nem tudsz ennyit megadni (azaz
+ * a stack-ed kisebb ennél az éréknél, akkor az dobásnak minősül - ezt a szerver
+ * lekezeli, nem kell foglalkoznod vele) Ahhoz, hogy emelni tudjál a call
+ * értéken túl legalább a minimum_raise értékével kell többet betenned (azaz
+ * minimális emelési összeg = call + minimum_raise) Remélem ezzel segítettem!
+ *
  *
  * @author gergo
  */
@@ -53,7 +63,7 @@ public class BaseFields {
      */
     protected final int call;
     /**
-     * ez mi ez meg ez :D
+     * emelési minimum.
      */
     protected final int minimalbet;
     /**
