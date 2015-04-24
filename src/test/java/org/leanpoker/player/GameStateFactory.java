@@ -22,6 +22,8 @@ public class GameStateFactory {
     private RandomCard rc = new RandomCard();
     private Card card1 = rc.getRandomCard();
     private Card card2 = rc.getRandomCard();
+    private static Iterator<Card> fixedCards ;
+
 
     /**
      * default
@@ -113,9 +115,9 @@ public class GameStateFactory {
 
     private void createFlopGameState(GameState preFlopGs) {
         List<Card> cards = new ArrayList<Card>();
-        cards.add(rc.getRandomCard());
-        cards.add(rc.getRandomCard());
-        cards.add(rc.getRandomCard());
+        cards.add(getCard());
+        cards.add(getCard());
+        cards.add(getCard());
 
         GameState gs = copyToNewGameState(preFlopGs);
         gs.setCommunityCards(cards);
@@ -125,7 +127,7 @@ public class GameStateFactory {
     private void createTurnGameState(GameState flopGs) {
         List<Card> cards = new ArrayList<Card>();
         cards.addAll(flopGs.getCommunityCards());
-        cards.add(rc.getRandomCard());
+        cards.add(getCard());
 
         GameState gs = copyToNewGameState(flopGs);
         gs.setCommunityCards(cards);
@@ -135,11 +137,21 @@ public class GameStateFactory {
     private void createRiverGameState(GameState turnGs) {
         List<Card> cards = new ArrayList<>();
         cards.addAll(turnGs.getCommunityCards());
-        cards.add(rc.getRandomCard());
+        cards.add(getCard());
 
         GameState gs = copyToNewGameState(turnGs);
         gs.setCommunityCards(cards);
         gameStates.add(gs);
+    }
+    
+    private Card getCard(){
+        if (fixedCards == null){
+            return rc.getRandomCard();
+        }
+        if (fixedCards.hasNext()){
+            return fixedCards.next();
+        }
+        return null;
     }
 
     /**
@@ -237,5 +249,8 @@ public class GameStateFactory {
     public boolean hasMoreGameState() {
         return iterator.hasNext();
     }
-
+    
+    public static void setFixedCards(Iterator<Card> fixedCards) {
+       GameStateFactory.fixedCards = fixedCards;
+    }
 }

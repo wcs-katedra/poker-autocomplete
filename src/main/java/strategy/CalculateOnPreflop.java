@@ -32,7 +32,7 @@ public class CalculateOnPreflop extends DetermineBet implements Evaluate {
         } else if (currentBuyIn == getDoubleBigBlind()) {
             return getTripleBigBlind();
         } else {
-            return throwCards();
+            return holdCards();
         }
     }
 

@@ -10,11 +10,16 @@
  */
 package org.leanpoker.player;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.jsonconverter.JsonConverter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,10 +69,22 @@ public class PlayerTest {
     /**
      * Test of betRequest method, of class Player.
      */
-    @Ignore
     @Test
-    public void testBetRequestWithMultipleGamestateFiles() {
+    public void testBetRequestWithFixedCards() throws IOException {
+        // arrange
+        int bet;
+        int state = 0;
+        List<Card> playWith = getRank(HandRank.PAIR);
+        GameStateFactory.setFixedCards(playWith.iterator());
+        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
+        GameState gs;
+        HandRank result;
+        Player player = new Player();
 
+        simulateTurnament(gsf, state, player);
+
+        // assert
+        assertTrue(true);
     }
 
     /**
@@ -83,6 +100,16 @@ public class PlayerTest {
         HandRank result;
         Player player = new Player();
 
+        simulateTurnament(gsf, state, player);
+
+        // assert
+        assertTrue(true);
+    }
+
+    private void simulateTurnament(GameStateFactory gsf, int state, Player player) {
+        GameState gs;
+        int bet;
+        HandRank result;
         // act
         while (gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
@@ -94,9 +121,52 @@ public class PlayerTest {
             result = player.cardAnalysis(cardsInTheGame);
             System.out.print("\n\tthe evald cards is:  " + result + "\n");
         }
-        
-        // assert
-        assertTrue(true);
+    }
+
+    private List<Card> getRank(HandRank handRank) throws IOException {
+        List<Card> retVal = new ArrayList<>();
+        switch (handRank) {
+            case HIGH_CARD:
+                retVal = loadCards("highCardHand.json");
+                break;
+            case PAIR:
+                retVal = loadCards("pairHand.json");
+                break;
+            case TWO_PAIRS:
+                retVal = loadCards("twoPairsHand.json");
+                break;
+            case THREE_OF_A_KIND:
+                retVal = loadCards("threeOfAKindHand.json");
+                break;
+            case STRAIGHT:
+                retVal = loadCards("straightHand.json");
+                break;
+            case FLUSH:
+                retVal = loadCards("flushHand.json");
+                break;
+            case FULL_HOUSE:
+                retVal = loadCards("fullHouseHand.json");
+                break;
+            case FOUR_OF_A_KIND:
+                retVal = loadCards("fourOfAKindHand.json");
+                break;
+            case STRAIGHT_FLUSH:
+                retVal = loadCards("straightFlush.json");
+                break;
+            case ROYAL_FLUSH:
+                retVal = loadCards("royalFlushHand.json");
+                break;
+        }
+        return retVal;
+    }
+
+    private List<Card> loadCards(String name) throws IOException {
+        InputStream resource = getClass().getResourceAsStream(name);
+        String json = IOUtils.toString(resource);
+
+        Type cardListType = new TypeToken<List<Card>>() {
+        }.getType();
+        return new Gson().fromJson(json, cardListType);
     }
 
 }
