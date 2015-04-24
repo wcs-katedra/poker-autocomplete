@@ -116,35 +116,59 @@ public class DetermineBet {
     protected Integer getAmountOfBigBlind(int number) {
         return bigBlind * number;
     }
+
     protected boolean LowCombination(HandRank handRank) {
-        if(handRank.equals(HandRank.HIGH_CARD)){return true;}
-        else if (handRank.equals(HandRank.PAIR)){return true;}
-        else return handRank.equals(HandRank.TWO_PAIRS);
+        if (handRank.equals(HandRank.HIGH_CARD)) {
+            return true;
+        } else if (handRank.equals(HandRank.PAIR)) {
+            return true;
+        } else {
+            return handRank.equals(HandRank.TWO_PAIRS);
+        }
     }
-    
+
     protected boolean MediumCombination(HandRank handRank) {
-        if(handRank.equals(HandRank.THREE_OF_A_KIND)){return true;}
-        else if (handRank.equals(HandRank.STRAIGHT)){return true;}
-        else if (handRank.equals(HandRank.FLUSH)){return true;}
-        else return handRank.equals(HandRank.FULL_HOUSE);
+        if (handRank.equals(HandRank.THREE_OF_A_KIND)) {
+            return true;
+        } else if (handRank.equals(HandRank.STRAIGHT)) {
+            return true;
+        } else if (handRank.equals(HandRank.FLUSH)) {
+            return true;
+        } else {
+            return handRank.equals(HandRank.FULL_HOUSE);
+        }
     }
-    
+
     protected Integer getLowCombination(HandRank handRank) {
-        if(handRank.equals(HandRank.HIGH_CARD)) { return highCardBet();}
-        else if (handRank.equals(HandRank.PAIR)){ return pairBet();}
-        else  { return twoPairBet();}
-}
+        if (handRank.equals(HandRank.HIGH_CARD)) {
+            return highCardBet();
+        } else if (handRank.equals(HandRank.PAIR)) {
+            return pairBet();
+        } else {
+            return twoPairBet();
+        }
+    }
+
     protected Integer getMediumCombination(HandRank handRank) {
-         if(handRank.equals(HandRank.THREE_OF_A_KIND)){return threeOfAKindBet();}
-        else if (handRank.equals(HandRank.STRAIGHT)){return straightBet();}
-        else if (handRank.equals(HandRank.FLUSH)){return flushBet();}
-        else return fullHouseBet();
+        if (handRank.equals(HandRank.THREE_OF_A_KIND)) {
+            return threeOfAKindBet();
+        } else if (handRank.equals(HandRank.STRAIGHT)) {
+            return straightBet();
+        } else if (handRank.equals(HandRank.FLUSH)) {
+            return flushBet();
+        } else {
+            return fullHouseBet();
+        }
     }
 
     protected Integer getHighCombination(HandRank handRank) {
-        if(handRank.equals(HandRank.FOUR_OF_A_KIND)){return fourOfAKindBet();}
-        else if (handRank.equals(HandRank.STRAIGHT_FLUSH)){return straightFlushBet();}
-        else return royalFlushBet();
+        if (handRank.equals(HandRank.FOUR_OF_A_KIND)) {
+            return fourOfAKindBet();
+        } else if (handRank.equals(HandRank.STRAIGHT_FLUSH)) {
+            return straightFlushBet();
+        } else {
+            return royalFlushBet();
+        }
     }
 
     protected Integer highCardBet() {
