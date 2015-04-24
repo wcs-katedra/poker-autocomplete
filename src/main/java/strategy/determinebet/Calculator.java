@@ -18,11 +18,33 @@ public class Calculator extends BaseFunctions {
         super(gameState, hand);
     }
 
-    protected Integer hold(Hand hand,Class<?> fromTurn) {
-        return minimalbet;
+    protected Integer getBet() {
+        if (isExtremeCombination(hand)) {
+            return allIn();
+        } else if (isHighCombination(hand)) {
+            return raise(hand);
+        } else if (isMediumCombination(hand)) {
+            return hold();
+        }
+        return -1;
     }
 
-    protected Integer raise(Hand hand,Class<?> fromTurn) {
+    protected Integer getFinalBet(int limit) {
+        Integer bet = this.getBet();
+        if (bet.equals(-1)) {
+            return holdByStack(limit);
+        }
+        return throwCards();
+    }
+
+    protected Integer holdByStack(int limit) {
+        if (stack < limit) {
+            return throwCards();
+        }
+        return hold();
+    }
+
+    protected Integer raise(Hand hand) {
         return minimalbet;
     }
 }

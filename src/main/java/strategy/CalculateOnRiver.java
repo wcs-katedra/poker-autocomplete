@@ -13,17 +13,15 @@ import strategy.determinebet.Calculator;
  *
  * @author gergo
  */
-public class CalculateOnRiver extends Calculator implements Evaluate{
+public class CalculateOnRiver extends Calculator implements Evaluate {
 
-    public CalculateOnRiver(GameState gameState,Hand hand) {
-        super(gameState,hand);
+    public CalculateOnRiver(GameState gameState, Hand hand) {
+        super(gameState, hand);
     }
 
     @Override
     public Integer getBet() {
-        return minimalbet;
+        return getFinalBet(400);
     }
 
- 
-    
 }

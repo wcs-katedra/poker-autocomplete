@@ -13,15 +13,16 @@ import strategy.determinebet.Calculator;
  *
  * @author gergo
  */
-public class CalculateOnTurn extends Calculator implements Evaluate{
+public class CalculateOnTurn extends Calculator implements Evaluate {
 
-    public CalculateOnTurn(GameState gameState,Hand hand) {
-        super(gameState,hand);
+    public CalculateOnTurn(GameState gameState, Hand hand) {
+        super(gameState, hand);
     }
 
     @Override
     public Integer getBet() {
-       return minimalbet;
+        return getFinalBet(600);
+
     }
-    
+
 }

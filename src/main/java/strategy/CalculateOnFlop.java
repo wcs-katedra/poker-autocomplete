@@ -16,20 +16,6 @@ public class CalculateOnFlop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        if (isHighCombination(hand)) {
-            return raise(hand);
-        } else if (isMediumCombination(hand)) {
-            return hold(hand);
-        }
-        return throwCards();
+        return getFinalBet(800);
     }
-
-    private Integer raise(Hand hand) {
-        return super.raise(hand, null);
-    }
-
-    private Integer hold(Hand hand) {
-        return super.raise(hand, null);
-    }
-
 }

@@ -21,6 +21,10 @@ public class BaseFunctions extends BaseFields {
     private List<HandRank> extremeRanks = new ArrayList<>();
     private List<HandRank> highRanks = new ArrayList<>();
     private List<HandRank> mediumRanks = new ArrayList<>();
+    
+    protected int extremeMultiplier = 5;
+    protected int highMultiplier = 5;
+    protected int mediumMultiplier = 5;
 
     public BaseFunctions(GameState gameState, Hand hand) {
         super(gameState, hand);
@@ -28,16 +32,20 @@ public class BaseFunctions extends BaseFields {
         initMediumRanks();
     }
 
-    /**
-     *
-     * @return
-     */
     protected Integer throwCards() {
         return 0;
     }
 
+    protected Integer hold() {
+        return minimalbet;
+    }
+
     protected Integer allIn() {
-        return stack - smallBlind * new Random().nextInt(9);
+        int random = new Random().nextInt(9);
+        if (smallBlind * random > stack) {
+            return stack;
+        }
+        return stack - smallBlind * random;
     }
 
     protected boolean isExtremeCombination(Hand hand) {

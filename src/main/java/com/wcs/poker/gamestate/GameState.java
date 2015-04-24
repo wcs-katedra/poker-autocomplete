@@ -326,9 +326,10 @@ public class GameState {
     }
 
     /**
-     *  :P 
+     * :P
+     *
      * @param rank
-     * @param suit 
+     * @param suit
      */
     public void addCard(String rank, String suit) {
         Card card = new Card();
