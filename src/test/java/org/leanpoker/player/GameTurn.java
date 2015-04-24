@@ -5,6 +5,7 @@
  */
 package org.leanpoker.player;
 
+
 /**
  *
  * @author boss

@@ -18,6 +18,7 @@ import java.util.Random;
  */
 public class BaseFunctions extends BaseFields {
 
+    private List<HandRank> extremeRanks = new ArrayList<>();
     private List<HandRank> highRanks = new ArrayList<>();
     private List<HandRank> mediumRanks = new ArrayList<>();
 
@@ -39,6 +40,10 @@ public class BaseFunctions extends BaseFields {
         return stack - smallBlind * new Random().nextInt(9);
     }
 
+    protected boolean isExtremeCombination(Hand hand) {
+        return isCombination(extremeRanks, hand);
+    }
+
     protected boolean isHighCombination(Hand hand) {
         return isCombination(highRanks, hand);
     }
@@ -56,17 +61,22 @@ public class BaseFunctions extends BaseFields {
         return false;
     }
 
+    private void initExtremeRanks() {
+        extremeRanks.add(HandRank.ROYAL_FLUSH);
+        extremeRanks.add(HandRank.STRAIGHT_FLUSH);
+        extremeRanks.add(HandRank.FOUR_OF_A_KIND);
+    }
+
     private void initHighRanks() {
-        highRanks.add(HandRank.ROYAL_FLUSH);
-        highRanks.add(HandRank.STRAIGHT_FLUSH);
-        highRanks.add(HandRank.FOUR_OF_A_KIND);
         highRanks.add(HandRank.FULL_HOUSE);
+        highRanks.add(HandRank.FLUSH);
+        highRanks.add(HandRank.STRAIGHT);
     }
 
     private void initMediumRanks() {
-        mediumRanks.add(HandRank.FLUSH);
-        mediumRanks.add(HandRank.STRAIGHT);
         mediumRanks.add(HandRank.THREE_OF_A_KIND);
+        mediumRanks.add(HandRank.TWO_PAIRS);
+        mediumRanks.add(HandRank.PAIR);
     }
 
 }

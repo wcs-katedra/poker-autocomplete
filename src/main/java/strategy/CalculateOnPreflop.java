@@ -32,7 +32,7 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
     }
 
     private Integer betByPair(HandLevel level) {
-        return minimalbet + level.ordinal();
+        return minimalbet + level.ordinal()*2;
     }
 
     private Integer betByHighCard(HandLevel level) {
