@@ -26,12 +26,12 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
         } else if (HandRank.HIGH_CARD.equals(hand.getLevel())) {
             return betByHighCard(hand.getLevel());
         } else {
-            return whatIfWeGotNothing(20);
+            return raiseUntilLimit(10);
         }
 
     }
 
-    private Integer whatIfWeGotNothing(int limit) {
+    private Integer raiseUntilLimit(int limit) {
         // we got nothing
         if (bet < limit) {
             return minimalbet;
@@ -44,14 +44,14 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
         if (HandLevel.HIGH.equals(level)) {
             return minimalbet + (HandLevel.HIGH.ordinal() + 1) * 2;
         }
-        int limit = (level.ordinal() + 1) * 10;
-        return whatIfWeGotNothing(limit);
+        int limit = (level.ordinal() + 1) * 15;
+        return raiseUntilLimit(limit);
 
     }
 
     private Integer betByHighCard(HandLevel level) {
         int limit = (level.ordinal() + 1) * 10;
-        return whatIfWeGotNothing(limit);
+        return raiseUntilLimit(limit);
     }
 
 }

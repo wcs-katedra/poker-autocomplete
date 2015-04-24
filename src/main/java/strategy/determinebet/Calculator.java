@@ -36,7 +36,7 @@ public class Calculator extends BaseFunctions {
         if (bet.equals(-1)) {
             return holdByStack(limit);
         }
-        return throwCards();
+        return bet;
     }
 
     protected Integer holdByStack(int limit) {
@@ -51,6 +51,6 @@ public class Calculator extends BaseFunctions {
         HandRank rank = hand.getRank();
         int value = base.ordinal() - rank.ordinal();
         int level = 3 - hand.getLevel().ordinal();
-        return  highMultiplier * value * level + minimalbet+call;
+        return highMultiplier * value * level + minimalbet;
     }
 }
