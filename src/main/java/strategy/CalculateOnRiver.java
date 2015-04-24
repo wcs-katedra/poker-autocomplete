@@ -6,7 +6,7 @@
 package strategy;
 
 import com.wcs.poker.gamestate.GameState;
-import com.wcs.poker.hand.enums.HandRank;
+import com.wcs.poker.hand.work.Hand;
 
 /**
  *
@@ -14,18 +14,18 @@ import com.wcs.poker.hand.enums.HandRank;
  */
 public class CalculateOnRiver extends DetermineBet implements Evaluate{
 
-    public CalculateOnRiver(GameState gameState,HandRank handRank) {
-        super(gameState,handRank);
+    public CalculateOnRiver(GameState gameState,Hand hand) {
+        super(gameState,hand);
     }
 
     @Override
     public Integer getBet() {
-        if (LowCombination(handRank)) {
+        if (LowCombination(hand)) {
              return throwCards();
-        } else if (MediumCombination(handRank)) {
-            return getMediumCombination(handRank);
+        } else if (MediumCombination(hand)) {
+            return getMediumCombination(hand);
         } else {
-            return getHighCombination(handRank);
+            return getHighCombination(hand);
         }
     }
     

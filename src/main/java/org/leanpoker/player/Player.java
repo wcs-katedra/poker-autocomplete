@@ -28,7 +28,7 @@ public class Player {
      */
     public int betRequest(GameState gameState) {
         List<Card> cards = gameState.cardsInTheGame();
-        HandRank hr = cardAnalysis(cards);
+        Hand hr = cardAnalysis(cards);
         int finalBet = determineByNumberOfCards(cards.size(), gameState, hr);
         return finalBet;
     }
@@ -39,28 +39,28 @@ public class Player {
      * @param cards
      * @return
      */
-    public HandRank cardAnalysis(List<Card> cards) {
+    public Hand cardAnalysis(List<Card> cards) {
         HandRankingService hrs = new HandRankingService();
         Hand evaledCards = hrs.evaulate(cards);
-        return evaledCards.getRank();
+        return evaledCards;
     }
 
     public void showdown(GameState gameState) {
     }
 
-    private int determineByNumberOfCards(int size, GameState gs, HandRank hr) {
+    private int determineByNumberOfCards(int size, GameState gs, Hand hand) {
         int retVal = gs.calculateMinimalBet();
         if (size == 2) {
-            retVal = new CalculateOnPreflop(gs, hr).getBet();
+            retVal = new CalculateOnPreflop(gs, hand).getBet();
         }
         if (size == 5) {
-            retVal = new CalculateOnFlop(gs, hr).getBet();
+            retVal = new CalculateOnFlop(gs, hand).getBet();
         }
         if (size == 6) {
-            retVal = new CalculateOnTurn(gs, hr).getBet();
+            retVal = new CalculateOnTurn(gs, hand).getBet();
         }
         if (size == 7) {
-            retVal = new CalculateOnRiver(gs, hr).getBet();
+            retVal = new CalculateOnRiver(gs, hand).getBet();
         }
         return retVal;
     }

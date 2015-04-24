@@ -8,6 +8,7 @@ package strategy;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.hand.enums.HandRank;
+import com.wcs.poker.hand.work.Hand;
 
 /**
  *
@@ -69,9 +70,9 @@ public class DetermineBet {
      */
     protected final int numberOfOutPlayers;
 
-    protected HandRank handRank;
+    protected Hand hand;
 
-    public DetermineBet(GameState gameState, HandRank handRank) {
+    public DetermineBet(GameState gameState, Hand hand) {
 
         bigBlind = gameState.getBigBlind();
         smallBlind = gameState.getSmallBlind();
@@ -87,7 +88,7 @@ public class DetermineBet {
         numberOfFoldedPlayers = gameState.getNumberOfPlayers(PlayerState.FOLDED);
         numberOfOutPlayers = gameState.getNumberOfPlayers(PlayerState.OUT);
 
-        this.handRank = handRank;
+        this.hand = hand;
     }
 
     protected Integer throwCards() {
@@ -118,54 +119,54 @@ public class DetermineBet {
         return bigBlind * number;
     }
 
-    protected boolean LowCombination(HandRank handRank) {
-        if (handRank.equals(HandRank.HIGH_CARD)) {
+    protected boolean LowCombination(Hand hand) {
+        if (hand.equals(HandRank.HIGH_CARD)) {
             return true;
-        } else if (handRank.equals(HandRank.PAIR)) {
+        } else if (hand.equals(HandRank.PAIR)) {
             return true;
         } else {
-            return handRank.equals(HandRank.TWO_PAIRS);
+            return hand.equals(HandRank.TWO_PAIRS);
         }
     }
 
-    protected boolean MediumCombination(HandRank handRank) {
-        if (handRank.equals(HandRank.THREE_OF_A_KIND)) {
+    protected boolean MediumCombination(Hand hand) {
+        if (hand.equals(HandRank.THREE_OF_A_KIND)) {
             return true;
-        } else if (handRank.equals(HandRank.STRAIGHT)) {
+        } else if (hand.equals(HandRank.STRAIGHT)) {
             return true;
-        } else if (handRank.equals(HandRank.FLUSH)) {
+        } else if (hand.equals(HandRank.FLUSH)) {
             return true;
         } else {
-            return handRank.equals(HandRank.FULL_HOUSE);
+            return hand.equals(HandRank.FULL_HOUSE);
         }
     }
 
-    protected Integer getLowCombination(HandRank handRank) {
-        if (handRank.equals(HandRank.HIGH_CARD)) {
+    protected Integer getLowCombination(Hand hand) {
+        if (hand.equals(HandRank.HIGH_CARD)) {
             return highCardBet();
-        } else if (handRank.equals(HandRank.PAIR)) {
+        } else if (hand.equals(HandRank.PAIR)) {
             return pairBet();
         } else {
             return twoPairBet();
         }
     }
 
-    protected Integer getMediumCombination(HandRank handRank) {
-        if (handRank.equals(HandRank.THREE_OF_A_KIND)) {
+    protected Integer getMediumCombination(Hand hand) {
+        if (hand.equals(HandRank.THREE_OF_A_KIND)) {
             return threeOfAKindBet();
-        } else if (handRank.equals(HandRank.STRAIGHT)) {
+        } else if (hand.equals(HandRank.STRAIGHT)) {
             return straightBet();
-        } else if (handRank.equals(HandRank.FLUSH)) {
+        } else if (hand.equals(HandRank.FLUSH)) {
             return flushBet();
         } else {
             return fullHouseBet();
         }
     }
 
-    protected Integer getHighCombination(HandRank handRank) {
-        if (handRank.equals(HandRank.FOUR_OF_A_KIND)) {
+    protected Integer getHighCombination(Hand hand) {
+        if (hand.equals(HandRank.FOUR_OF_A_KIND)) {
             return fourOfAKindBet();
-        } else if (handRank.equals(HandRank.STRAIGHT_FLUSH)) {
+        } else if (hand.equals(HandRank.STRAIGHT_FLUSH)) {
             return straightFlushBet();
         } else {
             return royalFlushBet();

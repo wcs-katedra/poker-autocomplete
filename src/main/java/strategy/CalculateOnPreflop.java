@@ -2,6 +2,7 @@ package strategy;
 
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
+import com.wcs.poker.hand.work.Hand;
 
 /**
  * Here we determine the bet for the preflop gamestate. Fields are in the DetermineBet class. 
@@ -12,13 +13,13 @@ import com.wcs.poker.hand.enums.HandRank;
  */
 public class CalculateOnPreflop extends DetermineBet implements Evaluate {
 
-    public CalculateOnPreflop(GameState gs, HandRank handRank) {
-        super(gs, handRank);
+    public CalculateOnPreflop(GameState gs, Hand hand){
+        super(gs, hand);
     }
 
     @Override
     public Integer getBet() {
-        if (handRank == HandRank.HIGH_CARD) {
+        if (hand.getRank() == HandRank.HIGH_CARD) {
             return highCardBet();
         } else {
             return pairBet();

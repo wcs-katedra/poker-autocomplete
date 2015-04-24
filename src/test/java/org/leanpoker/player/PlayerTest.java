@@ -112,7 +112,7 @@ public class PlayerTest {
             System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
             bet = player.betRequest(gs);
             System.out.print("\n\tthe bet is :  " + bet);
-            result = player.cardAnalysis(cardsInTheGame);
+            result = player.cardAnalysis(cardsInTheGame).getRank();
             System.out.print("\n\tthe evald cards is:  " + result + "\n");
         }
     }
