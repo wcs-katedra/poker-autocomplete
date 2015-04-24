@@ -8,6 +8,8 @@ package strategy.determinebet;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -16,8 +18,13 @@ import java.util.Random;
  */
 public class BaseFunctions extends BaseFields {
 
+    private List<HandRank> highRanks = new ArrayList<>();
+    private List<HandRank> mediumRanks = new ArrayList<>();
+
     public BaseFunctions(GameState gameState, Hand hand) {
         super(gameState, hand);
+        initHighRanks();
+        initMediumRanks();
     }
 
     /**
@@ -33,26 +40,33 @@ public class BaseFunctions extends BaseFields {
     }
 
     protected boolean isHighCombination(Hand hand) {
-        if (hand.equals(HandRank.HIGH_CARD)) {
-            return true;
-        } else if (hand.equals(HandRank.PAIR)) {
-            return true;
-        } else {
-            return hand.equals(HandRank.TWO_PAIRS);
-        }
+        return isCombination(highRanks, hand);
     }
 
     protected boolean isMediumCombination(Hand hand) {
-        if (hand.equals(HandRank.THREE_OF_A_KIND)) {
-            return true;
-        } else if (hand.equals(HandRank.STRAIGHT)) {
-            return true;
-        } else if (hand.equals(HandRank.FLUSH)) {
-            return true;
-        } else {
-            return hand.equals(HandRank.FULL_HOUSE);
-        }
+        return isCombination(mediumRanks, hand);
     }
-    
+
+    private boolean isCombination(List<HandRank> list, Hand hand) {
+        for (HandRank highRank : list) {
+            if (highRank.equals(hand.getRank())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void initHighRanks() {
+        highRanks.add(HandRank.ROYAL_FLUSH);
+        highRanks.add(HandRank.STRAIGHT_FLUSH);
+        highRanks.add(HandRank.FOUR_OF_A_KIND);
+        highRanks.add(HandRank.FULL_HOUSE);
+    }
+
+    private void initMediumRanks() {
+        mediumRanks.add(HandRank.FLUSH);
+        mediumRanks.add(HandRank.STRAIGHT);
+        mediumRanks.add(HandRank.THREE_OF_A_KIND);
+    }
 
 }
