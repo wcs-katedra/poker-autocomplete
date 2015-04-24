@@ -88,6 +88,9 @@ public class Counting {
             }
             if (pair == 2) {
                 result = HandRank.TWO_PAIRS;
+                if (a) {
+                    result=HandRank.PAIR;
+                }
                 levelresult = pair2Lelvel;
             }
             if (rankcount1.getCount() > 0 && index != 0 && rankcount.get(index - 1).getCount() != 0) {
