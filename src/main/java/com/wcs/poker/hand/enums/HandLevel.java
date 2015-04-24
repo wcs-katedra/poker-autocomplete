@@ -10,10 +10,9 @@ package com.wcs.poker.hand.enums;
  * @author MártonZoltán
  */
 public enum HandLevel {
-    
+
     LOW,
     MEDIUM,
     HIGH
-            
-    
+
 }
