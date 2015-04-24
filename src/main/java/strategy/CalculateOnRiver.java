@@ -7,12 +7,13 @@ package strategy;
 
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.work.Hand;
+import strategy.determinebet.Calculator;
 
 /**
  *
  * @author gergo
  */
-public class CalculateOnRiver extends DetermineBet implements Evaluate{
+public class CalculateOnRiver extends Calculator implements Evaluate{
 
     public CalculateOnRiver(GameState gameState,Hand hand) {
         super(gameState,hand);

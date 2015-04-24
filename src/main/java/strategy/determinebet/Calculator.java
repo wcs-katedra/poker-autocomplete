@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package strategy;
+package strategy.determinebet;
 
-import com.sun.management.GarbageCollectionNotificationInfo;
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.hand.work.Hand;
 
 /**
  *
- * @author gergo
+ * @author boss
  */
-public class AGameStateValue {
+public class Calculator extends BaseFunctions{
 
-    protected GameState gs;
-
-    public AGameStateValue(GameState gs) {
-        this.gs = gs;
+    public Calculator(GameState gameState, Hand hand) {
+        super(gameState, hand);
     }
-
+    
 }

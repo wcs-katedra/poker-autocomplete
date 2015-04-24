@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package strategy;
+package strategy.determinebet;
 
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.gamestate.enums.PlayerState;
@@ -14,7 +14,7 @@ import com.wcs.poker.hand.work.Hand;
  *
  * @author gergo
  */
-public class DetermineBet {
+public class BaseFields {
 
     /**
      * A kis vak kétszerese.
@@ -72,7 +72,7 @@ public class DetermineBet {
 
     protected Hand hand;
 
-    public DetermineBet(GameState gameState, Hand hand) {
+    public BaseFields(GameState gameState, Hand hand) {
 
         bigBlind = gameState.getBigBlind();
         smallBlind = gameState.getSmallBlind();

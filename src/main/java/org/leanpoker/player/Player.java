@@ -12,7 +12,7 @@ import strategy.CalculateOnFlop;
 import strategy.CalculateOnPreflop;
 import strategy.CalculateOnRiver;
 import strategy.CalculateOnTurn;
-import strategy.DetermineBet;
+import strategy.determinebet.BaseFields;
 
 public class Player {
 
