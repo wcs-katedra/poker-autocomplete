@@ -103,7 +103,7 @@ public class DetermineBet {
     }
 
     protected Integer allIn() {
-        return stack;
+        return stack-smallBlind;
     }
 
     protected Integer getDoubleBigBlind() {

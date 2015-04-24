@@ -16,40 +16,32 @@ import com.google.gson.annotations.SerializedName;
 public enum Rank {
 
     @SerializedName("A")
-    A(1),
+    A,
     @SerializedName("2")
-    _2(2),
+    _2,
     @SerializedName("3") 
-    _3(3),
+    _3,
     @SerializedName("4") 
-    _4(4),
+    _4,
     @SerializedName("5")
-    _5(5),
+    _5,
     @SerializedName("6")
-    _6(6),
+    _6,
     @SerializedName("7")
-    _7(7),
+    _7,
     @SerializedName("8")
-    _8(8),
+    _8,
     @SerializedName("9")
-    _9(9),
+    _9,
     @SerializedName("10")
-    _10(10),
+    _10,
     @SerializedName("J")
-    J(11),
+    J,
     @SerializedName("Q")
-    Q(12),
+    Q,
     @SerializedName("K")
-    K(13);
+    K;
 
     private int rankValue;
-
-    private Rank(int rankValue) {
-        this.rankValue = rankValue;
-    }
-    
-    public int getRankValue() {
-        return rankValue;
-    }
 
 }

@@ -20,7 +20,13 @@ public class CalculateOnTurn extends DetermineBet implements Evaluate{
 
     @Override
     public Integer getBet() {
-        return 0;
+        if (LowCombination(handRank)) {
+             return throwCards();
+        } else if (MediumCombination(handRank)) {
+            return getMediumCombination(handRank);
+        } else {
+            return getHighCombination(handRank);
+        }
     }
     
 }
