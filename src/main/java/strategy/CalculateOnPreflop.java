@@ -15,8 +15,7 @@ import strategy.determinebet.Calculator;
  */
 public class CalculateOnPreflop extends Calculator implements Evaluate {
 
-    private Integer holdLimit = 750;
-    
+    private int baseHoldValue = 60;
 
     public CalculateOnPreflop(GameState gs, Hand hand) {
         super(gs, hand);
@@ -25,48 +24,35 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
     @Override
     public Integer getBet() {
         if (HandRank.PAIR.equals(hand.getRank())) {
-            return betByPair(hand.getLevel());
+            return holdUntilLimit(hand.getLevel(), 3);
         } else if (HandRank.HIGH_CARD.equals(hand.getRank())) {
-            return betByHighCard(hand.getLevel());
+            return holdUntilLimit(hand.getLevel(), 2);
         } else {
-            return holdUntilLimit(null);
+            return holdUntilLimit(hand.getLevel(), 1);
         }
 
     }
 
-    private Integer holdUntilLimit(Integer limit) {
-        limit = limitWhenLimitNull(limit);
-        if (bet < limit) {
-            return minimalbet;
+    private Integer holdUntilLimit(HandLevel level, int factor) {
+        int holdLimit = (level.ordinal() + 1) * baseHoldValue;
+        if (bet < holdLimit * (factor * 3 / 100 + 1)) {
+            return riseORHoldBylevel(level);
         } else {
             return throwCards();
         }
     }
 
-    private Integer limitWhenLimitNull(Integer limit) {
-        if (limit == null) {
-            if (stack > holdLimit) {
-                return minimalbet;
-            } else {
-                return throwCards();
-            }
+    private Integer riseORHoldBylevel(HandLevel level) {
+        if (HandLevel.HIGH.equals(level)) {
+            return riseBy(20);
+        } else if (HandLevel.HIGH.equals(level)) {
+            return riseBy(10);
         }
-        return limit;
+        return hold();
     }
 
-    private Integer betByPair(HandLevel level) {
-        if (HandLevel.HIGH.equals(level)) {
-            return minimalbet + (HandLevel.HIGH.ordinal() + 1) * mediumMultiplier;
-        }
-        return holdUntilLimit(null);
-
-    }
-
-    private Integer betByHighCard(HandLevel level) {
-        if (HandLevel.HIGH.equals(level)) {
-            return minimalbet + (HandLevel.HIGH.ordinal() + 1) * mediumMultiplier;
-        }
-        return holdUntilLimit(null);
+    private Integer riseBy(int raise) {
+        return minimalbet+raise;
     }
 
 }
