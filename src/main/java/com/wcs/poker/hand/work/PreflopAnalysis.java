@@ -6,6 +6,7 @@
 package com.wcs.poker.hand.work;
 
 import com.wcs.poker.gamestate.Card;
+import com.wcs.poker.gamestate.enums.Rank;
 import com.wcs.poker.hand.enums.HandLevel;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class PreflopAnalysis {
      * @return 2 if is else 1
      */
     private int sideBySide(List<Card> cards) {
+        int cardOrdinal1 = cards.get(0).getRank().ordinal();
+        int cardOrdinal2 = cards.get(1).getRank().ordinal();
+
+        int difference = Math.abs(cardOrdinal1 - cardOrdinal2);
+        if (difference == 1) {
+            return 3;
+        }
+        if (difference == 2) {
+            return 2;
+        }
         return 1;
     }
 
@@ -41,7 +52,11 @@ public class PreflopAnalysis {
      * @return 2 if is else 1
      */
     private int sameColor(List<Card> cards) {
+        if (cards.get(0).getSuit().equals(cards.get(1).getSuit())) {
+            return 2;
+        }
         return 1;
+
     }
 
     /**
@@ -50,6 +65,16 @@ public class PreflopAnalysis {
      * @return 2 if is else 1
      */
     private int aceIn(List<Card> cards) {
+        boolean a = false;
+        for (Card card : cards) {
+            if (card.getRank().equals(Rank.A)) {
+                a = true;
+            }
+        }
+
+        if (a) {
+            return 2;
+        }
         return 1;
     }
 

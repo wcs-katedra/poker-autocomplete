@@ -25,6 +25,7 @@ public class FinalResult {
     public void evaluateCards(List<Card> cards) {
         UploadList uploadlist = new UploadList();
         Counting counting = new Counting();
+        PreflopAnalysis preflopAnalysis= new PreflopAnalysis();;
 
         List<RankCount> rankCount = uploadlist.RankCountUpload();
         List<SuitCount> suitCount = uploadlist.SuitCountUpload();
@@ -84,6 +85,10 @@ public class FinalResult {
             }
         }
 
+        if (cards.size()==2 && combo!=HandRank.PAIR) {
+           level= preflopAnalysis.doPreFlopAnalysis(cards);
+        }
+        
     }
 
     public HandRank getCombo() {
