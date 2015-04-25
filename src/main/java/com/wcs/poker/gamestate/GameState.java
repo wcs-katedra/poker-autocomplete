@@ -14,22 +14,22 @@ public class GameState {
 
     @SerializedName("small_blind")
     @Expose
-    private Integer smallBlind;
+    private Integer smallBlind = -999;
     @SerializedName("current_buy_in")
     @Expose
-    private Integer currentBuyIn;
+    private Integer currentBuyIn = -999;
     @Expose
-    private Integer pot;
+    private Integer pot = -999;
     @SerializedName("minimum_raise")
     @Expose
-    private Integer minimumRaise;
+    private Integer minimumRaise = -999;
     @Expose
-    private Integer dealer;
+    private Integer dealer = -999;
     @Expose
-    private Integer orbits;
+    private Integer orbits = -999;
     @SerializedName("in_action")
     @Expose
-    private Integer inAction;
+    private Integer inAction = -999;
     @Expose
     private List<Player> players = new ArrayList<Player>();
     @SerializedName("community_cards")
@@ -81,8 +81,10 @@ public class GameState {
     public List<Card> cardsInTheGame() {
         List<Card> returnCards = new ArrayList<>();
 
-        if (players != null && inAction != null) {
+        if (players != null && inAction != null && inAction > -1) {
             returnCards.addAll(players.get(inAction).getHoleCards());
+        } else {
+            returnCards.addAll(getAutocompletePlayer().getHoleCards());
         }
         if (communityCards != null) {
             returnCards.addAll(communityCards);
@@ -91,12 +93,29 @@ public class GameState {
         return returnCards;
     }
 
+    private Player getAutocompletePlayer() {
+        for (Player player : players) {
+            if ("Just a few more commits needed".equals(player.getVersion())) {
+                return player;
+            }
+        }
+
+        return new Player();
+    }
+
     public int getCurrentPlayerbBet() {
-        return players.get(inAction).getBet();
+        if (inAction > -1) {
+            return players.get(inAction).getBet();
+        }
+        return getAutocompletePlayer().getBet();
     }
 
     public int getCurrentPlayerStack() {
-        return players.get(inAction).getStack();
+        if (inAction > -1) {
+            return players.get(inAction).getStack();
+        }
+        return getAutocompletePlayer().getStack();
+
     }
 
     /**
@@ -124,7 +143,10 @@ public class GameState {
      * @return a valid call in the current circumstances
      */
     public int calculateCall() {
-        return currentBuyIn - players.get(inAction).getBet();
+        if (inAction > -1) {
+            return currentBuyIn - players.get(inAction).getBet();
+        }
+        return currentBuyIn - getAutocompletePlayer().getBet();
     }
 
     /**
