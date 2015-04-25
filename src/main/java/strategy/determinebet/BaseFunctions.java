@@ -22,9 +22,9 @@ public class BaseFunctions extends BaseFields {
     protected List<HandRank> highRanks = new ArrayList<>();
     protected List<HandRank> mediumRanks = new ArrayList<>();
 
-    protected int extremeMultiplier = 6;
-    protected int highMultiplier = 4;
-    protected int mediumMultiplier = 2;
+    protected int extremeMultiplier = 30;
+    protected int highMultiplier = 20;
+    protected int mediumMultiplier = 10;
 
     public BaseFunctions(GameState gameState, Hand hand) {
         super(gameState, hand);
