@@ -16,6 +16,7 @@ import strategy.determinebet.Calculator;
 public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     private Integer holdLimit = 750;
+    
 
     public CalculateOnPreflop(GameState gs, Hand hand) {
         super(gs, hand);
