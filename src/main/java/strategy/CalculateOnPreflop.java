@@ -45,7 +45,7 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
     private Integer riseORHoldBylevel(HandLevel level) {
         if (HandLevel.HIGH.equals(level)) {
             return riseBy(20);
-        } else if (HandLevel.HIGH.equals(level)) {
+        } else if (HandLevel.MEDIUM.equals(level)) {
             return riseBy(10);
         }
         return hold();
