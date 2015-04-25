@@ -59,9 +59,9 @@ public class Calculator extends BaseFunctions {
         return givenPlayer / numberOfPlayers;
     }
 
-    protected boolean existBiggerBet(int i) {
-        for (Player player : players) {
-            if (player.getBet() > i * bet) {
+    protected boolean isBetOnTheTableBiggerBy(int multiplier) {
+        for (Player player : activePlayers) {            
+            if (player.getBet() > multiplier * bet) {
                 return true;
             }
         }

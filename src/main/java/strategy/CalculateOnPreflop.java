@@ -33,12 +33,13 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     }
 
-    private Integer holdUntilLimit(HandLevel level, int factor) {
+    private Integer holdUntilLimit(HandLevel level, int percent) {
         int holdLimit = (level.ordinal() + 1) * baseHoldValue;
-        if (existBiggerBet(2)){
+        if (isBetOnTheTableBiggerBy(2)){
             return throwCards();
         }
-        if (bet < holdLimit * (factor * 3 / 100 + 1)) {
+        Double factor = new Double(percent) * 3 / 100 + 1;
+        if (bet < holdLimit * factor) {
             return riseORHoldBylevel(level);
         } else {
             return throwCards();

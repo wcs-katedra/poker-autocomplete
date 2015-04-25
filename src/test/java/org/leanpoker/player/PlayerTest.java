@@ -110,10 +110,10 @@ public class PlayerTest {
         List<Card> cards = new ArrayList<>();
         Card card = new Card();
         card.setSuit(Suit.CLUBS);
-        card.setRank(Rank._2);
+        card.setRank(Rank.J);
         Card card2 = new Card();
         card2.setSuit(Suit.CLUBS);
-        card2.setRank(Rank._3);
+        card2.setRank(Rank.Q);
 
         cards.add(card);
         cards.add(card2);
@@ -125,7 +125,7 @@ public class PlayerTest {
         // arrange
         int state = 0;
         GameStateFactory.setFixedCards(cards.iterator());
-        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
+        GameStateFactory gsf = new GameStateFactory(GameTurn.PRE_FLOP);
         Player player = new Player();
 
         simulateTurnament(gsf, state, player);

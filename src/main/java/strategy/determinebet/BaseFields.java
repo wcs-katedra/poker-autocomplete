@@ -81,7 +81,7 @@ public class BaseFields {
      */
     protected final Double numberOfOutPlayers;
     protected final Double numberOfPlayers;
-    protected final List<Player> players;
+    protected final List<Player> activePlayers;
 
     protected Hand hand;
 
@@ -101,7 +101,7 @@ public class BaseFields {
         numberOfFoldedPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.FOLDED));
         numberOfOutPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.OUT));
         numberOfPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.DONTCARE));
-        players = gameState.getPlayers();
+        activePlayers = gameState.getPlayers(PlayerState.ACTIVE);
 
         this.hand = hand;
     }

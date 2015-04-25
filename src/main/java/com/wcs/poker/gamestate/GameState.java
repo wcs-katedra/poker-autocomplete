@@ -258,6 +258,20 @@ public class GameState {
 
     /**
      *
+     * @return The players
+     */
+    public List<Player> getPlayers(PlayerState state) {
+        List<Player> activePlayers = new ArrayList<>();
+        for (Player p : players) {
+            if (state.name().toLowerCase().equals(p.getStatus())){
+                activePlayers.add(p);
+            }
+        }
+        return players;
+    }
+    
+    /**
+     *
      * @param players The players
      */
     public void setPlayers(List<Player> players) {

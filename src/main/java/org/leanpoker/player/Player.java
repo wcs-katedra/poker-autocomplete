@@ -46,20 +46,20 @@ public class Player {
     }
 
     private int determineByNumberOfCards(int size, GameState gs, Hand hand) {
-        int retVal = gs.calculateMinimalBet();
         if (size == 2) {
-            retVal = new CalculateOnPreflop(gs, hand).getBet();
+            return new CalculateOnPreflop(gs, hand).getBet();
         }
         if (size == 5) {
-            retVal = new CalculateOnFlop(gs, hand).getBet();
+            return new CalculateOnFlop(gs, hand).getBet();
         }
         if (size == 6) {
-            retVal = new CalculateOnTurn(gs, hand).getBet();
+            return new CalculateOnTurn(gs, hand).getBet();
         }
         if (size == 7) {
-            retVal = new CalculateOnRiver(gs, hand).getBet();
+            return new CalculateOnRiver(gs, hand).getBet();
         }
-        return retVal;
+        return 0;
+
     }
 
     private HandRank rankol(String combo) {
