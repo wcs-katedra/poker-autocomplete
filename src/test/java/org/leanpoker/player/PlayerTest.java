@@ -70,6 +70,7 @@ public class PlayerTest {
     /**
      * Test of betRequest method, of class Player.
      */
+    @Ignore
     @Test
     public void testBetRequestWithFixedCards() throws IOException {
         // arrange
