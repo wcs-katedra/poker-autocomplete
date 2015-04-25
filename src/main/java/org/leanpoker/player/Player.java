@@ -1,22 +1,19 @@
 package org.leanpoker.player;
 
-import cardAnalysis.CardAnalysis;
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
 import com.wcs.poker.hand.work.HandRankingService;
-import java.util.ArrayList;
 import java.util.List;
 import strategy.CalculateOnFlop;
 import strategy.CalculateOnPreflop;
 import strategy.CalculateOnRiver;
 import strategy.CalculateOnTurn;
-import strategy.determinebet.BaseFields;
 
 public class Player {
 
-    public final String VERSION = "Default+ Java folding player";
+    public final String VERSION = "Just a few more commits needed";
 
     public Player() {
     }
