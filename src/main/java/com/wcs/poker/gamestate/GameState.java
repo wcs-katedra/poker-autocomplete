@@ -81,8 +81,12 @@ public class GameState {
     public List<Card> cardsInTheGame() {
         List<Card> returnCards = new ArrayList<>();
 
-        returnCards.addAll(players.get(inAction).getHoleCards());
-        returnCards.addAll(communityCards);
+        if (players != null && inAction != null) {
+            returnCards.addAll(players.get(inAction).getHoleCards());
+        }
+        if (communityCards != null) {
+            returnCards.addAll(communityCards);
+        }
 
         return returnCards;
     }
@@ -263,13 +267,13 @@ public class GameState {
     public List<Player> getPlayers(PlayerState state) {
         List<Player> activePlayers = new ArrayList<>();
         for (Player p : players) {
-            if (state.name().toLowerCase().equals(p.getStatus())){
+            if (state.name().toLowerCase().equals(p.getStatus())) {
                 activePlayers.add(p);
             }
         }
         return players;
     }
-    
+
     /**
      *
      * @param players The players

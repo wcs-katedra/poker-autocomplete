@@ -19,9 +19,13 @@ import com.wcs.poker.gamestate.enums.Suit;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
 import com.wcs.poker.jsonconverter.JsonConverter;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,6 +74,22 @@ public class PlayerTest {
         assertTrue(true);
     }
 
+    @Ignore
+    @Test
+    public void testBetRequestWithJSONFile() throws IOException {
+        // arrange
+        List<GameState> gstates = readGameStatesFromLogFile();
+        Player player = new Player();
+
+        // act
+        for (GameState gstate : gstates) {
+            doBetTest(0, gstate, player);
+        }
+
+        // assert
+        assertTrue(true);
+    }
+
     /**
      * Test of betRequest method, of class Player.
      */
@@ -83,7 +103,7 @@ public class PlayerTest {
         GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
         Player player = new Player();
 
-        simulateTurnament(gsf, state, player);
+        simulateTurnament(gsf, player);
 
         // assert
         assertTrue(true);
@@ -99,12 +119,13 @@ public class PlayerTest {
         GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
         Player player = new Player();
 
-        simulateTurnament(gsf, state, player);
+        simulateTurnament(gsf, player);
 
         // assert
         assertTrue(true);
     }
 
+    @Ignore
     @Test
     public void testBetRequestWithTheseCards() {
         List<Card> cards = new ArrayList<>();
@@ -123,32 +144,35 @@ public class PlayerTest {
 
     public void testWithRandomGameStates(List<Card> cards) {
         // arrange
-        int state = 0;
         GameStateFactory.setFixedCards(cards.iterator());
         GameStateFactory gsf = new GameStateFactory(GameTurn.PRE_FLOP);
         Player player = new Player();
 
-        simulateTurnament(gsf, state, player);
+        simulateTurnament(gsf, player);
 
         // assert
         assertTrue(true);
     }
 
-    private void simulateTurnament(GameStateFactory gsf, int state, Player player) {
+    private void simulateTurnament(GameStateFactory gsf, Player player) {
         GameState gs;
-        int bet;
-        Hand result;
         // act
         while (gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
-            System.out.print("starting -> " + GameTurn.getTrun(state++));
-            List<Card> cardsInTheGame = gs.cardsInTheGame();
-            System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
-            bet = player.betRequest(gs);
-            System.out.print("\n\tthe bet is :  " + bet);
-            result = player.cardAnalysis(cardsInTheGame);
-            System.out.print("\n\tthe evald cards is:  " + result.getRank() + "\t" + result.getLevel() + "\n");
+            doBetTest(0, gs, player);
         }
+    }
+
+    private void doBetTest(int state, GameState gs, Player player) {
+        int bet;
+        Hand result;
+        System.out.print("starting -> " + GameTurn.getTrun(state++));
+        List<Card> cardsInTheGame = gs.cardsInTheGame();
+        System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
+        bet = player.betRequest(gs);
+        System.out.print("\n\tthe bet is :  " + bet);
+        result = player.cardAnalysis(cardsInTheGame);
+        System.out.print("\n\tthe evald cards is:  " + result.getRank() + "\t" + result.getLevel() + "\n");
     }
 
     private List<Card> getRank(HandRank handRank) throws IOException {
@@ -195,6 +219,34 @@ public class PlayerTest {
         Type cardListType = new TypeToken<List<Card>>() {
         }.getType();
         return new Gson().fromJson(json, cardListType);
+    }
+
+    private List<GameState> readGameStatesFromLogFile() throws MalformedURLException, IOException {
+        BufferedReader bufferedReader = downloadFrom();
+        JsonConverter<SuperGameState[]> jsonConverter = new JsonConverter<>(SuperGameState[].class);
+        List<GameState> gamestates = new ArrayList<>();
+        SuperGameState[] superGameStates;
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            readSingleLine(jsonConverter, line, gamestates);
+        }
+
+        return gamestates;
+    }
+
+    private void readSingleLine(JsonConverter<SuperGameState[]> jsonConverter, String line, List<GameState> gamestates) {
+        SuperGameState[] superGameStates;
+        superGameStates = jsonConverter.fromJson(line);
+        for (SuperGameState superGameState : superGameStates) {
+            gamestates.add(superGameState.getGamestate());
+        }
+    }
+
+    private BufferedReader downloadFrom() throws MalformedURLException, IOException {
+        URL url = new URL("http://poker.webstar.hu/json?log=log/game_2015_04_25_18_40_32");
+        InputStream openStream = url.openStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openStream));
+        return bufferedReader;
     }
 
 }
