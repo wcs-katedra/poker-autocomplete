@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated("org.jsonschema2pojo")
 public class GameState {
-    
+
     @SerializedName("small_blind")
     @Expose
     private Integer smallBlind;
@@ -68,7 +68,7 @@ public class GameState {
                     countPlayers++;
                     break;
             }
-        }        
+        }
         return String.valueOf(countPlayers);
     }
 
@@ -80,17 +80,17 @@ public class GameState {
      */
     public List<Card> cardsInTheGame() {
         List<Card> returnCards = new ArrayList<>();
-        
+
         returnCards.addAll(players.get(inAction).getHoleCards());
         returnCards.addAll(communityCards);
-        
+
         return returnCards;
     }
-    
+
     public int getCurrentPlayerbBet() {
         return players.get(inAction).getBet();
     }
-    
+
     public int getCurrentPlayerStack() {
         return players.get(inAction).getStack();
     }
@@ -111,7 +111,7 @@ public class GameState {
         }
         // number of cards on the table
         cards += this.getCommunityCards().size();
-        
+
         return cards;
     }
 
@@ -129,9 +129,9 @@ public class GameState {
      */
     public int calculateMinimalBet() {
         return calculateCall() + minimumRaise;
-        
+
     }
-    
+
     public int getBigBlind() {
         return this.smallBlind * 2;
     }
@@ -263,12 +263,12 @@ public class GameState {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
-    
+
     public void setPlayer(Player player) {
         this.players.clear();
         this.players.add(player);
     }
-    
+
     public void setPlayer(int stack, int bet, Card card1, Card card2) {
         Player p = new Player();
         p.setBet(bet);
@@ -277,7 +277,7 @@ public class GameState {
         cards.add(card1);
         cards.add(card2);
         p.setHoleCards(cards);
-        
+
         setPlayer(p);
     }
 
@@ -296,7 +296,7 @@ public class GameState {
     public void setCommunityCards(List<Card> communityCards) {
         this.communityCards = communityCards;
     }
-    
+
     public Player getActivePlayer() {
         Player activePlayer = null;
         for (Player player : players) {
@@ -306,12 +306,12 @@ public class GameState {
         }
         return activePlayer;
     }
-    
+
     public List<Card> getCardsOfActivePlayer() {
         Player activePlayer = getActivePlayer();
         return activePlayer.getHoleCards();
     }
-    
+
     public void addNewPlayer(int stack, int bet, Card card1, Card card2) {
         Player player = new Player();
         player.setStack(stack);
@@ -320,7 +320,7 @@ public class GameState {
         cards.add(card1);
         cards.add(card2);
         player.setHoleCards(cards);
-        
+
         players.add(player);
     }
 
@@ -336,9 +336,9 @@ public class GameState {
         card = new JsonConverter<>(Card.class).fromJson(json);
         communityCards.add(card);
     }
-    
+
     public void addCard(Card randomCard) {
         communityCards.add(randomCard);
     }
-    
+
 }

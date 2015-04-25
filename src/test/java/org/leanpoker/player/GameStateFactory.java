@@ -1,6 +1,5 @@
 package org.leanpoker.player;
 
-
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
 import java.util.ArrayList;
@@ -223,8 +222,19 @@ public class GameStateFactory {
      * @return the gamestate with the player
      */
     private GameState setThePlayer(GameState gs) {
-        // stack,bet, c1,c2
-        gs.setPlayer(1590, 80, card1, card2);
+        Card testCard1 = new Card();
+        Card testCard2 = new Card();
+        if (GameStateFactory.fixedCards.hasNext()) {
+            testCard1 = fixedCards.next();
+            if (GameStateFactory.fixedCards.hasNext()) {
+                testCard2 = fixedCards.next();
+            } else {
+                testCard2 = card2;
+            }            
+        } else {
+            testCard1 = card1;
+        }
+        gs.setPlayer(1590, 80, testCard1, testCard2);
 
         return gs;
     }

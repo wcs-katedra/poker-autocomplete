@@ -88,6 +88,7 @@ public class PlayerTest {
         assertTrue(true);
     }
 
+    @Ignore
     @Test
     public void testBetRequestWithFixedCardsFromFile() throws IOException {
         // arrange
@@ -108,10 +109,10 @@ public class PlayerTest {
         List<Card> cards = new ArrayList<>();
         Card card = new Card();
         card.setSuit(Suit.CLUBS);
-        card.setRank(Rank.A);
+        card.setRank(Rank._2);
         Card card2 = new Card();
         card2.setSuit(Suit.CLUBS);
-        card2.setRank(Rank.A);
+        card2.setRank(Rank._3);
 
         cards.add(card);
         cards.add(card2);
@@ -122,8 +123,8 @@ public class PlayerTest {
     public void testWithRandomGameStates(List<Card> cards) {
         // arrange
         int state = 0;
-        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
         GameStateFactory.setFixedCards(cards.iterator());
+        GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
         Player player = new Player();
 
         simulateTurnament(gsf, state, player);
