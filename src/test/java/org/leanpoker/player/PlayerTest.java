@@ -17,6 +17,7 @@ import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.gamestate.enums.Rank;
 import com.wcs.poker.gamestate.enums.Suit;
 import com.wcs.poker.hand.enums.HandRank;
+import com.wcs.poker.hand.work.Hand;
 import com.wcs.poker.jsonconverter.JsonConverter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,7 +137,7 @@ public class PlayerTest {
     private void simulateTurnament(GameStateFactory gsf, int state, Player player) {
         GameState gs;
         int bet;
-        HandRank result;
+        Hand result;
         // act
         while (gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
@@ -145,8 +146,8 @@ public class PlayerTest {
             System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
             bet = player.betRequest(gs);
             System.out.print("\n\tthe bet is :  " + bet);
-            result = player.cardAnalysis(cardsInTheGame).getRank();
-            System.out.print("\n\tthe evald cards is:  " + result + "\n");
+            result = player.cardAnalysis(cardsInTheGame);
+            System.out.print("\n\tthe evald cards is:  " + result.getRank() + "\t" + result.getLevel() + "\n");
         }
     }
 
