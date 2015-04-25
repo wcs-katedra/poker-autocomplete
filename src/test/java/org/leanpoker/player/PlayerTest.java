@@ -10,6 +10,9 @@
  */
 package org.leanpoker.player;
 
+import org.leanpoker.player.helper.GameStateFactory;
+import org.leanpoker.player.helper.SuperGameState;
+import org.leanpoker.player.helper.GameTurn;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wcs.poker.gamestate.Card;
@@ -27,6 +30,7 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,20 +78,36 @@ public class PlayerTest {
         assertTrue(true);
     }
 
-    @Ignore
     @Test
     public void testBetRequestWithJSONFile() throws IOException {
         // arrange
-        List<GameState> gstates = readGameStatesFromLogFile();
+        List<SuperGameState> gstates = readGameStatesFromLogFile();
         Player player = new Player();
 
         // act
-        for (GameState gstate : gstates) {
-            doBetTest(0, gstate, player);
+        for (SuperGameState gstate : gstates) {
+            if (isValidSuperGameState(gstate)) {
+                System.out.println(gstate);
+                doBetTest(gstate.getGamestate(), player);
+            }
         }
 
         // assert
         assertTrue(true);
+    }
+
+    private static boolean isValidSuperGameState(SuperGameState gstate) {
+        boolean retVal = true;
+        retVal &= gstate != null;
+        if (!retVal) {
+            return false;
+        }
+        retVal &= gstate.getMessage() != null;
+        if (!retVal) {
+            return false;
+        }
+        retVal &= gstate.getMessage().contains("Autocomplete");
+        return retVal;
     }
 
     /**
@@ -97,7 +117,6 @@ public class PlayerTest {
     @Test
     public void testBetRequestWithFixedCards() throws IOException {
         // arrange
-        int state = 0;
         List<Card> playWith = getRank(HandRank.STRAIGHT);
         GameStateFactory.setFixedCards(playWith.iterator());
         GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
@@ -113,7 +132,6 @@ public class PlayerTest {
     @Test
     public void testBetRequestWithFixedCardsFromFile() throws IOException {
         // arrange
-        int state = 0;
         List<Card> playWith = getRank(HandRank.STRAIGHT);
         GameStateFactory.setFixedCards(playWith.iterator());
         GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
@@ -159,14 +177,14 @@ public class PlayerTest {
         // act
         while (gsf.hasMoreGameState()) {
             gs = gsf.getNextGameState();
-            doBetTest(0, gs, player);
+            doBetTest(gs, player);
         }
     }
 
-    private void doBetTest(int state, GameState gs, Player player) {
+    private void doBetTest(GameState gs, Player player) {
         int bet;
         Hand result;
-        System.out.print("starting -> " + GameTurn.getTrun(state++));
+        System.out.print("starting -> ");
         List<Card> cardsInTheGame = gs.cardsInTheGame();
         System.out.print("\n\tcards in the current gameState : " + cardsInTheGame);
         bet = player.betRequest(gs);
@@ -221,11 +239,10 @@ public class PlayerTest {
         return new Gson().fromJson(json, cardListType);
     }
 
-    private List<GameState> readGameStatesFromLogFile() throws MalformedURLException, IOException {
+    private List<SuperGameState> readGameStatesFromLogFile() throws MalformedURLException, IOException {
         BufferedReader bufferedReader = downloadFrom();
         JsonConverter<SuperGameState[]> jsonConverter = new JsonConverter<>(SuperGameState[].class);
-        List<GameState> gamestates = new ArrayList<>();
-        SuperGameState[] superGameStates;
+        List<SuperGameState> gamestates = new ArrayList<>();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             readSingleLine(jsonConverter, line, gamestates);
@@ -234,12 +251,9 @@ public class PlayerTest {
         return gamestates;
     }
 
-    private void readSingleLine(JsonConverter<SuperGameState[]> jsonConverter, String line, List<GameState> gamestates) {
-        SuperGameState[] superGameStates;
-        superGameStates = jsonConverter.fromJson(line);
-        for (SuperGameState superGameState : superGameStates) {
-            gamestates.add(superGameState.getGamestate());
-        }
+    private void readSingleLine(JsonConverter<SuperGameState[]> jsonConverter, String line, List<SuperGameState> gamestates) {
+        SuperGameState[] superGameStates = jsonConverter.fromJson(line);
+        gamestates.addAll(Arrays.asList(superGameStates));
     }
 
     private BufferedReader downloadFrom() throws MalformedURLException, IOException {

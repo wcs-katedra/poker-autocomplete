@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.leanpoker.player;
-
+package org.leanpoker.player.helper;
 
 /**
  *
  * @author boss
  */
-enum GameTurn {
+public enum GameTurn {
 
-    ERROR(-1,"hiba"),
-    PRE_FLOP(0,"pre-flop"),
-    FLOP(1,"flop"),
-    TURN(2,"turn"),
-    RIVER(3,"river");
+    ERROR(-1, "hiba"),
+    PRE_FLOP(0, "pre-flop"),
+    FLOP(1, "flop"),
+    TURN(2, "turn"),
+    RIVER(3, "river");
 
     private int val;
     private String nev;
 
-    private GameTurn(int val,String nev) {
+    private GameTurn(int val, String nev) {
         this.val = val;
     }
 
@@ -50,5 +49,4 @@ enum GameTurn {
         return returnVal;
     }
 
-      
 }

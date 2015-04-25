@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.leanpoker.player;
+package org.leanpoker.player.helper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -16,10 +16,8 @@ import java.util.List;
  */
 public class SuperGameState {
 
-    
     @Expose
     private String type;
-    
     @Expose
     private String message;
     @SerializedName("game_state")
@@ -48,6 +46,12 @@ public class SuperGameState {
 
     public void setGamestate(GameState gamestate) {
         this.gamestate = gamestate;
+    }
+
+    @Override
+    public String toString() {
+        return "SuperGameState{" + "type=" + type + ", message=" + message
+                + '}';
     }
 
 }

@@ -1,4 +1,4 @@
-package org.leanpoker.player;
+package org.leanpoker.player.helper;
 
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
