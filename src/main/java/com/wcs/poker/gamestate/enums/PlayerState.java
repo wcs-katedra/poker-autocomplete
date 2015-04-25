@@ -13,5 +13,6 @@ public enum PlayerState {
     
     ACTIVE,
     FOLDED,
-    OUT
+    OUT,
+    DONTCARE
 }

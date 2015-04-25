@@ -6,8 +6,10 @@
 package strategy.determinebet;
 
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.gamestate.Player;
 import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.hand.work.Hand;
+import java.util.List;
 
 /**
  * Jól van, akkor: Ahhoz, hogy tartsunk, azaz megadjuk a tétet ki kell
@@ -79,6 +81,7 @@ public class BaseFields {
      */
     protected final Double numberOfOutPlayers;
     protected final Double numberOfPlayers;
+    protected final List<Player> players;
 
     protected Hand hand;
 
@@ -97,7 +100,8 @@ public class BaseFields {
         numberOfActivePlayers = new Double(gameState.getNumberOfPlayers(PlayerState.ACTIVE));
         numberOfFoldedPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.FOLDED));
         numberOfOutPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.OUT));
-        numberOfPlayers = new Double(gameState.getNumberOfPlayers(null));
+        numberOfPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.DONTCARE));
+        players = gameState.getPlayers();
 
         this.hand = hand;
     }

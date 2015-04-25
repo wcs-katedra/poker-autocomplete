@@ -6,6 +6,7 @@
 package strategy.determinebet;
 
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.gamestate.Player;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
 
@@ -53,8 +54,17 @@ public class Calculator extends BaseFunctions {
         int level = 3 - hand.getLevel().ordinal();
         return highMultiplier * value * level + minimalbet;
     }
-    
-    protected Double getGivenPlayersPercent(Double givenPlayer){        
+
+    protected Double getGivenPlayersPercent(Double givenPlayer) {
         return givenPlayer / numberOfPlayers;
+    }
+
+    protected boolean existBiggerBet(int i) {
+        for (Player player : players) {
+            if (player.getBet() > i * bet) {
+                return true;
+            }
+        }
+        return false;
     }
 }

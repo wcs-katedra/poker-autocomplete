@@ -35,6 +35,9 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     private Integer holdUntilLimit(HandLevel level, int factor) {
         int holdLimit = (level.ordinal() + 1) * baseHoldValue;
+        if (existBiggerBet(2)){
+            return throwCards();
+        }
         if (bet < holdLimit * (factor * 3 / 100 + 1)) {
             return riseORHoldBylevel(level);
         } else {
@@ -54,5 +57,7 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
     private Integer riseBy(int raise) {
         return minimalbet+raise;
     }
+
+
 
 }
