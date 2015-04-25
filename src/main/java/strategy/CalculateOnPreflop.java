@@ -15,6 +15,8 @@ import strategy.determinebet.Calculator;
  */
 public class CalculateOnPreflop extends Calculator implements Evaluate {
 
+    private Integer holdLimit = 1000;
+
     public CalculateOnPreflop(GameState gs, Hand hand) {
         super(gs, hand);
     }
@@ -26,14 +28,15 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
         } else if (HandRank.HIGH_CARD.equals(hand.getLevel())) {
             return betByHighCard(hand.getLevel());
         } else {
-            return raiseUntilLimit(10);
+            return holdUntilLimit(null);
         }
 
     }
 
-    private Integer raiseUntilLimit(int limit) {
+    private Integer holdUntilLimit(Integer limit) {
         // we got nothing
-        if (bet < limit) {
+        limit = limitWhenLimitNull(limit);
+        if (bet < limit.intValue()) {
             return minimalbet;
         } else {
             return throwCards();
@@ -42,16 +45,27 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     private Integer betByPair(HandLevel level) {
         if (HandLevel.HIGH.equals(level)) {
-            return minimalbet + (HandLevel.HIGH.ordinal() + 1) * 2;
+            return minimalbet + (HandLevel.HIGH.ordinal() + 1) * mediumMultiplier;
         }
         int limit = (level.ordinal() + 1) * 15;
-        return raiseUntilLimit(limit);
+        return holdUntilLimit(limit);
 
     }
 
     private Integer betByHighCard(HandLevel level) {
         int limit = (level.ordinal() + 1) * 10;
-        return raiseUntilLimit(limit);
+        return holdUntilLimit(limit);
+    }
+
+    private Integer limitWhenLimitNull(Integer limit) {
+        if (limit == null) {
+            if (stack > holdLimit) {
+                return minimalbet;
+            } else {
+                return throwCards();
+            }
+        }
+        return limit;
     }
 
 }
