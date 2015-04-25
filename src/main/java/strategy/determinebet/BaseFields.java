@@ -69,15 +69,16 @@ public class BaseFields {
     /**
      * Az aktuális játékállapotban aktív játékososk száma.
      */
-    protected final int numberOfActivePlayers;
+    protected final Double numberOfActivePlayers;
     /**
      * Az aktuális játékállapotban már bedobott játékososk száma.
      */
-    protected final int numberOfFoldedPlayers;
+    protected final Double numberOfFoldedPlayers;
     /**
      * Az aktuális játékállapotban a játékon kívüli játékososk száma.
      */
-    protected final int numberOfOutPlayers;
+    protected final Double numberOfOutPlayers;
+    protected final Double numberOfPlayers;
 
     protected Hand hand;
 
@@ -93,9 +94,10 @@ public class BaseFields {
         minimalbet = gameState.calculateMinimalBet();
         orbits = gameState.getOrbits();
         bet = gameState.getCurrentPlayerbBet();
-        numberOfActivePlayers = gameState.getNumberOfPlayers(PlayerState.ACTIVE);
-        numberOfFoldedPlayers = gameState.getNumberOfPlayers(PlayerState.FOLDED);
-        numberOfOutPlayers = gameState.getNumberOfPlayers(PlayerState.OUT);
+        numberOfActivePlayers = new Double(gameState.getNumberOfPlayers(PlayerState.ACTIVE));
+        numberOfFoldedPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.FOLDED));
+        numberOfOutPlayers = new Double(gameState.getNumberOfPlayers(PlayerState.OUT));
+        numberOfPlayers = new Double(gameState.getNumberOfPlayers(null));
 
         this.hand = hand;
     }

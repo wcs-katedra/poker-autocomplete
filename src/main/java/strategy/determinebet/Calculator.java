@@ -53,4 +53,8 @@ public class Calculator extends BaseFunctions {
         int level = 3 - hand.getLevel().ordinal();
         return highMultiplier * value * level + minimalbet;
     }
+    
+    protected Double getGivenPlayersPercent(Double givenPlayer){        
+        return givenPlayer / numberOfPlayers;
+    }
 }
