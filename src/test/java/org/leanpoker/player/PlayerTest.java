@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wcs.poker.gamestate.Card;
 import com.wcs.poker.gamestate.GameState;
+import com.wcs.poker.gamestate.enums.Rank;
+import com.wcs.poker.gamestate.enums.Suit;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.jsonconverter.JsonConverter;
 import java.io.IOException;
@@ -86,14 +88,42 @@ public class PlayerTest {
         assertTrue(true);
     }
 
-    /**
-     * Test of betRequest method, of class Player.
-     */
     @Test
-    public void testBetRequestWithRandomGameStates() {
+    public void testBetRequestWithFixedCardsFromFile() throws IOException {
+        // arrange
+        int state = 0;
+        List<Card> playWith = getRank(HandRank.STRAIGHT);
+        GameStateFactory.setFixedCards(playWith.iterator());
+        GameStateFactory gsf = new GameStateFactory(GameTurn.RIVER);
+        Player player = new Player();
+
+        simulateTurnament(gsf, state, player);
+
+        // assert
+        assertTrue(true);
+    }
+
+    @Test
+    public void testBetRequestWithTheseCards() {
+        List<Card> cards = new ArrayList<>();
+        Card card = new Card();
+        card.setSuit(Suit.CLUBS);
+        card.setRank(Rank.A);
+        Card card2 = new Card();
+        card2.setSuit(Suit.CLUBS);
+        card2.setRank(Rank.A);
+
+        cards.add(card);
+        cards.add(card2);
+
+        testWithRandomGameStates(cards);
+    }
+
+    public void testWithRandomGameStates(List<Card> cards) {
         // arrange
         int state = 0;
         GameStateFactory gsf = new GameStateFactory(GameTurn.FLOP);
+        GameStateFactory.setFixedCards(cards.iterator());
         Player player = new Player();
 
         simulateTurnament(gsf, state, player);
