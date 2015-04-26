@@ -22,7 +22,7 @@ public class GameState {
     private Integer pot;
     @SerializedName("minimum_raise")
     @Expose
-    private Integer minimumRaise;
+    private Integer minimumRaise = -9999;
     @Expose
     private Integer dealer;
     @Expose
