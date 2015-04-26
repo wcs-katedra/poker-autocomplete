@@ -23,13 +23,14 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        if (HandRank.PAIR.equals(hand.getRank())) {
+        return allIn();
+      /*  if (HandRank.PAIR.equals(hand.getRank())) {
             return holdUntilLimit(hand.getLevel(), 3);
         } else if (HandRank.HIGH_CARD.equals(hand.getRank())) {
             return holdUntilLimit(hand.getLevel(), 2);
         } else {
             return holdUntilLimit(hand.getLevel(), 1);
-        }
+        }*/
 
     }
 
