@@ -8,7 +8,6 @@ package org.leanpoker.player.helper;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.wcs.poker.gamestate.GameState;
-import java.util.List;
 
 /**
  *

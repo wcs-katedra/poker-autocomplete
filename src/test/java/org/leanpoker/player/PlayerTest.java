@@ -257,7 +257,7 @@ public class PlayerTest {
     }
 
     private BufferedReader downloadFrom() throws MalformedURLException, IOException {
-        URL url = new URL("http://poker.webstar.hu/json?log=log/game_2015_04_25_18_40_32");
+        URL url = new URL("http://poker.webstar.hu/json?log=log/game_2015_04_26_09_40_12");
         InputStream openStream = url.openStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openStream));
         return bufferedReader;

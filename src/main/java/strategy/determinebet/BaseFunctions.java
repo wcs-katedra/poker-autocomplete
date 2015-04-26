@@ -37,7 +37,12 @@ public class BaseFunctions extends BaseFields {
     }
 
     protected Integer hold() {
-        return call;
+        if (call > 0) {
+            return call;
+        } else {
+            return minimalbet;
+        }
+
     }
 
     protected Integer allIn() {

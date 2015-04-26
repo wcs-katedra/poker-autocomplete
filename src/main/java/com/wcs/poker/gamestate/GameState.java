@@ -337,21 +337,6 @@ public class GameState {
         this.communityCards = communityCards;
     }
 
-    public Player getActivePlayer() {
-        Player activePlayer = null;
-        for (Player player : players) {
-            if (Objects.equals(inAction, player.getId())) {
-                activePlayer = player;
-            }
-        }
-        return activePlayer;
-    }
-
-    public List<Card> getCardsOfActivePlayer() {
-        Player activePlayer = getActivePlayer();
-        return activePlayer.getHoleCards();
-    }
-
     public void addNewPlayer(int stack, int bet, Card card1, Card card2) {
         Player player = new Player();
         player.setStack(stack);
