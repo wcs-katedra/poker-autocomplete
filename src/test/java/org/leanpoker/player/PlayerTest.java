@@ -83,13 +83,25 @@ public class PlayerTest {
         // arrange
         List<SuperGameState> gstates = readGameStatesFromLogFile();
         Player player = new Player();
+        int inAction = 0;
+        int dealer;
 
         // act
         for (SuperGameState gstate : gstates) {
+            dealer = gstate.getGamestate().getDealer();
+            int index = dealer + inAction;
+            if (index < 8) {
+                gstate.getGamestate().setInAction(index);
+            } else {
+                index = index % 8;
+                gstate.getGamestate().setInAction(index);
+            }
+            inAction++;
             if (isValidSuperGameState(gstate)) {
                 System.out.println(gstate);
                 doBetTest(gstate.getGamestate(), player);
             }
+
         }
 
         // assert
