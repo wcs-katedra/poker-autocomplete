@@ -14,22 +14,22 @@ public class GameState {
 
     @SerializedName("small_blind")
     @Expose
-    private Integer smallBlind = -999;
+    private Integer smallBlind;
     @SerializedName("current_buy_in")
     @Expose
-    private Integer currentBuyIn = -999;
+    private Integer currentBuyIn;
     @Expose
-    private Integer pot = -999;
+    private Integer pot;
     @SerializedName("minimum_raise")
     @Expose
-    private Integer minimumRaise = -999;
+    private Integer minimumRaise;
     @Expose
-    private Integer dealer = -999;
+    private Integer dealer;
     @Expose
-    private Integer orbits = -999;
+    private Integer orbits;
     @SerializedName("in_action")
     @Expose
-    private Integer inAction = -999;
+    private Integer inAction;
     @Expose
     private List<Player> players = new ArrayList<Player>();
     @SerializedName("community_cards")
