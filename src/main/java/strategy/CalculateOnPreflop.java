@@ -23,20 +23,19 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        return allIn();
-      /*  if (HandRank.PAIR.equals(hand.getRank())) {
+        if (HandRank.PAIR.equals(hand.getRank())) {
             return holdUntilLimit(hand.getLevel(), 3);
         } else if (HandRank.HIGH_CARD.equals(hand.getRank())) {
             return holdUntilLimit(hand.getLevel(), 2);
         } else {
             return holdUntilLimit(hand.getLevel(), 1);
-        }*/
+        }
 
     }
 
     private Integer holdUntilLimit(HandLevel level, int percent) {
         int holdLimit = (level.ordinal() + 1) * baseHoldValue;
-        if (isBetOnTheTableBiggerBy(2)){
+        if (isBetOnTheTableBiggerBy(2)) {
             return throwCards();
         }
         Double factor = new Double(percent) * 3 / 100 + 1;
@@ -57,9 +56,7 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
     }
 
     private Integer riseBy(int raise) {
-        return minimalbet+raise;
+        return minimalbet + raise;
     }
-
-
 
 }

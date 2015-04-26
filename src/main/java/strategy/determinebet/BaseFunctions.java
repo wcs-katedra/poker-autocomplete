@@ -40,7 +40,7 @@ public class BaseFunctions extends BaseFields {
         if (call > 0) {
             return call;
         } else {
-            return minimalbet;
+            return 1;
         }
 
     }

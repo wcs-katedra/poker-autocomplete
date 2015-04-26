@@ -22,7 +22,7 @@ public class PreflopAnalysis {
         int sameColor = sameColor(cards);
         int aceIn = aceIn(cards);
 
-        int value = sideBySide * sameColor * aceIn;
+        int value = sideBySide + sameColor + aceIn;
 
         return getHandLevelBy(value);
     }
@@ -79,9 +79,9 @@ public class PreflopAnalysis {
     }
 
     private HandLevel getHandLevelBy(int value) {
-        if (8 < value) { // 12 nél biztosan kisebb
+        if (4 < value) {
             return HandLevel.HIGH;
-        } else if (4 < value && value < 8) {
+        } else if (2 < value && value < 5) {
             return HandLevel.MEDIUM;
         } else {
             return HandLevel.LOW;
