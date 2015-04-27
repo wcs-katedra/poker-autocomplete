@@ -30,7 +30,7 @@ public class PreflopAnalysis {
     /**
      *
      * @param cards
-     * @return 2 if is else 1
+     * @return difference level
      */
     private int sideBySide(List<Card> cards) {
         int cardOrdinal1 = cards.get(0).getRank().ordinal();
@@ -69,6 +69,7 @@ public class PreflopAnalysis {
         for (Card card : cards) {
             if (card.getRank().equals(Rank.A)) {
                 a = true;
+                break;
             }
         }
 

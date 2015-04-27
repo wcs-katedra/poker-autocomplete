@@ -12,8 +12,8 @@ import java.util.List;
 public class HandRankingService {
 
     public Hand evaulate(List<Card> loadCards) {
-        if (loadCards.size() < 2 || loadCards.size() > 7) {
-            return new Hand(null, null, null);
+        if (loadCards.size() < 5 || loadCards.size() > 7) {
+              throw new IllegalArgumentException();
         }
         FinalResult finalResult = new FinalResult();
 

@@ -13,7 +13,7 @@ import strategy.CalculateOnTurn;
 
 public class Player {
 
-    public final String VERSION = "Just a few more commits needed";
+    public final String VERSION = "bad run of the cards!";
 
     public Player() {
     }

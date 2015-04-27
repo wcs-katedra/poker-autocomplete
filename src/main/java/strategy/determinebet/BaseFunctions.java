@@ -8,7 +8,7 @@ package strategy.determinebet;
 import com.wcs.poker.gamestate.GameState;
 import com.wcs.poker.hand.enums.HandRank;
 import com.wcs.poker.hand.work.Hand;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -18,9 +18,18 @@ import java.util.Random;
  */
 public class BaseFunctions extends BaseFields {
 
-    private List<HandRank> extremeRanks = new ArrayList<>();
-    protected List<HandRank> highRanks = new ArrayList<>();
-    protected List<HandRank> mediumRanks = new ArrayList<>();
+    private List<HandRank> extremeRanks = Arrays.asList(
+            HandRank.ROYAL_FLUSH,
+            HandRank.STRAIGHT_FLUSH,
+            HandRank.FOUR_OF_A_KIND);
+    protected List<HandRank> highRanks = Arrays.asList(
+            HandRank.FULL_HOUSE,
+            HandRank.FLUSH,
+            HandRank.STRAIGHT);
+    protected List<HandRank> mediumRanks = Arrays.asList(
+            HandRank.THREE_OF_A_KIND,
+            HandRank.TWO_PAIRS,
+            HandRank.PAIR);
 
     protected int extremeMultiplier = 30;
     protected int highMultiplier = 20;
@@ -28,8 +37,6 @@ public class BaseFunctions extends BaseFields {
 
     public BaseFunctions(GameState gameState, Hand hand) {
         super(gameState, hand);
-        initHighRanks();
-        initMediumRanks();
     }
 
     protected Integer throwCards() {
@@ -42,7 +49,6 @@ public class BaseFunctions extends BaseFields {
         } else {
             return 1;
         }
-
     }
 
     protected Integer allIn() {
@@ -66,29 +72,6 @@ public class BaseFunctions extends BaseFields {
     }
 
     private boolean isCombination(List<HandRank> list, Hand hand) {
-        for (HandRank highRank : list) {
-            if (highRank.equals(hand.getRank())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void initExtremeRanks() {
-        extremeRanks.add(HandRank.ROYAL_FLUSH);
-        extremeRanks.add(HandRank.STRAIGHT_FLUSH);
-        extremeRanks.add(HandRank.FOUR_OF_A_KIND);
-    }
-
-    private void initHighRanks() {
-        highRanks.add(HandRank.FULL_HOUSE);
-        highRanks.add(HandRank.FLUSH);
-        highRanks.add(HandRank.STRAIGHT);
-    }
-
-    private void initMediumRanks() {
-        mediumRanks.add(HandRank.THREE_OF_A_KIND);
-        mediumRanks.add(HandRank.TWO_PAIRS);
-        mediumRanks.add(HandRank.PAIR);
+        return list.contains(hand.getRank());
     }
 }
