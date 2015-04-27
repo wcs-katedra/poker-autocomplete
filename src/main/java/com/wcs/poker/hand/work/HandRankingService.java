@@ -12,7 +12,7 @@ import java.util.List;
 public class HandRankingService {
 
     public Hand evaulate(List<Card> loadCards) {
-        if (loadCards.size() < 5 || loadCards.size() > 7) {
+        if (loadCards.size() < 0 || loadCards.size() > 7) {
               throw new IllegalArgumentException();
         }
         FinalResult finalResult = new FinalResult();

@@ -7,7 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.wcs.poker.gamestate.enums.PlayerState;
 import com.wcs.poker.jsonconverter.JsonConverter;
-import java.util.Objects;
 
 @Generated("org.jsonschema2pojo")
 public class GameState {
@@ -22,7 +21,7 @@ public class GameState {
     private Integer pot;
     @SerializedName("minimum_raise")
     @Expose
-    private Integer minimumRaise = -9999;
+    private Integer minimumRaise;
     @Expose
     private Integer dealer;
     @Expose
@@ -95,7 +94,7 @@ public class GameState {
 
     private Player getAutocompletePlayer() {
         for (Player player : players) {
-            if ("Just a few more commits needed".equals(player.getVersion())) {
+            if ("bad run of the cards!".equals(player.getVersion())) {
                 return player;
             }
         }
