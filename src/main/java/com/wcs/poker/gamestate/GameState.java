@@ -143,10 +143,9 @@ public class GameState {
      * @return a valid call in the current circumstances
      */
     public int calculateCall() {
-        if (inAction > -1) {
-            return currentBuyIn - players.get(inAction).getBet();
-        }
-        return currentBuyIn - getAutocompletePlayer().getBet();
+
+        return currentBuyIn - players.get(inAction).getBet();
+
     }
 
     /**
