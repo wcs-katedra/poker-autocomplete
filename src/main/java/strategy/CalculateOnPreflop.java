@@ -15,7 +15,7 @@ import strategy.determinebet.Calculator;
  */
 public class CalculateOnPreflop extends Calculator implements Evaluate {
 
-    private int baseHoldValue = 60;
+    private int baseHoldValue = 70;
 
     public CalculateOnPreflop(GameState gs, Hand hand) {
         super(gs, hand);
@@ -35,9 +35,6 @@ public class CalculateOnPreflop extends Calculator implements Evaluate {
 
     private Integer holdUntilLimit(HandLevel level, int percent) {
         int holdLimit = (level.ordinal() + 1) * baseHoldValue;
-        if (isBetOnTheTableBiggerBy(2)) {
-            return throwCards();
-        }
         Double factor = new Double(percent) * 3 / 100 + 1;
         if (bet < holdLimit * factor) {
             return riseORHoldBylevel(level);

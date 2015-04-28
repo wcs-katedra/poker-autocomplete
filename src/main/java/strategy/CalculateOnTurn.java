@@ -21,7 +21,7 @@ public class CalculateOnTurn extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        return getFinalBet(600);
+        return getFinalBet(75);
 
     }
 

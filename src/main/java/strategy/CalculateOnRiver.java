@@ -21,7 +21,7 @@ public class CalculateOnRiver extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        return getFinalBet(400);
+        return getFinalBet(50);
     }
 
 }
