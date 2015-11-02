@@ -98,7 +98,7 @@ public class PlayerTest {
             }
             inAction++;
             if (isValidSuperGameState(gstate)) {
-                System.out.println(gstate);
+                gstate.getGamestate().setMinimumRaise(1);
                 doBetTest(gstate.getGamestate(), player);
             }
 

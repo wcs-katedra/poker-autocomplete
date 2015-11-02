@@ -16,6 +16,6 @@ public class CalculateOnFlop extends Calculator implements Evaluate {
 
     @Override
     public Integer getBet() {
-        return getFinalBet(800);
+        return getFinalBet(100);
     }
 }
